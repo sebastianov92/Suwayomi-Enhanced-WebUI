@@ -7,13 +7,11 @@
  */
 
 import type { BaseSyntheticEvent, ChangeEvent, ForwardedRef } from 'react';
-import { useMemo } from 'react';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import type { PopupState } from 'material-ui-popup-state/hooks';
-import { bindTrigger } from 'material-ui-popup-state';
 import { useLingui } from '@lingui/react/macro';
 import { CustomTooltip } from '@/base/components/CustomTooltip.tsx';
 import type { SelectableCollectionReturnType } from '@/base/collection/hooks/useSelectableCollection.ts';
@@ -22,6 +20,13 @@ import { MUIUtil } from '@/lib/mui/MUI.util.ts';
 
 const preventDefaultAction = (e: BaseSyntheticEvent) => {
     e.stopPropagation();
+    e.preventDefault();
+};
+
+const stopAll = (e: BaseSyntheticEvent) => {
+    e.stopPropagation();
+    const native = e.nativeEvent as Event | undefined;
+    native?.stopImmediatePropagation?.();
     e.preventDefault();
 };
 
@@ -42,7 +47,18 @@ export const MangaOptionButton = ({
 }) => {
     const { t } = useLingui();
 
-    const bindTriggerProps = useMemo(() => bindTrigger(popupState), [popupState]);
+    // Open the popup synchronously on pointer-down, before the parent
+    // <Link>/<CardActionArea>'s long-press / click handlers can fire.
+    // This avoids the chained-handler ordering issues we hit on Safari
+    // where the first click did nothing.
+    const openPopup = (e: React.SyntheticEvent<HTMLElement>) => {
+        stopAll(e);
+        if (popupState.isOpen) {
+            popupState.close();
+        } else {
+            popupState.open(e.currentTarget as HTMLElement);
+        }
+    };
 
     const handleSelectionChange = (e: ChangeEvent, isSelected: boolean) => {
         preventDefaultAction(e);
@@ -71,7 +87,9 @@ export const MangaOptionButton = ({
             <CustomTooltip title={t`Options`}>
                 <IconButton
                     ref={ref}
-                    {...MUIUtil.preventRippleProp(bindTriggerProps, { onClick: preventDefaultAction })}
+                    onMouseDown={openPopup}
+                    onClick={stopAll}
+                    onTouchStart={openPopup}
                     aria-label="more"
                 >
                     <MoreVertIcon />
@@ -84,7 +102,9 @@ export const MangaOptionButton = ({
         <CustomTooltip title={t`Options`}>
             <Button
                 ref={ref}
-                {...MUIUtil.preventRippleProp(bindTriggerProps, { onClick: preventDefaultAction })}
+                onMouseDown={openPopup}
+                onClick={stopAll}
+                onTouchStart={openPopup}
                 className="manga-option-button"
                 size="small"
                 variant="contained"
