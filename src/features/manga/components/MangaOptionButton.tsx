@@ -7,6 +7,7 @@
  */
 
 import type { BaseSyntheticEvent, ChangeEvent, ForwardedRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
@@ -46,6 +47,36 @@ export const MangaOptionButton = ({
     ref?: ForwardedRef<HTMLButtonElement | null>;
 }) => {
     const { t } = useLingui();
+
+    // Track hover state of the closest ancestor card so we can fade the
+    // option button in/out without depending on a parent CSS rule (the
+    // upstream `&:hover .manga-option-button` selector did not behave
+    // reliably in Safari macOS).
+    const buttonRef = useRef<HTMLButtonElement | null>(null);
+    const [cardHovered, setCardHovered] = useState(false);
+
+    useEffect(() => {
+        const el = buttonRef.current;
+        if (!el) return undefined;
+        // Walk up to the wrapping <Link> (the click target for the whole
+        // card). Fall back to the parent if we can't find one.
+        const cardRoot = (el.closest('a') ?? el.parentElement) as HTMLElement | null;
+        if (!cardRoot) return undefined;
+        const onEnter = () => setCardHovered(true);
+        const onLeave = () => setCardHovered(false);
+        cardRoot.addEventListener('mouseenter', onEnter);
+        cardRoot.addEventListener('mouseleave', onLeave);
+        return () => {
+            cardRoot.removeEventListener('mouseenter', onEnter);
+            cardRoot.removeEventListener('mouseleave', onLeave);
+        };
+    }, []);
+
+    const setRef = (node: HTMLButtonElement | null) => {
+        buttonRef.current = node;
+        if (typeof ref === 'function') ref(node);
+        else if (ref) (ref as React.MutableRefObject<HTMLButtonElement | null>).current = node;
+    };
 
     // Open the popup synchronously on pointer-down, before the parent
     // <Link>/<CardActionArea>'s long-press / click handlers can fire.
@@ -98,10 +129,12 @@ export const MangaOptionButton = ({
         );
     }
 
+    const showOnDesktop = cardHovered || popupState.isOpen;
+
     return (
         <CustomTooltip title={t`Options`}>
             <Button
-                ref={ref}
+                ref={setRef}
                 onMouseDown={openPopup}
                 onClick={stopAll}
                 onTouchStart={openPopup}
@@ -112,15 +145,13 @@ export const MangaOptionButton = ({
                     minWidth: 'unset',
                     paddingX: '0',
                     paddingY: '2.5px',
-                    // Hidden by default; the parent MangaGridCard sets
-                    // `&:hover .manga-option-button { visibility: visible; pointer-events: all }`
-                    // on (hover: hover) and (pointer: fine) devices. While the
-                    // popup is open we keep it visible regardless of hover so
-                    // it doesn't disappear when the menu portal steals focus.
-                    visibility: popupState.isOpen ? 'visible' : 'hidden',
-                    pointerEvents: popupState.isOpen ? 'all' : 'none',
+                    transition: 'opacity 120ms ease',
+                    visibility: showOnDesktop ? 'visible' : 'hidden',
+                    opacity: showOnDesktop ? 1 : 0,
+                    pointerEvents: showOnDesktop ? 'all' : 'none',
                     '@media not (pointer: fine)': {
                         visibility: popupState.isOpen ? 'visible' : 'hidden',
+                        opacity: popupState.isOpen ? 1 : 0,
                         width: popupState.isOpen ? undefined : 0,
                         height: popupState.isOpen ? undefined : 0,
                         p: popupState.isOpen ? undefined : 0,
