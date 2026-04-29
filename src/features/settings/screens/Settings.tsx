@@ -22,6 +22,8 @@ import PaletteIcon from '@mui/icons-material/Palette';
 import HistoryIcon from '@mui/icons-material/History';
 import ImageIcon from '@mui/icons-material/Image';
 import LabelIcon from '@mui/icons-material/Label';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import { useLingui } from '@lingui/react/macro';
 import { ListItemLink } from '@/base/components/lists/ListItemLink.tsx';
 import { AppRoutes } from '@/base/AppRoute.constants.ts';
@@ -89,6 +91,24 @@ export function Settings() {
                 <ListItemText
                     primary={t`Scanlator aliases`}
                     secondary={t`Rename scanlators in your downloads`}
+                />
+            </ListItemLink>
+            <ListItemLink to={AppRoutes.settings.childRoutes.notifications.path}>
+                <ListItemIcon>
+                    <NotificationsIcon />
+                </ListItemIcon>
+                <ListItemText
+                    primary={t`Notifications`}
+                    secondary={t`Telegram alerts when new chapters arrive`}
+                />
+            </ListItemLink>
+            <ListItemLink to={AppRoutes.settings.childRoutes.localSource.path}>
+                <ListItemIcon>
+                    <FolderOpenIcon />
+                </ListItemIcon>
+                <ListItemText
+                    primary={t`Local source`}
+                    secondary={t`Browse and rescan files in the local source folder`}
                 />
             </ListItemLink>
             <ListItemLink to={AppRoutes.settings.childRoutes.history.path}>

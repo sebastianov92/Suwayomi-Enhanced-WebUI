@@ -16,6 +16,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import RecommendIcon from '@mui/icons-material/Recommend';
 import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { useLingui } from '@lingui/react/macro';
@@ -214,6 +215,11 @@ export function Library() {
                     <Tooltip title={t`Advanced search`}>
                         <IconButton component={Link} to={AppRoutes.advancedSearch.path}>
                             <ManageSearchIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title={t`Recommendations`}>
+                        <IconButton component={Link} to={AppRoutes.recommendations.path}>
+                            <RecommendIcon />
                         </IconButton>
                     </Tooltip>
                     <LibraryToolbarMenu category={activeTab} />

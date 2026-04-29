@@ -127,6 +127,14 @@ export const AppRoutes = {
                 match: 'scanlator-aliases',
                 path: '/settings/scanlator-aliases',
             },
+            notifications: {
+                match: 'notifications',
+                path: '/settings/notifications',
+            },
+            localSource: {
+                match: 'local-source',
+                path: '/settings/local-source',
+            },
         },
     },
     sources: {
@@ -186,6 +194,10 @@ export const AppRoutes = {
     advancedSearch: {
         match: 'advanced-search',
         path: '/advanced-search',
+    },
+    recommendations: {
+        match: 'recommendations',
+        path: '/recommendations',
     },
     updates: {
         match: 'updates',

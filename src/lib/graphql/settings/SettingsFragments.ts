@@ -135,5 +135,10 @@ export const SERVER_SETTINGS = gql`
         databaseUsername
         databasePassword
         useHikariConnectionPool
+
+        # Notifications (Suwayomi-Enhanced)
+        telegramNotificationsEnabled
+        telegramBotToken
+        telegramChatId
     }
 `;

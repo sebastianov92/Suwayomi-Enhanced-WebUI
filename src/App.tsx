@@ -108,6 +108,18 @@ const { AdvancedLibrarySearch } = loadable(
     () => import('@/features/library/screens/AdvancedLibrarySearch.tsx'),
     lazyLoadFallback,
 );
+const { Recommendations } = loadable(
+    () => import('@/features/library/screens/Recommendations.tsx'),
+    lazyLoadFallback,
+);
+const { NotificationsSettings } = loadable(
+    () => import('@/features/settings/screens/NotificationsSettings.tsx'),
+    lazyLoadFallback,
+);
+const { LocalSourceTools } = loadable(
+    () => import('@/features/settings/screens/LocalSourceTools.tsx'),
+    lazyLoadFallback,
+);
 
 if (import.meta.env.DEV) {
     // Adds messages only in a dev environment
@@ -339,6 +351,14 @@ const MainApp = () => {
                                 path={AppRoutes.settings.childRoutes.scanlatorAliases.match}
                                 element={<ScanlatorAliases />}
                             />
+                            <Route
+                                path={AppRoutes.settings.childRoutes.notifications.match}
+                                element={<NotificationsSettings />}
+                            />
+                            <Route
+                                path={AppRoutes.settings.childRoutes.localSource.match}
+                                element={<LocalSourceTools />}
+                            />
                             <Route path={AppRoutes.settings.childRoutes.device.match} element={<DeviceSetting />} />
                             <Route
                                 path={AppRoutes.settings.childRoutes.tracking.match}
@@ -371,6 +391,7 @@ const MainApp = () => {
                         </Route>
                         <Route path={AppRoutes.library.match} element={<Library />} />
                         <Route path={AppRoutes.advancedSearch.match} element={<AdvancedLibrarySearch />} />
+                        <Route path={AppRoutes.recommendations.match} element={<Recommendations />} />
                         <Route path={AppRoutes.updates.match} element={<Updates />} />
                         {!hideHistory && <Route path={AppRoutes.history.match} element={<History />} />}
                         <Route path={AppRoutes.browse.match} element={<Browse />} />
