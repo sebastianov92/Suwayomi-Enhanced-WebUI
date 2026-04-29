@@ -291,7 +291,9 @@ export function MangaUserOverrideDialog({
                         {hasCustomCover && (
                             <Box sx={{ mt: 1 }}>
                                 <img
-                                    src={`/api/v1/manga/${mangaId}/custom-cover?t=${overrideQuery.data?.mangaUserOverride?.updatedAt ?? ''}`}
+                                    src={`${requestManager.getValidUrlFor(
+                                        `manga/${mangaId}/custom-cover`,
+                                    )}?t=${overrideQuery.data?.mangaUserOverride?.updatedAt ?? ''}`}
                                     alt="custom cover"
                                     style={{ maxHeight: 160, borderRadius: 4 }}
                                 />
