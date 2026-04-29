@@ -37,6 +37,31 @@ export type AboutWebUi = {
   updateTimestamp: Scalars['LongString']['output'];
 };
 
+export type AddMangaFromUrlInput = {
+  addToLibrary?: InputMaybe<Scalars['Boolean']['input']>;
+  autoInstallExtension?: InputMaybe<Scalars['Boolean']['input']>;
+  categoryIds?: InputMaybe<Array<Scalars['Int']['input']>>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  url: Scalars['String']['input'];
+};
+
+export type AddMangaFromUrlPayload = {
+  __typename?: 'AddMangaFromUrlPayload';
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  duplicates: Array<MangaType>;
+  installedExtensionPkgName?: Maybe<Scalars['String']['output']>;
+  manga?: Maybe<MangaType>;
+  message?: Maybe<Scalars['String']['output']>;
+  status: AddMangaFromUrlStatus;
+};
+
+export enum AddMangaFromUrlStatus {
+  ExtensionInstalled = 'EXTENSION_INSTALLED',
+  Found = 'FOUND',
+  InvalidUrl = 'INVALID_URL',
+  NoSourceForUrl = 'NO_SOURCE_FOR_URL'
+}
+
 export enum AuthMode {
   BasicAuth = 'BASIC_AUTH',
   None = 'NONE',
@@ -335,6 +360,28 @@ export type ClearDownloaderPayload = {
   downloadStatus: DownloadStatus;
 };
 
+export type ClearMangaCustomCoverInput = {
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  mangaId: Scalars['Int']['input'];
+};
+
+export type ClearMangaCustomCoverPayload = {
+  __typename?: 'ClearMangaCustomCoverPayload';
+  cleared: Scalars['Boolean']['output'];
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+};
+
+export type ClearMangaUserOverrideInput = {
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  mangaId: Scalars['Int']['input'];
+};
+
+export type ClearMangaUserOverridePayload = {
+  __typename?: 'ClearMangaUserOverridePayload';
+  cleared: Scalars['Boolean']['output'];
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+};
+
 export type ConnectKoSyncAccountInput = {
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
   password: Scalars['String']['input'];
@@ -366,6 +413,18 @@ export type CreateCategoryPayload = {
   __typename?: 'CreateCategoryPayload';
   category: CategoryType;
   clientMutationId?: Maybe<Scalars['String']['output']>;
+};
+
+export type CreateScanlatorAliasInput = {
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  displayName: Scalars['String']['input'];
+  scanlator: Scalars['String']['input'];
+};
+
+export type CreateScanlatorAliasPayload = {
+  __typename?: 'CreateScanlatorAliasPayload';
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  scanlatorAlias: ScanlatorAliasType;
 };
 
 export enum DatabaseType {
@@ -523,6 +582,17 @@ export type DeleteMangaMetasPayload = {
   metas: Array<MangaMetaType>;
 };
 
+export type DeleteScanlatorAliasInput = {
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['Int']['input'];
+};
+
+export type DeleteScanlatorAliasPayload = {
+  __typename?: 'DeleteScanlatorAliasPayload';
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  deleted: Scalars['Boolean']['output'];
+};
+
 export type DeleteSourceMetaInput = {
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
   key: Scalars['String']['input'];
@@ -574,6 +644,13 @@ export type DequeueChapterDownloadsPayload = {
   __typename?: 'DequeueChapterDownloadsPayload';
   clientMutationId?: Maybe<Scalars['String']['output']>;
   downloadStatus: DownloadStatus;
+};
+
+export type DistinctScanlatorEntry = {
+  __typename?: 'DistinctScanlatorEntry';
+  chapterCount: Scalars['LongString']['output'];
+  currentAlias?: Maybe<Scalars['String']['output']>;
+  scanlator: Scalars['String']['output'];
 };
 
 export type DoubleFilterInput = {
@@ -1250,6 +1327,31 @@ export type MangaUpdateType = {
   status: MangaJobStatus;
 };
 
+export type MangaUserOverridePatchInput = {
+  artist?: InputMaybe<Scalars['String']['input']>;
+  author?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  genre?: InputMaybe<Array<Scalars['String']['input']>>;
+  notes?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MangaUserOverrideType = {
+  __typename?: 'MangaUserOverrideType';
+  artist?: Maybe<Scalars['String']['output']>;
+  author?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['LongString']['output'];
+  customCoverUrl?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  genre?: Maybe<Array<Scalars['String']['output']>>;
+  hasCustomCover: Scalars['Boolean']['output'];
+  id: Scalars['Int']['output'];
+  mangaId: Scalars['Int']['output'];
+  notes?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['LongString']['output'];
+};
+
 export type MetaConditionInput = {
   key?: InputMaybe<Scalars['String']['input']>;
   value?: InputMaybe<Scalars['String']['input']>;
@@ -1306,12 +1408,16 @@ export type MultiSelectListPreference = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addMangaFromUrl?: Maybe<AddMangaFromUrlPayload>;
   bindTrack: BindTrackPayload;
   clearCachedImages: ClearCachedImagesPayload;
   clearDownloader?: Maybe<ClearDownloaderPayload>;
+  clearMangaCustomCover?: Maybe<ClearMangaCustomCoverPayload>;
+  clearMangaUserOverride?: Maybe<ClearMangaUserOverridePayload>;
   connectKoSyncAccount: KoSyncConnectPayload;
   createBackup: CreateBackupPayload;
   createCategory?: Maybe<CreateCategoryPayload>;
+  createScanlatorAlias?: Maybe<CreateScanlatorAliasPayload>;
   deleteCategory?: Maybe<DeleteCategoryPayload>;
   deleteCategoryMeta?: Maybe<DeleteCategoryMetaPayload>;
   deleteCategoryMetas?: Maybe<DeleteCategoryMetasPayload>;
@@ -1323,6 +1429,7 @@ export type Mutation = {
   deleteGlobalMetas?: Maybe<DeleteGlobalMetasPayload>;
   deleteMangaMeta?: Maybe<DeleteMangaMetaPayload>;
   deleteMangaMetas?: Maybe<DeleteMangaMetasPayload>;
+  deleteScanlatorAlias?: Maybe<DeleteScanlatorAliasPayload>;
   deleteSourceMeta?: Maybe<DeleteSourceMetaPayload>;
   deleteSourceMetas?: Maybe<DeleteSourceMetasPayload>;
   dequeueChapterDownload?: Maybe<DequeueChapterDownloadPayload>;
@@ -1354,8 +1461,10 @@ export type Mutation = {
   setChapterMetas?: Maybe<SetChapterMetasPayload>;
   setGlobalMeta?: Maybe<SetGlobalMetaPayload>;
   setGlobalMetas?: Maybe<SetGlobalMetasPayload>;
+  setMangaCustomCover?: Maybe<SetMangaCustomCoverPayload>;
   setMangaMeta?: Maybe<SetMangaMetaPayload>;
   setMangaMetas?: Maybe<SetMangaMetasPayload>;
+  setMangaUserOverride?: Maybe<SetMangaUserOverridePayload>;
   setSettings: SetSettingsPayload;
   setSourceMeta?: Maybe<SetSourceMetaPayload>;
   setSourceMetas?: Maybe<SetSourceMetasPayload>;
@@ -1377,10 +1486,16 @@ export type Mutation = {
   updateMangaCategories?: Maybe<UpdateMangaCategoriesPayload>;
   updateMangas?: Maybe<UpdateMangasPayload>;
   updateMangasCategories?: Maybe<UpdateMangasCategoriesPayload>;
+  updateScanlatorAlias?: Maybe<UpdateScanlatorAliasPayload>;
   updateSourcePreference?: Maybe<UpdateSourcePreferencePayload>;
   updateStop: UpdateStopPayload;
   updateTrack: UpdateTrackPayload;
   updateWebUI?: Maybe<WebUiUpdatePayload>;
+};
+
+
+export type MutationAddMangaFromUrlArgs = {
+  input: AddMangaFromUrlInput;
 };
 
 
@@ -1399,6 +1514,16 @@ export type MutationClearDownloaderArgs = {
 };
 
 
+export type MutationClearMangaCustomCoverArgs = {
+  input: ClearMangaCustomCoverInput;
+};
+
+
+export type MutationClearMangaUserOverrideArgs = {
+  input: ClearMangaUserOverrideInput;
+};
+
+
 export type MutationConnectKoSyncAccountArgs = {
   input: ConnectKoSyncAccountInput;
 };
@@ -1411,6 +1536,11 @@ export type MutationCreateBackupArgs = {
 
 export type MutationCreateCategoryArgs = {
   input: CreateCategoryInput;
+};
+
+
+export type MutationCreateScanlatorAliasArgs = {
+  input: CreateScanlatorAliasInput;
 };
 
 
@@ -1466,6 +1596,11 @@ export type MutationDeleteMangaMetaArgs = {
 
 export type MutationDeleteMangaMetasArgs = {
   input: DeleteMangaMetasInput;
+};
+
+
+export type MutationDeleteScanlatorAliasArgs = {
+  input: DeleteScanlatorAliasInput;
 };
 
 
@@ -1619,6 +1754,11 @@ export type MutationSetGlobalMetasArgs = {
 };
 
 
+export type MutationSetMangaCustomCoverArgs = {
+  input: SetMangaCustomCoverInput;
+};
+
+
 export type MutationSetMangaMetaArgs = {
   input: SetMangaMetaInput;
 };
@@ -1626,6 +1766,11 @@ export type MutationSetMangaMetaArgs = {
 
 export type MutationSetMangaMetasArgs = {
   input: SetMangaMetasInput;
+};
+
+
+export type MutationSetMangaUserOverrideArgs = {
+  input: SetMangaUserOverrideInput;
 };
 
 
@@ -1734,6 +1879,11 @@ export type MutationUpdateMangasCategoriesArgs = {
 };
 
 
+export type MutationUpdateScanlatorAliasArgs = {
+  input: UpdateScanlatorAliasInput;
+};
+
+
 export type MutationUpdateSourcePreferenceArgs = {
   input: UpdateSourcePreferenceInput;
 };
@@ -1753,7 +1903,7 @@ export type MutationUpdateWebUiArgs = {
   input: WebUiUpdateInput;
 };
 
-export type Node = CategoryMetaType | CategoryType | ChapterMetaType | ChapterType | DownloadType | DownloadUpdate | ExtensionType | GlobalMetaType | MangaMetaType | MangaType | PartialSettingsType | SettingsType | SourceMetaType | SourceType | TrackRecordType | TrackerType;
+export type Node = CategoryMetaType | CategoryType | ChapterMetaType | ChapterType | DownloadType | DownloadUpdate | ExtensionType | GlobalMetaType | MangaMetaType | MangaType | MangaUserOverrideType | PartialSettingsType | ScanlatorAliasType | SettingsType | SourceMetaType | SourceType | TrackRecordType | TrackerType;
 
 export type NodeList = {
   /** A list of edges which contains the [T] and cursor to aid in pagination. */
@@ -2001,18 +2151,25 @@ export type Query = {
   chapters: ChapterNodeList;
   checkForServerUpdates: Array<CheckForServerUpdatesPayload>;
   checkForWebUIUpdate: WebUiUpdateCheck;
+  distinctScanlators: Array<DistinctScanlatorEntry>;
   downloadStatus: DownloadStatus;
   extension: ExtensionType;
   extensions: ExtensionNodeList;
+  findDuplicateMangas: Array<MangaType>;
   getWebUIUpdateStatus: WebUiUpdateStatus;
   koSyncStatus: KoSyncStatusPayload;
   lastUpdateTimestamp: LastUpdateTimestampPayload;
   libraryUpdateStatus: LibraryUpdateStatus;
   manga: MangaType;
+  mangaUserOverride?: Maybe<MangaUserOverrideType>;
   mangas: MangaNodeList;
   meta: GlobalMetaType;
   metas: GlobalMetaNodeList;
   restoreStatus?: Maybe<BackupRestoreStatus>;
+  scanlatorAlias?: Maybe<ScanlatorAliasType>;
+  scanlatorAliasByScanlator?: Maybe<ScanlatorAliasType>;
+  scanlatorAliases: ScanlatorAliasNodeList;
+  searchLibrary: Array<MangaType>;
   searchTracker: SearchTrackerPayload;
   settings: SettingsType;
   source: SourceType;
@@ -2065,6 +2222,11 @@ export type QueryChaptersArgs = {
 };
 
 
+export type QueryDistinctScanlatorsArgs = {
+  inLibraryOnly?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
 export type QueryExtensionArgs = {
   pkgName: Scalars['String']['input'];
 };
@@ -2084,8 +2246,18 @@ export type QueryExtensionsArgs = {
 };
 
 
+export type QueryFindDuplicateMangasArgs = {
+  mangaId: Scalars['Int']['input'];
+};
+
+
 export type QueryMangaArgs = {
   id: Scalars['Int']['input'];
+};
+
+
+export type QueryMangaUserOverrideArgs = {
+  mangaId: Scalars['Int']['input'];
 };
 
 
@@ -2124,6 +2296,28 @@ export type QueryMetasArgs = {
 
 export type QueryRestoreStatusArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type QueryScanlatorAliasArgs = {
+  id: Scalars['Int']['input'];
+};
+
+
+export type QueryScanlatorAliasByScanlatorArgs = {
+  scanlator: Scalars['String']['input'];
+};
+
+
+export type QuerySearchLibraryArgs = {
+  inLibraryOnly?: InputMaybe<Scalars['Boolean']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  query: Scalars['String']['input'];
+  searchArtist?: InputMaybe<Scalars['Boolean']['input']>;
+  searchAuthor?: InputMaybe<Scalars['Boolean']['input']>;
+  searchDescription?: InputMaybe<Scalars['Boolean']['input']>;
+  searchGenre?: InputMaybe<Scalars['Boolean']['input']>;
+  searchTitle?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -2238,6 +2432,29 @@ export type RestoreBackupPayload = {
   status?: Maybe<BackupRestoreStatus>;
 };
 
+export type ScanlatorAliasEdge = Edge & {
+  __typename?: 'ScanlatorAliasEdge';
+  cursor: Scalars['Cursor']['output'];
+  node: ScanlatorAliasType;
+};
+
+export type ScanlatorAliasNodeList = NodeList & {
+  __typename?: 'ScanlatorAliasNodeList';
+  edges: Array<ScanlatorAliasEdge>;
+  nodes: Array<ScanlatorAliasType>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type ScanlatorAliasType = {
+  __typename?: 'ScanlatorAliasType';
+  createdAt: Scalars['LongString']['output'];
+  displayName: Scalars['String']['output'];
+  id: Scalars['Int']['output'];
+  scanlator: Scalars['String']['output'];
+  updatedAt: Scalars['LongString']['output'];
+};
+
 export type SearchTrackerInput = {
   query: Scalars['String']['input'];
   trackerId: Scalars['Int']['input'];
@@ -2338,6 +2555,18 @@ export type SetGlobalMetasPayload = {
   metas: Array<GlobalMetaType>;
 };
 
+export type SetMangaCustomCoverInput = {
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  cover: Scalars['Upload']['input'];
+  mangaId: Scalars['Int']['input'];
+};
+
+export type SetMangaCustomCoverPayload = {
+  __typename?: 'SetMangaCustomCoverPayload';
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  override: MangaUserOverrideType;
+};
+
 export type SetMangaMetaInput = {
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
   meta: MangaMetaTypeInput;
@@ -2364,6 +2593,18 @@ export type SetMangaMetasPayload = {
   clientMutationId?: Maybe<Scalars['String']['output']>;
   mangas: Array<MangaType>;
   metas: Array<MangaMetaType>;
+};
+
+export type SetMangaUserOverrideInput = {
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  mangaId: Scalars['Int']['input'];
+  patch: MangaUserOverridePatchInput;
+};
+
+export type SetMangaUserOverridePayload = {
+  __typename?: 'SetMangaUserOverridePayload';
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  override: MangaUserOverrideType;
 };
 
 export type SetSettingsInput = {
@@ -3294,6 +3535,22 @@ export type UpdateMangasPayload = {
   mangas: Array<MangaType>;
 };
 
+export type UpdateScanlatorAliasInput = {
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['Int']['input'];
+  patch: UpdateScanlatorAliasPatchInput;
+};
+
+export type UpdateScanlatorAliasPatchInput = {
+  displayName: Scalars['String']['input'];
+};
+
+export type UpdateScanlatorAliasPayload = {
+  __typename?: 'UpdateScanlatorAliasPayload';
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  scanlatorAlias: ScanlatorAliasType;
+};
+
 export type UpdateSourcePreferenceInput = {
   change: SourcePreferenceChangeInput;
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
@@ -4123,6 +4380,41 @@ export type GetGlobalMetadatasQueryVariables = Exact<{
 
 
 export type GetGlobalMetadatasQuery = { __typename?: 'Query', metas: { __typename?: 'GlobalMetaNodeList', totalCount: number, nodes: Array<{ __typename?: 'GlobalMetaType', key: string, value: string }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null } } };
+
+export type ScanlatorAliasFieldsFragment = { __typename?: 'ScanlatorAliasType', id: number, scanlator: string, displayName: string, createdAt: string, updatedAt: string };
+
+export type CreateScanlatorAliasMutationVariables = Exact<{
+  input: CreateScanlatorAliasInput;
+}>;
+
+
+export type CreateScanlatorAliasMutation = { __typename?: 'Mutation', createScanlatorAlias?: { __typename?: 'CreateScanlatorAliasPayload', scanlatorAlias: { __typename?: 'ScanlatorAliasType', id: number, scanlator: string, displayName: string, createdAt: string, updatedAt: string } } | null };
+
+export type UpdateScanlatorAliasMutationVariables = Exact<{
+  input: UpdateScanlatorAliasInput;
+}>;
+
+
+export type UpdateScanlatorAliasMutation = { __typename?: 'Mutation', updateScanlatorAlias?: { __typename?: 'UpdateScanlatorAliasPayload', scanlatorAlias: { __typename?: 'ScanlatorAliasType', id: number, scanlator: string, displayName: string, createdAt: string, updatedAt: string } } | null };
+
+export type DeleteScanlatorAliasMutationVariables = Exact<{
+  input: DeleteScanlatorAliasInput;
+}>;
+
+
+export type DeleteScanlatorAliasMutation = { __typename?: 'Mutation', deleteScanlatorAlias?: { __typename?: 'DeleteScanlatorAliasPayload', deleted: boolean } | null };
+
+export type GetScanlatorAliasesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetScanlatorAliasesQuery = { __typename?: 'Query', scanlatorAliases: { __typename?: 'ScanlatorAliasNodeList', totalCount: number, nodes: Array<{ __typename?: 'ScanlatorAliasType', id: number, scanlator: string, displayName: string, createdAt: string, updatedAt: string }> } };
+
+export type GetDistinctScanlatorsQueryVariables = Exact<{
+  inLibraryOnly?: InputMaybe<Scalars['Boolean']['input']>;
+}>;
+
+
+export type GetDistinctScanlatorsQuery = { __typename?: 'Query', distinctScanlators: Array<{ __typename?: 'DistinctScanlatorEntry', scanlator: string, chapterCount: string, currentAlias?: string | null }> };
 
 export type AboutWebuiFragment = { __typename?: 'AboutWebUI', channel: WebUiChannel, tag: string, updateTimestamp: string };
 

@@ -100,6 +100,10 @@ const { GlobalReaderSettings } = loadable(
 const { More } = loadable(() => import('@/features/settings/screens/More.tsx'), lazyLoadFallback);
 const { Reader } = loadable(() => import('@/features/reader/screens/Reader.tsx'), lazyLoadFallback);
 const { HistorySettings } = loadable(() => import('@/features/history/screens/HistorySettings.tsx'), lazyLoadFallback);
+const { ScanlatorAliases } = loadable(
+    () => import('@/features/settings/screens/ScanlatorAliases.tsx'),
+    lazyLoadFallback,
+);
 
 if (import.meta.env.DEV) {
     // Adds messages only in a dev environment
@@ -327,6 +331,10 @@ const MainApp = () => {
                             <Route path={AppRoutes.settings.childRoutes.webui.match} element={<WebUISettings />} />
                             <Route path={AppRoutes.settings.childRoutes.browse.match} element={<BrowseSettings />} />
                             <Route path={AppRoutes.settings.childRoutes.history.match} element={<HistorySettings />} />
+                            <Route
+                                path={AppRoutes.settings.childRoutes.scanlatorAliases.match}
+                                element={<ScanlatorAliases />}
+                            />
                             <Route path={AppRoutes.settings.childRoutes.device.match} element={<DeviceSetting />} />
                             <Route
                                 path={AppRoutes.settings.childRoutes.tracking.match}

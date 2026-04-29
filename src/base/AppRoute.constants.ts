@@ -123,6 +123,10 @@ export const AppRoutes = {
                 match: 'history',
                 path: '/settings/history',
             },
+            scanlatorAliases: {
+                match: 'scanlator-aliases',
+                path: '/settings/scanlator-aliases',
+            },
         },
     },
     sources: {

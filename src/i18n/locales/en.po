@@ -112,6 +112,11 @@ msgstr "{0} / {1}"
 msgid "{0} / {1}{2}"
 msgstr "{0} / {1}{2}"
 
+#. placeholder {0}: entry.chapterCount
+#: src/features/settings/screens/ScanlatorAliases.tsx
+msgid "{0} chapter(s)"
+msgstr "{0} chapter(s)"
+
 #. placeholder {0}: updateStatus.progress
 #: src/features/app-updates/components/WebUIUpdateChecker.tsx
 msgid "{0}% | Updating…"
@@ -668,6 +673,7 @@ msgstr "Call timeout"
 #: src/features/migration/components/MigrationOptionsDialog.tsx
 #: src/features/reader/hotkeys/settings/components/RecordHotkey.tsx
 #: src/features/settings/components/globalUpdate/GlobalUpdateSettingsEntries.tsx
+#: src/features/settings/screens/ScanlatorAliases.tsx
 #: src/features/source/browse/components/SourceOptions.tsx
 #: src/features/source/components/SourceLanguageSelect.tsx
 #: src/features/source/configuration/components/EditTextPreference.tsx
@@ -1091,9 +1097,17 @@ msgstr "Could not validate backup"
 msgid "Create"
 msgstr "Create"
 
+#: src/features/settings/screens/ScanlatorAliases.tsx
+msgid "Create alias"
+msgstr "Create alias"
+
 #: src/features/backup/screens/Backup.tsx
 msgid "Create backup"
 msgstr "Create backup"
+
+#: src/features/settings/screens/ScanlatorAliases.tsx
+msgid "Create scanlator alias"
+msgstr "Create scanlator alias"
 
 #: src/features/theme/components/CreateThemeButton.tsx
 #: src/features/theme/components/CreateThemeDialog.tsx
@@ -1282,6 +1296,10 @@ msgstr "Desktop"
 msgid "Destination - {0}"
 msgstr "Destination - {0}"
 
+#: src/features/settings/screens/ScanlatorAliases.tsx
+msgid "Detected scanlators"
+msgstr "Detected scanlators"
+
 #: src/features/device/screens/DeviceSetting.tsx
 #: src/features/settings/screens/Settings.tsx
 msgid "Device"
@@ -1327,6 +1345,10 @@ msgstr "Display file sizes in binary (KiB, MiB, GiB) instead of decimal (KB, MB,
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Display mode"
 msgstr "Display mode"
+
+#: src/features/settings/screens/ScanlatorAliases.tsx
+msgid "Display name"
+msgstr "Display name"
 
 #: src/features/settings/components/koreaderSync/KoreaderSyncSettings.tsx
 msgid "Document matching method"
@@ -1435,6 +1457,10 @@ msgstr "Edge"
 msgid "Edit"
 msgstr "Edit"
 
+#: src/features/settings/screens/ScanlatorAliases.tsx
+msgid "Edit alias"
+msgstr "Edit alias"
+
 #: src/features/category/screens/CategorySettings.tsx
 #: src/features/library/screens/LibrarySettings.tsx
 msgid "Edit categories"
@@ -1447,6 +1473,10 @@ msgstr "Edit category"
 #: src/features/manga/components/MangaToolbarMenu.tsx
 msgid "Edit manga categories"
 msgstr "Edit manga categories"
+
+#: src/features/settings/screens/ScanlatorAliases.tsx
+msgid "Edit scanlator alias"
+msgstr "Edit scanlator alias"
 
 #: src/features/theme/components/CreateThemeDialog.tsx
 msgid "Edit theme"
@@ -2208,6 +2238,10 @@ msgstr "Manhwa"
 msgid "Manual search"
 msgstr "Manual search"
 
+#: src/features/settings/screens/ScanlatorAliases.tsx
+msgid "Map a scanlator string from your downloads to a friendly name. The alias is used when building the chapter folder name (and CBZ filename) on disk. Existing downloads are not renamed."
+msgstr "Map a scanlator string from your downloads to a friendly name. The alias is used when building the chapter folder name (and CBZ filename) on disk. Existing downloads are not renamed."
+
 #: src/features/chapter/components/ChaptersToolbarMenu.tsx
 msgid "Mark all as read"
 msgstr "Mark all as read"
@@ -2411,6 +2445,10 @@ msgstr "No match found"
 msgid "No pages found"
 msgstr "No pages found"
 
+#: src/features/settings/screens/ScanlatorAliases.tsx
+msgid "No scanlators found yet"
+msgstr "No scanlators found yet"
+
 #: src/features/browse/sources/Sources.tsx
 msgid "No sources found. Install Some extensions first."
 msgstr "No sources found. Install Some extensions first."
@@ -2492,6 +2530,10 @@ msgstr "Offset double spreads"
 msgid "Ok"
 msgstr "Ok"
 
+#: src/features/settings/screens/ScanlatorAliases.tsx
+msgid "Once you have chapters in the database, the scanlators they declare will appear here."
+msgstr "Once you have chapters in the database, the scanlators they declare will appear here."
+
 #: src/features/tracker/Tracker.constants.ts
 msgid "Oneshot"
 msgstr "Oneshot"
@@ -2548,6 +2590,10 @@ msgstr "Orange Juice"
 #: src/features/reader/settings/ReaderSettings.constants.tsx
 msgid "Original size"
 msgstr "Original size"
+
+#: src/features/settings/screens/ScanlatorAliases.tsx
+msgid "Orphaned aliases"
+msgstr "Orphaned aliases"
 
 #: src/base/utils/Languages.ts
 #: src/features/extension/Extensions.constants.ts
@@ -2753,6 +2799,10 @@ msgstr "Remove"
 msgid "Remove {0} tracking?"
 msgstr "Remove {0} tracking?"
 
+#: src/features/settings/screens/ScanlatorAliases.tsx
+msgid "Remove alias"
+msgstr "Remove alias"
+
 #: src/features/chapter/Chapter.constants.ts
 msgid "Remove bookmark"
 msgstr "Remove bookmark"
@@ -2782,6 +2832,10 @@ msgstr "Remove selected from the library"
 #: src/features/library/screens/LibrarySettings.tsx
 msgid "Removed non library manga from categories"
 msgstr "Removed non library manga from categories"
+
+#: src/features/settings/screens/Settings.tsx
+msgid "Rename scanlators in your downloads"
+msgstr "Rename scanlators in your downloads"
 
 #: src/base/components/buttons/ResetButton.tsx
 #: src/base/components/settings/CheckboxListSetting.tsx
@@ -2846,6 +2900,7 @@ msgid "Rosegold"
 msgstr "Rosegold"
 
 #: src/features/settings/screens/ImageProcessingSetting.tsx
+#: src/features/settings/screens/ScanlatorAliases.tsx
 #: src/features/theme/components/CreateThemeDialog.tsx
 msgid "Save"
 msgstr "Save"
@@ -2883,6 +2938,11 @@ msgstr "Scale type"
 #: src/features/chapter/components/ChapterExcludeSanlatorsFilter.tsx
 msgid "Scanlator"
 msgstr "Scanlator"
+
+#: src/features/settings/screens/ScanlatorAliases.tsx
+#: src/features/settings/screens/Settings.tsx
+msgid "Scanlator aliases"
+msgstr "Scanlator aliases"
 
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 #: src/features/tracker/components/cards/TrackerMangaCard.tsx
@@ -3242,6 +3302,11 @@ msgstr "Source Configuration"
 msgid "Source entry - {sourceTitle}"
 msgstr "Source entry - {sourceTitle}"
 
+#. placeholder {0}: editTarget?.scanlator ?? ''
+#: src/features/settings/screens/ScanlatorAliases.tsx
+msgid "Source scanlator: {0}"
+msgstr "Source scanlator: {0}"
+
 #: src/features/chapter/components/ChapterOptions.tsx
 msgid "Source title"
 msgstr "Source title"
@@ -3458,6 +3523,10 @@ msgstr "There is no next chapter"
 #: src/features/reader/viewer/components/ReaderTransitionPage.tsx
 msgid "There is no previous chapter"
 msgstr "There is no previous chapter"
+
+#: src/features/settings/screens/ScanlatorAliases.tsx
+msgid "These aliases reference scanlators that no longer appear in any chapter. They are still used if a matching chapter shows up later."
+msgstr "These aliases reference scanlators that no longer appear in any chapter. They are still used if a matching chapter shows up later."
 
 #: src/features/downloads/components/DeleteChaptersWhileReadingSetting.tsx
 msgid "Third to last read chapter"

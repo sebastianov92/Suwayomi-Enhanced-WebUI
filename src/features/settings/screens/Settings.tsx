@@ -21,6 +21,7 @@ import SyncIcon from '@mui/icons-material/Sync';
 import PaletteIcon from '@mui/icons-material/Palette';
 import HistoryIcon from '@mui/icons-material/History';
 import ImageIcon from '@mui/icons-material/Image';
+import LabelIcon from '@mui/icons-material/Label';
 import { useLingui } from '@lingui/react/macro';
 import { ListItemLink } from '@/base/components/lists/ListItemLink.tsx';
 import { AppRoutes } from '@/base/AppRoute.constants.ts';
@@ -80,6 +81,15 @@ export function Settings() {
                     <ExploreOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText primary={t`Browse`} />
+            </ListItemLink>
+            <ListItemLink to={AppRoutes.settings.childRoutes.scanlatorAliases.path}>
+                <ListItemIcon>
+                    <LabelIcon />
+                </ListItemIcon>
+                <ListItemText
+                    primary={t`Scanlator aliases`}
+                    secondary={t`Rename scanlators in your downloads`}
+                />
             </ListItemLink>
             <ListItemLink to={AppRoutes.settings.childRoutes.history.path}>
                 <ListItemIcon>
