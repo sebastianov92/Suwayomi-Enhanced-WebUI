@@ -88,28 +88,19 @@ export function Settings() {
                 <ListItemIcon>
                     <LabelIcon />
                 </ListItemIcon>
-                <ListItemText
-                    primary={t`Scanlator aliases`}
-                    secondary={t`Rename scanlators in your downloads`}
-                />
+                <ListItemText primary={t`Scanlator aliases`} />
             </ListItemLink>
             <ListItemLink to={AppRoutes.settings.childRoutes.notifications.path}>
                 <ListItemIcon>
                     <NotificationsIcon />
                 </ListItemIcon>
-                <ListItemText
-                    primary={t`Notifications`}
-                    secondary={t`Telegram alerts when new chapters arrive`}
-                />
+                <ListItemText primary={t`Notifications`} />
             </ListItemLink>
             <ListItemLink to={AppRoutes.settings.childRoutes.localSource.path}>
                 <ListItemIcon>
                     <FolderOpenIcon />
                 </ListItemIcon>
-                <ListItemText
-                    primary={t`Local source`}
-                    secondary={t`Browse and rescan files in the local source folder`}
-                />
+                <ListItemText primary={t`Local source`} />
             </ListItemLink>
             <ListItemLink to={AppRoutes.settings.childRoutes.history.path}>
                 <ListItemIcon>
