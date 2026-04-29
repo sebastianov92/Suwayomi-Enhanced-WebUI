@@ -13,6 +13,9 @@ import { styled, useTheme } from '@mui/material/styles';
 import { useCallback, useMemo, useState } from 'react';
 import { useQueryParam, NumberParam, StringParam } from 'use-query-params';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { useLingui } from '@lingui/react/macro';
@@ -210,6 +213,11 @@ export function Library() {
             {!isSelectModeActive && activeTab && (
                 <>
                     <AppbarSearch />
+                    <Tooltip title={t`Advanced search`}>
+                        <IconButton component={Link} to={AppRoutes.advancedSearch.path}>
+                            <ManageSearchIcon />
+                        </IconButton>
+                    </Tooltip>
                     <LibraryToolbarMenu category={activeTab} />
                     <UpdateChecker categoryId={activeTab?.id} />
                 </>

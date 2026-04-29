@@ -10,6 +10,7 @@ import { STABLE_EMPTY_ARRAY, STABLE_EMPTY_OBJECT } from '@/base/Base.constants.t
 import CheckBoxOutlineBlank from '@mui/icons-material/CheckBoxOutlineBlank';
 import Delete from '@mui/icons-material/Delete';
 import Download from '@mui/icons-material/Download';
+import SaveAlt from '@mui/icons-material/SaveAlt';
 import RemoveDone from '@mui/icons-material/RemoveDone';
 import Done from '@mui/icons-material/Done';
 import BookmarkRemove from '@mui/icons-material/BookmarkRemove';
@@ -219,6 +220,23 @@ export const ChapterActionMenuItems = ({
                         performAction('delete', Chapters.getDeletable(downloadedChapters, deleteChaptersWithBookmark))
                     }
                     title={getMenuItemTitle('delete', downloadedChapters.length)}
+                />
+            )}
+            {isSingleMode && isDownloaded && chapter && (
+                <MenuItem
+                    Icon={SaveAlt}
+                    onClick={() => {
+                        // Trigger a CBZ download on the user's device. The
+                        // server's /api/v1/chapter/{id}/download endpoint
+                        // streams the archive with Content-Disposition set,
+                        // so the browser will save it directly.
+                        const a = document.createElement('a');
+                        a.href = `/api/v1/chapter/${chapter.id}/download`;
+                        a.rel = 'noopener';
+                        a.click();
+                        onClose();
+                    }}
+                    title={t`Save CBZ to this device`}
                 />
             )}
             {shouldShowMenuItem(!isBookmarked) && (

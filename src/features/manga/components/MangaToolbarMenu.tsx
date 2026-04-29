@@ -21,6 +21,8 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { AwaitableComponent } from 'awaitable-component';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
+import EditIcon from '@mui/icons-material/Edit';
+import { MangaUserOverrideDialog } from '@/features/manga/components/MangaUserOverrideDialog.tsx';
 import { useLingui } from '@lingui/react/macro';
 import { CustomTooltip } from '@/base/components/CustomTooltip.tsx';
 import type { MangaType } from '@/lib/graphql/generated/graphql.ts';
@@ -43,6 +45,7 @@ export const MangaToolbarMenu = ({ manga, onRefresh, refreshing }: IProps) => {
     const { settings } = useMetadataServerSettings();
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [overrideDialogOpen, setOverrideDialogOpen] = React.useState(false);
     const open = Boolean(anchorEl);
     const handleClose = () => {
         setAnchorEl(null);
@@ -82,6 +85,14 @@ export const MangaToolbarMenu = ({ manga, onRefresh, refreshing }: IProps) => {
                     )}
                     {manga.inLibrary && (
                         <>
+                            <CustomTooltip title={t`Edit metadata`}>
+                                <IconButton
+                                    onClick={() => setOverrideDialogOpen(true)}
+                                    color="inherit"
+                                >
+                                    <EditIcon />
+                                </IconButton>
+                            </CustomTooltip>
                             <CustomTooltip title={t`Migrate`}>
                                 <Link
                                     to={AppRoutes.migrate.childRoutes.singleMangaSearch.path(
@@ -156,6 +167,18 @@ export const MangaToolbarMenu = ({ manga, onRefresh, refreshing }: IProps) => {
                         )}
                         {manga.inLibrary && [
                             <MenuItem
+                                key="edit-metadata"
+                                onClick={() => {
+                                    setOverrideDialogOpen(true);
+                                    handleClose();
+                                }}
+                            >
+                                <ListItemIcon>
+                                    <EditIcon fontSize="small" />
+                                </ListItemIcon>
+                                <ListItemText>{t`Edit metadata`}</ListItemText>
+                            </MenuItem>,
+                            <MenuItem
                                 key="migrate"
                                 component={Link}
                                 to={AppRoutes.migrate.childRoutes.singleMangaSearch.path(
@@ -187,6 +210,12 @@ export const MangaToolbarMenu = ({ manga, onRefresh, refreshing }: IProps) => {
                     </Menu>
                 </>
             )}
+            <MangaUserOverrideDialog
+                open={overrideDialogOpen}
+                onClose={() => setOverrideDialogOpen(false)}
+                mangaId={manga.id}
+                initialTitle={manga.title}
+            />
         </>
     );
 };

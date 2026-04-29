@@ -104,6 +104,10 @@ const { ScanlatorAliases } = loadable(
     () => import('@/features/settings/screens/ScanlatorAliases.tsx'),
     lazyLoadFallback,
 );
+const { AdvancedLibrarySearch } = loadable(
+    () => import('@/features/library/screens/AdvancedLibrarySearch.tsx'),
+    lazyLoadFallback,
+);
 
 if (import.meta.env.DEV) {
     // Adds messages only in a dev environment
@@ -366,6 +370,7 @@ const MainApp = () => {
                             <Route index element={<Manga />} />
                         </Route>
                         <Route path={AppRoutes.library.match} element={<Library />} />
+                        <Route path={AppRoutes.advancedSearch.match} element={<AdvancedLibrarySearch />} />
                         <Route path={AppRoutes.updates.match} element={<Updates />} />
                         {!hideHistory && <Route path={AppRoutes.history.match} element={<History />} />}
                         <Route path={AppRoutes.browse.match} element={<Browse />} />

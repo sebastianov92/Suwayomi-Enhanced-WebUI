@@ -4165,6 +4165,20 @@ export type GetKoSyncStatusQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetKoSyncStatusQuery = { __typename?: 'Query', koSyncStatus: { __typename?: 'KoSyncStatusPayload', isLoggedIn: boolean, serverAddress?: string | null, username?: string | null } };
 
+export type SearchLibraryQueryVariables = Exact<{
+  query: Scalars['String']['input'];
+  inLibraryOnly?: InputMaybe<Scalars['Boolean']['input']>;
+  searchTitle?: InputMaybe<Scalars['Boolean']['input']>;
+  searchAuthor?: InputMaybe<Scalars['Boolean']['input']>;
+  searchArtist?: InputMaybe<Scalars['Boolean']['input']>;
+  searchDescription?: InputMaybe<Scalars['Boolean']['input']>;
+  searchGenre?: InputMaybe<Scalars['Boolean']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type SearchLibraryQuery = { __typename?: 'Query', searchLibrary: Array<{ __typename?: 'MangaType', id: number, title: string, author?: string | null, artist?: string | null, inLibrary: boolean, thumbnailUrl?: string | null, genre: Array<string> }> };
+
 export type MangaMetaFieldsFragment = { __typename?: 'MangaMetaType', mangaId: number, key: string, value: string };
 
 export type MangaBaseFieldsFragment = { __typename?: 'MangaType', id: number, title: string, thumbnailUrl?: string | null, thumbnailUrlLastFetched?: string | null, inLibrary: boolean, initialized: boolean, sourceId: string };
@@ -4352,6 +4366,41 @@ export type AddMangaFromUrlMutationVariables = Exact<{
 
 
 export type AddMangaFromUrlMutation = { __typename?: 'Mutation', addMangaFromUrl?: { __typename?: 'AddMangaFromUrlPayload', status: AddMangaFromUrlStatus, message?: string | null, installedExtensionPkgName?: string | null, manga?: { __typename?: 'MangaType', id: number, title: string, author?: string | null, artist?: string | null, description?: string | null, inLibrary: boolean, thumbnailUrl?: string | null } | null, duplicates: Array<{ __typename?: 'MangaType', id: number, title: string, author?: string | null, inLibrary: boolean }> } | null };
+
+export type SetMangaUserOverrideMutationVariables = Exact<{
+  input: SetMangaUserOverrideInput;
+}>;
+
+
+export type SetMangaUserOverrideMutation = { __typename?: 'Mutation', setMangaUserOverride?: { __typename?: 'SetMangaUserOverridePayload', override: { __typename?: 'MangaUserOverrideType', id: number, mangaId: number, title?: string | null, author?: string | null, artist?: string | null, description?: string | null, genre?: Array<string> | null, notes?: string | null, hasCustomCover: boolean, customCoverUrl?: string | null, updatedAt: string } } | null };
+
+export type ClearMangaUserOverrideMutationVariables = Exact<{
+  input: ClearMangaUserOverrideInput;
+}>;
+
+
+export type ClearMangaUserOverrideMutation = { __typename?: 'Mutation', clearMangaUserOverride?: { __typename?: 'ClearMangaUserOverridePayload', cleared: boolean } | null };
+
+export type SetMangaCustomCoverMutationVariables = Exact<{
+  input: SetMangaCustomCoverInput;
+}>;
+
+
+export type SetMangaCustomCoverMutation = { __typename?: 'Mutation', setMangaCustomCover?: { __typename?: 'SetMangaCustomCoverPayload', override: { __typename?: 'MangaUserOverrideType', id: number, mangaId: number, hasCustomCover: boolean, customCoverUrl?: string | null, updatedAt: string } } | null };
+
+export type ClearMangaCustomCoverMutationVariables = Exact<{
+  input: ClearMangaCustomCoverInput;
+}>;
+
+
+export type ClearMangaCustomCoverMutation = { __typename?: 'Mutation', clearMangaCustomCover?: { __typename?: 'ClearMangaCustomCoverPayload', cleared: boolean } | null };
+
+export type GetMangaUserOverrideQueryVariables = Exact<{
+  mangaId: Scalars['Int']['input'];
+}>;
+
+
+export type GetMangaUserOverrideQuery = { __typename?: 'Query', mangaUserOverride?: { __typename?: 'MangaUserOverrideType', id: number, mangaId: number, title?: string | null, author?: string | null, artist?: string | null, description?: string | null, genre?: Array<string> | null, notes?: string | null, hasCustomCover: boolean, customCoverUrl?: string | null, createdAt: string, updatedAt: string } | null };
 
 export type UpdateGlobalMetadataMutationVariables = Exact<{
   preUpdateDeleteInput: DeleteGlobalMetasInput;

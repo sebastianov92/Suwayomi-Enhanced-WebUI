@@ -183,6 +183,10 @@ export const AppRoutes = {
                 ...UrlUtil.createQueryParam(search),
             }),
     },
+    advancedSearch: {
+        match: 'advanced-search',
+        path: '/advanced-search',
+    },
     updates: {
         match: 'updates',
         path: '/updates',
