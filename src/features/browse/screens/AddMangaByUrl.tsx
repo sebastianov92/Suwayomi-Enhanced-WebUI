@@ -46,7 +46,18 @@ export function AddMangaByUrl() {
     const [addManga, { loading, data, error, reset }] = useMutation<
         AddMangaFromUrlMutation,
         AddMangaFromUrlMutationVariables
-    >(ADD_MANGA_FROM_URL, { client: apolloClient });
+    >(ADD_MANGA_FROM_URL, {
+        client: apolloClient,
+        onCompleted: (res) => {
+            if (!res.addMangaFromUrl?.manga) return;
+            // Invalidate library / category caches so the new manga shows up
+            // in the Library screen without a full page reload.
+            apolloClient.cache.evict({ fieldName: 'mangas' });
+            apolloClient.cache.evict({ fieldName: 'category' });
+            apolloClient.cache.evict({ fieldName: 'categories' });
+            apolloClient.cache.gc();
+        },
+    });
 
     const submit = async (e: React.FormEvent) => {
         e.preventDefault();
