@@ -92,14 +92,19 @@ export const MangaOptionButton = ({
                     minWidth: 'unset',
                     paddingX: '0',
                     paddingY: '2.5px',
-                    visibility: popupState.isOpen ? 'visible' : 'hidden',
-                    pointerEvents: 'none',
+                    // Always visible on desktop. The original upstream code
+                    // hid the button until hover, but the hover selector on
+                    // the parent Box fails to apply in Safari macOS, so we
+                    // make it permanent on (pointer: fine) and rely on the
+                    // touch fallback below to hide it on mobile.
+                    visibility: 'visible',
+                    pointerEvents: 'all',
                     '@media not (pointer: fine)': {
-                        visibility: 'hidden',
-                        width: 0,
-                        height: 0,
-                        p: 0,
-                        m: 0,
+                        visibility: popupState.isOpen ? 'visible' : 'hidden',
+                        width: popupState.isOpen ? undefined : 0,
+                        height: popupState.isOpen ? undefined : 0,
+                        p: popupState.isOpen ? undefined : 0,
+                        m: popupState.isOpen ? undefined : 0,
                     },
                 }}
             >
