@@ -36,6 +36,13 @@ export const SEARCH_LIBRARY = gql`
             inLibrary
             thumbnailUrl
             genre
+            sourceId
+            source {
+                id
+                name
+                displayName
+                lang
+            }
         }
     }
 `;

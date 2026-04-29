@@ -26,7 +26,6 @@ import { LoadingPlaceholder } from '@/base/components/feedback/LoadingPlaceholde
 import { TabPanel } from '@/base/components/tabs/TabPanel.tsx';
 import { LibraryToolbarMenu } from '@/features/library/components/LibraryToolbarMenu.tsx';
 import { LibraryMangaGrid } from '@/features/library/components/LibraryMangaGrid.tsx';
-import { AppbarSearch } from '@/base/components/AppbarSearch.tsx';
 import { UpdateChecker } from '@/features/updates/components/UpdateChecker.tsx';
 import { useSelectableCollection } from '@/base/collection/hooks/useSelectableCollection.ts';
 import { SelectableCollectionSelectMode } from '@/base/collection/components/SelectableCollectionSelectMode.tsx';
@@ -212,7 +211,6 @@ export function Library() {
         <>
             {!isSelectModeActive && activeTab && (
                 <>
-                    <AppbarSearch />
                     <Tooltip title={t`Advanced search`}>
                         <IconButton component={Link} to={AppRoutes.advancedSearch.path}>
                             <ManageSearchIcon />

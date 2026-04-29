@@ -226,14 +226,18 @@ export const ChapterActionMenuItems = ({
                 <MenuItem
                     Icon={SaveAlt}
                     onClick={() => {
-                        // Trigger a CBZ download on the user's device. The
-                        // server's /api/v1/chapter/{id}/download endpoint
-                        // streams the archive with Content-Disposition set,
-                        // so the browser will save it directly.
+                        // Trigger a CBZ download on the user's device.
+                        // Use the absolute server URL (different origin than
+                        // the WebUI in dev) so the browser actually hits the
+                        // streaming endpoint.
+                        const url = requestManager.getValidUrlFor(`chapter/${chapter.id}/download`);
                         const a = document.createElement('a');
-                        a.href = `/api/v1/chapter/${chapter.id}/download`;
+                        a.href = url;
                         a.rel = 'noopener';
+                        a.target = '_blank';
+                        document.body.appendChild(a);
                         a.click();
+                        a.remove();
                         onClose();
                     }}
                     title={t`Save CBZ to this device`}

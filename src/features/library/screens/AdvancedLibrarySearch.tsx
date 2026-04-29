@@ -21,6 +21,7 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
+import Avatar from '@mui/material/Avatar';
 import { Link as RouterLink } from 'react-router-dom';
 import { SEARCH_LIBRARY } from '@/lib/graphql/librarySearch/LibrarySearchQuery.ts';
 import type {
@@ -183,26 +184,55 @@ export function AdvancedLibrarySearch() {
                         {t`${results.length} result(s)`}
                     </Typography>
                     <Stack spacing={1}>
-                        {results.map((m) => (
-                            <Card key={m.id}>
-                                <CardActionArea component={RouterLink} to={AppRoutes.manga.path(m.id)}>
-                                    <CardContent>
-                                        <Typography variant="subtitle1">{m.title}</Typography>
-                                        {m.author && (
-                                            <Typography variant="body2" color="text.secondary">
-                                                {m.author}
-                                                {m.artist && m.artist !== m.author ? ` · ${m.artist}` : ''}
+                        {results.map((m) => {
+                            const coverUrl = m.thumbnailUrl
+                                ? requestManager.getValidImgUrlFor(m.thumbnailUrl)
+                                : undefined;
+                            const sourceLabel = m.source
+                                ? `${m.source.displayName ?? m.source.name}${m.source.lang ? ` · ${m.source.lang}` : ''}`
+                                : t`Unknown source`;
+                            return (
+                                <Card key={m.id}>
+                                    <CardActionArea
+                                        component={RouterLink}
+                                        to={AppRoutes.manga.path(m.id)}
+                                        sx={{ display: 'flex', alignItems: 'stretch' }}
+                                    >
+                                        <Avatar
+                                            variant="rounded"
+                                            src={coverUrl}
+                                            alt={m.title}
+                                            sx={{
+                                                width: 64,
+                                                height: 96,
+                                                m: 1,
+                                                flexShrink: 0,
+                                                bgcolor: 'background.default',
+                                            }}
+                                        />
+                                        <CardContent sx={{ flex: 1, minWidth: 0 }}>
+                                            <Typography variant="subtitle1" noWrap>
+                                                {m.title}
                                             </Typography>
-                                        )}
-                                        {m.genre && m.genre.length > 0 && (
-                                            <Typography variant="body2" color="text.secondary">
-                                                {m.genre.join(', ')}
+                                            <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
+                                                {sourceLabel}
                                             </Typography>
-                                        )}
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
-                        ))}
+                                            {m.author && (
+                                                <Typography variant="body2" color="text.secondary" noWrap>
+                                                    {m.author}
+                                                    {m.artist && m.artist !== m.author ? ` · ${m.artist}` : ''}
+                                                </Typography>
+                                            )}
+                                            {m.genre && m.genre.length > 0 && (
+                                                <Typography variant="body2" color="text.secondary" noWrap>
+                                                    {m.genre.join(', ')}
+                                                </Typography>
+                                            )}
+                                        </CardContent>
+                                    </CardActionArea>
+                                </Card>
+                            );
+                        })}
                     </Stack>
                 </Box>
             )}

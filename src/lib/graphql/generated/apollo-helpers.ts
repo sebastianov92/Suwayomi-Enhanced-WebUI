@@ -585,7 +585,7 @@ export type MultiSelectListPreferenceFieldPolicy = {
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	visible?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('addMangaFromUrl' | 'bindTrack' | 'clearCachedImages' | 'clearDownloader' | 'clearMangaCustomCover' | 'clearMangaUserOverride' | 'connectKoSyncAccount' | 'createBackup' | 'createCategory' | 'createScanlatorAlias' | 'deleteCategory' | 'deleteCategoryMeta' | 'deleteCategoryMetas' | 'deleteChapterMeta' | 'deleteChapterMetas' | 'deleteDownloadedChapter' | 'deleteDownloadedChapters' | 'deleteGlobalMeta' | 'deleteGlobalMetas' | 'deleteMangaMeta' | 'deleteMangaMetas' | 'deleteScanlatorAlias' | 'deleteSourceMeta' | 'deleteSourceMetas' | 'dequeueChapterDownload' | 'dequeueChapterDownloads' | 'enqueueChapterDownload' | 'enqueueChapterDownloads' | 'fetchChapterPages' | 'fetchChapters' | 'fetchExtensions' | 'fetchManga' | 'fetchSourceManga' | 'fetchTrack' | 'installExternalExtension' | 'login' | 'loginTrackerCredentials' | 'loginTrackerOAuth' | 'logoutKoSyncAccount' | 'logoutTracker' | 'pullKoSyncProgress' | 'pushKoSyncProgress' | 'refreshToken' | 'reorderChapterDownload' | 'resetSettings' | 'resetWebUIUpdateStatus' | 'restoreBackup' | 'setCategoryMeta' | 'setCategoryMetas' | 'setChapterMeta' | 'setChapterMetas' | 'setGlobalMeta' | 'setGlobalMetas' | 'setMangaCustomCover' | 'setMangaMeta' | 'setMangaMetas' | 'setMangaUserOverride' | 'setSettings' | 'setSourceMeta' | 'setSourceMetas' | 'startDownloader' | 'stopDownloader' | 'trackProgress' | 'unbindTrack' | 'updateCategories' | 'updateCategory' | 'updateCategoryManga' | 'updateCategoryOrder' | 'updateChapter' | 'updateChapters' | 'updateExtension' | 'updateExtensions' | 'updateLibrary' | 'updateLibraryManga' | 'updateManga' | 'updateMangaCategories' | 'updateMangas' | 'updateMangasCategories' | 'updateScanlatorAlias' | 'updateSourcePreference' | 'updateStop' | 'updateTrack' | 'updateWebUI' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('addMangaFromUrl' | 'bindTrack' | 'clearCachedImages' | 'clearDownloader' | 'clearMangaCustomCover' | 'clearMangaUserOverride' | 'connectKoSyncAccount' | 'createBackup' | 'createCategory' | 'createScanlatorAlias' | 'deleteCategory' | 'deleteCategoryMeta' | 'deleteCategoryMetas' | 'deleteChapterMeta' | 'deleteChapterMetas' | 'deleteDownloadedChapter' | 'deleteDownloadedChapters' | 'deleteGlobalMeta' | 'deleteGlobalMetas' | 'deleteMangaMeta' | 'deleteMangaMetas' | 'deleteScanlatorAlias' | 'deleteSourceMeta' | 'deleteSourceMetas' | 'dequeueChapterDownload' | 'dequeueChapterDownloads' | 'enqueueChapterDownload' | 'enqueueChapterDownloads' | 'fetchChapterPages' | 'fetchChapters' | 'fetchExtensions' | 'fetchManga' | 'fetchSourceManga' | 'fetchTrack' | 'installExternalExtension' | 'login' | 'loginTrackerCredentials' | 'loginTrackerOAuth' | 'logoutKoSyncAccount' | 'logoutTracker' | 'pullKoSyncProgress' | 'pushKoSyncProgress' | 'refreshToken' | 'reorderChapterDownload' | 'resetSettings' | 'resetWebUIUpdateStatus' | 'restoreBackup' | 'setCategoryMeta' | 'setCategoryMetas' | 'setChapterMeta' | 'setChapterMetas' | 'setGlobalMeta' | 'setGlobalMetas' | 'setMangaCustomCover' | 'setMangaCustomCoverFromUrl' | 'setMangaMeta' | 'setMangaMetas' | 'setMangaUserOverride' | 'setSettings' | 'setSourceMeta' | 'setSourceMetas' | 'startDownloader' | 'stopDownloader' | 'trackProgress' | 'unbindTrack' | 'updateCategories' | 'updateCategory' | 'updateCategoryManga' | 'updateCategoryOrder' | 'updateChapter' | 'updateChapters' | 'updateExtension' | 'updateExtensions' | 'updateLibrary' | 'updateLibraryManga' | 'updateManga' | 'updateMangaCategories' | 'updateMangas' | 'updateMangasCategories' | 'updateScanlatorAlias' | 'updateSourcePreference' | 'updateStop' | 'updateTrack' | 'updateWebUI' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	addMangaFromUrl?: FieldPolicy<any> | FieldReadFunction<any>,
 	bindTrack?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -641,6 +641,7 @@ export type MutationFieldPolicy = {
 	setGlobalMeta?: FieldPolicy<any> | FieldReadFunction<any>,
 	setGlobalMetas?: FieldPolicy<any> | FieldReadFunction<any>,
 	setMangaCustomCover?: FieldPolicy<any> | FieldReadFunction<any>,
+	setMangaCustomCoverFromUrl?: FieldPolicy<any> | FieldReadFunction<any>,
 	setMangaMeta?: FieldPolicy<any> | FieldReadFunction<any>,
 	setMangaMetas?: FieldPolicy<any> | FieldReadFunction<any>,
 	setMangaUserOverride?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -911,6 +912,11 @@ export type SetGlobalMetasPayloadKeySpecifier = ('clientMutationId' | 'metas' | 
 export type SetGlobalMetasPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	metas?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type SetMangaCustomCoverFromUrlPayloadKeySpecifier = ('clientMutationId' | 'override' | SetMangaCustomCoverFromUrlPayloadKeySpecifier)[];
+export type SetMangaCustomCoverFromUrlPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	override?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type SetMangaCustomCoverPayloadKeySpecifier = ('clientMutationId' | 'override' | SetMangaCustomCoverPayloadKeySpecifier)[];
 export type SetMangaCustomCoverPayloadFieldPolicy = {
@@ -1929,6 +1935,10 @@ export type StrictTypedTypePolicies = {
 	SetGlobalMetasPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SetGlobalMetasPayloadKeySpecifier | (() => undefined | SetGlobalMetasPayloadKeySpecifier),
 		fields?: SetGlobalMetasPayloadFieldPolicy,
+	},
+	SetMangaCustomCoverFromUrlPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | SetMangaCustomCoverFromUrlPayloadKeySpecifier | (() => undefined | SetMangaCustomCoverFromUrlPayloadKeySpecifier),
+		fields?: SetMangaCustomCoverFromUrlPayloadFieldPolicy,
 	},
 	SetMangaCustomCoverPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SetMangaCustomCoverPayloadKeySpecifier | (() => undefined | SetMangaCustomCoverPayloadKeySpecifier),

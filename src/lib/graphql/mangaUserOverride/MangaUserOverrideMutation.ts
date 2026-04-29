@@ -50,6 +50,20 @@ export const SET_MANGA_CUSTOM_COVER = gql`
     }
 `;
 
+export const SET_MANGA_CUSTOM_COVER_FROM_URL = gql`
+    mutation SET_MANGA_CUSTOM_COVER_FROM_URL($input: SetMangaCustomCoverFromUrlInput!) {
+        setMangaCustomCoverFromUrl(input: $input) {
+            override {
+                id
+                mangaId
+                hasCustomCover
+                customCoverUrl
+                updatedAt
+            }
+        }
+    }
+`;
+
 export const CLEAR_MANGA_CUSTOM_COVER = gql`
     mutation CLEAR_MANGA_CUSTOM_COVER($input: ClearMangaCustomCoverInput!) {
         clearMangaCustomCover(input: $input) {

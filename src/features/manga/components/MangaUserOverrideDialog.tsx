@@ -23,6 +23,7 @@ import {
     CLEAR_MANGA_CUSTOM_COVER,
     CLEAR_MANGA_USER_OVERRIDE,
     SET_MANGA_CUSTOM_COVER,
+    SET_MANGA_CUSTOM_COVER_FROM_URL,
     SET_MANGA_USER_OVERRIDE,
 } from '@/lib/graphql/mangaUserOverride/MangaUserOverrideMutation.ts';
 import { GET_MANGA_USER_OVERRIDE } from '@/lib/graphql/mangaUserOverride/MangaUserOverrideQuery.ts';
@@ -33,6 +34,8 @@ import type {
     ClearMangaUserOverrideMutationVariables,
     GetMangaUserOverrideQuery,
     GetMangaUserOverrideQueryVariables,
+    SetMangaCustomCoverFromUrlMutation,
+    SetMangaCustomCoverFromUrlMutationVariables,
     SetMangaCustomCoverMutation,
     SetMangaCustomCoverMutationVariables,
     SetMangaUserOverrideMutation,
@@ -107,6 +110,10 @@ export function MangaUserOverrideDialog({
         ...refetchOptions,
         context: { hasUpload: true },
     });
+    const [setCoverFromUrl, setCoverFromUrlState] = useMutation<
+        SetMangaCustomCoverFromUrlMutation,
+        SetMangaCustomCoverFromUrlMutationVariables
+    >(SET_MANGA_CUSTOM_COVER_FROM_URL, refetchOptions);
     const [clearCover, clearCoverState] = useMutation<
         ClearMangaCustomCoverMutation,
         ClearMangaCustomCoverMutationVariables
@@ -115,9 +122,19 @@ export function MangaUserOverrideDialog({
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const error =
-        setState.error ?? clearState.error ?? setCoverState.error ?? clearCoverState.error;
+        setState.error ??
+        clearState.error ??
+        setCoverState.error ??
+        setCoverFromUrlState.error ??
+        clearCoverState.error;
     const busy =
-        setState.loading || clearState.loading || setCoverState.loading || clearCoverState.loading;
+        setState.loading ||
+        clearState.loading ||
+        setCoverState.loading ||
+        setCoverFromUrlState.loading ||
+        clearCoverState.loading;
+
+    const [coverUrlInput, setCoverUrlInput] = useState('');
 
     const handleSave = async () => {
         const splitGenre = genre
@@ -156,6 +173,13 @@ export function MangaUserOverrideDialog({
 
     const handleClearCover = async () => {
         await clearCover({ variables: { input: { mangaId } } });
+    };
+
+    const handleCoverFromUrl = async () => {
+        const trimmed = coverUrlInput.trim();
+        if (!trimmed) return;
+        await setCoverFromUrl({ variables: { input: { mangaId, url: trimmed } } });
+        setCoverUrlInput('');
     };
 
     const hasCustomCover = overrideQuery.data?.mangaUserOverride?.hasCustomCover === true;
@@ -240,6 +264,29 @@ export function MangaUserOverrideDialog({
                                 hidden
                                 onChange={handleCoverPick}
                             />
+                        </Stack>
+                        <Stack direction="row" spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
+                            <TextField
+                                size="small"
+                                fullWidth
+                                placeholder="https://example.com/cover.jpg"
+                                label={t`Or set cover from a URL`}
+                                value={coverUrlInput}
+                                onChange={(e) => setCoverUrlInput(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        handleCoverFromUrl();
+                                    }
+                                }}
+                                disabled={busy}
+                            />
+                            <Button
+                                onClick={handleCoverFromUrl}
+                                disabled={busy || !coverUrlInput.trim()}
+                            >
+                                {t`Fetch`}
+                            </Button>
                         </Stack>
                         {hasCustomCover && (
                             <Box sx={{ mt: 1 }}>

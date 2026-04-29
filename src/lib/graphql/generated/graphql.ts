@@ -1462,6 +1462,7 @@ export type Mutation = {
   setGlobalMeta?: Maybe<SetGlobalMetaPayload>;
   setGlobalMetas?: Maybe<SetGlobalMetasPayload>;
   setMangaCustomCover?: Maybe<SetMangaCustomCoverPayload>;
+  setMangaCustomCoverFromUrl?: Maybe<SetMangaCustomCoverFromUrlPayload>;
   setMangaMeta?: Maybe<SetMangaMetaPayload>;
   setMangaMetas?: Maybe<SetMangaMetasPayload>;
   setMangaUserOverride?: Maybe<SetMangaUserOverridePayload>;
@@ -1756,6 +1757,11 @@ export type MutationSetGlobalMetasArgs = {
 
 export type MutationSetMangaCustomCoverArgs = {
   input: SetMangaCustomCoverInput;
+};
+
+
+export type MutationSetMangaCustomCoverFromUrlArgs = {
+  input: SetMangaCustomCoverFromUrlInput;
 };
 
 
@@ -2553,6 +2559,18 @@ export type SetGlobalMetasPayload = {
   __typename?: 'SetGlobalMetasPayload';
   clientMutationId?: Maybe<Scalars['String']['output']>;
   metas: Array<GlobalMetaType>;
+};
+
+export type SetMangaCustomCoverFromUrlInput = {
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  mangaId: Scalars['Int']['input'];
+  url: Scalars['String']['input'];
+};
+
+export type SetMangaCustomCoverFromUrlPayload = {
+  __typename?: 'SetMangaCustomCoverFromUrlPayload';
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  override: MangaUserOverrideType;
 };
 
 export type SetMangaCustomCoverInput = {
@@ -4177,7 +4195,7 @@ export type SearchLibraryQueryVariables = Exact<{
 }>;
 
 
-export type SearchLibraryQuery = { __typename?: 'Query', searchLibrary: Array<{ __typename?: 'MangaType', id: number, title: string, author?: string | null, artist?: string | null, inLibrary: boolean, thumbnailUrl?: string | null, genre: Array<string> }> };
+export type SearchLibraryQuery = { __typename?: 'Query', searchLibrary: Array<{ __typename?: 'MangaType', id: number, title: string, author?: string | null, artist?: string | null, inLibrary: boolean, thumbnailUrl?: string | null, genre: Array<string>, sourceId: string, source?: { __typename?: 'SourceType', id: string, name: string, displayName: string, lang: string } | null }> };
 
 export type MangaMetaFieldsFragment = { __typename?: 'MangaMetaType', mangaId: number, key: string, value: string };
 
@@ -4387,6 +4405,13 @@ export type SetMangaCustomCoverMutationVariables = Exact<{
 
 
 export type SetMangaCustomCoverMutation = { __typename?: 'Mutation', setMangaCustomCover?: { __typename?: 'SetMangaCustomCoverPayload', override: { __typename?: 'MangaUserOverrideType', id: number, mangaId: number, hasCustomCover: boolean, customCoverUrl?: string | null, updatedAt: string } } | null };
+
+export type SetMangaCustomCoverFromUrlMutationVariables = Exact<{
+  input: SetMangaCustomCoverFromUrlInput;
+}>;
+
+
+export type SetMangaCustomCoverFromUrlMutation = { __typename?: 'Mutation', setMangaCustomCoverFromUrl?: { __typename?: 'SetMangaCustomCoverFromUrlPayload', override: { __typename?: 'MangaUserOverrideType', id: number, mangaId: number, hasCustomCover: boolean, customCoverUrl?: string | null, updatedAt: string } } | null };
 
 export type ClearMangaCustomCoverMutationVariables = Exact<{
   input: ClearMangaCustomCoverInput;
