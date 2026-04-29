@@ -21,6 +21,7 @@ import { BrowseTab } from '@/features/browse/Browse.types.ts';
 import { GROUPED_VIRTUOSO_Z_INDEX } from '@/lib/virtuoso/Virtuoso.constants.ts';
 import { SearchParam } from '@/base/Base.types.ts';
 import { Migration } from '@/features/migration/screens/Migration.tsx';
+import { AddMangaByUrl } from '@/features/browse/screens/AddMangaByUrl.tsx';
 
 export function Browse() {
     const { t } = useLingui();
@@ -52,6 +53,7 @@ export function Browse() {
                 <Tab value={BrowseTab.SOURCES} sx={{ textTransform: 'none' }} label={t`Source`} />
                 <Tab value={BrowseTab.EXTENSIONS} sx={{ textTransform: 'none' }} label={t`Extension`} />
                 <Tab value={BrowseTab.MIGRATE} sx={{ textTransform: 'none' }} label={t`Migrate`} />
+                <Tab value={BrowseTab.ADD_BY_URL} sx={{ textTransform: 'none' }} label={t`Add by URL`} />
             </TabsMenu>
             <TabPanel index={BrowseTab.SOURCE_DEPRECATED} currentIndex={tabName}>
                 <Sources tabsMenuHeight={tabsMenuHeight} />
@@ -64,6 +66,9 @@ export function Browse() {
             </TabPanel>
             <TabPanel index={BrowseTab.MIGRATE} currentIndex={tabName}>
                 <Migration tabsMenuHeight={tabsMenuHeight} />
+            </TabPanel>
+            <TabPanel index={BrowseTab.ADD_BY_URL} currentIndex={tabName}>
+                <AddMangaByUrl />
             </TabPanel>
         </TabsWrapper>
     );

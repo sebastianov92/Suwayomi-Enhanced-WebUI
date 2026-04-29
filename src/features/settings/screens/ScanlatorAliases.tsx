@@ -49,6 +49,7 @@ import type {
     UpdateScanlatorAliasMutationVariables,
 } from '@/lib/graphql/generated/graphql.ts';
 import { useAppTitle } from '@/features/navigation-bar/hooks/useAppTitle.ts';
+import { requestManager } from '@/lib/requests/RequestManager.ts';
 
 type EditTarget = {
     scanlator: string;
@@ -60,30 +61,33 @@ export function ScanlatorAliases() {
     const { t } = useLingui();
     useAppTitle(t`Scanlator aliases`);
 
+    const apolloClient = requestManager.graphQLClient.client;
+
     const distinctQuery = useQuery<GetDistinctScanlatorsQuery, GetDistinctScanlatorsQueryVariables>(
         GET_DISTINCT_SCANLATORS,
-        { variables: { inLibraryOnly: false } },
+        { client: apolloClient, variables: { inLibraryOnly: false } },
     );
-    const aliasesQuery = useQuery<GetScanlatorAliasesQuery>(GET_SCANLATOR_ALIASES);
+    const aliasesQuery = useQuery<GetScanlatorAliasesQuery>(GET_SCANLATOR_ALIASES, {
+        client: apolloClient,
+    });
+
+    const refetchAfterMutation = {
+        client: apolloClient,
+        refetchQueries: [GET_DISTINCT_SCANLATORS, GET_SCANLATOR_ALIASES],
+    };
 
     const [createAlias, createState] = useMutation<
         CreateScanlatorAliasMutation,
         CreateScanlatorAliasMutationVariables
-    >(CREATE_SCANLATOR_ALIAS, {
-        refetchQueries: [GET_DISTINCT_SCANLATORS, GET_SCANLATOR_ALIASES],
-    });
+    >(CREATE_SCANLATOR_ALIAS, refetchAfterMutation);
     const [updateAlias, updateState] = useMutation<
         UpdateScanlatorAliasMutation,
         UpdateScanlatorAliasMutationVariables
-    >(UPDATE_SCANLATOR_ALIAS, {
-        refetchQueries: [GET_DISTINCT_SCANLATORS, GET_SCANLATOR_ALIASES],
-    });
+    >(UPDATE_SCANLATOR_ALIAS, refetchAfterMutation);
     const [deleteAlias, deleteState] = useMutation<
         DeleteScanlatorAliasMutation,
         DeleteScanlatorAliasMutationVariables
-    >(DELETE_SCANLATOR_ALIAS, {
-        refetchQueries: [GET_DISTINCT_SCANLATORS, GET_SCANLATOR_ALIASES],
-    });
+    >(DELETE_SCANLATOR_ALIAS, refetchAfterMutation);
 
     const [editTarget, setEditTarget] = useState<EditTarget | null>(null);
     const [editValue, setEditValue] = useState('');

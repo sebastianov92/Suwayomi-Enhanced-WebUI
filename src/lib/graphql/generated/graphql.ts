@@ -4346,6 +4346,13 @@ export type GetLibraryMangaCountQueryVariables = Exact<{ [key: string]: never; }
 
 export type GetLibraryMangaCountQuery = { __typename?: 'Query', mangas: { __typename?: 'MangaNodeList', totalCount: number } };
 
+export type AddMangaFromUrlMutationVariables = Exact<{
+  input: AddMangaFromUrlInput;
+}>;
+
+
+export type AddMangaFromUrlMutation = { __typename?: 'Mutation', addMangaFromUrl?: { __typename?: 'AddMangaFromUrlPayload', status: AddMangaFromUrlStatus, message?: string | null, installedExtensionPkgName?: string | null, manga?: { __typename?: 'MangaType', id: number, title: string, author?: string | null, artist?: string | null, description?: string | null, inLibrary: boolean, thumbnailUrl?: string | null } | null, duplicates: Array<{ __typename?: 'MangaType', id: number, title: string, author?: string | null, inLibrary: boolean }> } | null };
+
 export type UpdateGlobalMetadataMutationVariables = Exact<{
   preUpdateDeleteInput: DeleteGlobalMetasInput;
   hasPreUpdateDeletions: Scalars['Boolean']['input'];

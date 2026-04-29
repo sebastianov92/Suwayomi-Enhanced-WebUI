@@ -21,4 +21,5 @@ export enum BrowseTab {
     SOURCES = 'sources',
     EXTENSIONS = 'extensions',
     MIGRATE = 'migrate',
+    ADD_BY_URL = 'add-by-url',
 }
