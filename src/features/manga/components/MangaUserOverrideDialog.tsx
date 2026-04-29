@@ -91,9 +91,20 @@ export function MangaUserOverrideDialog({
         setNotes(o?.notes ?? '');
     }, [open, overrideQuery.data, initialTitle, initialAuthor, initialArtist, initialDescription, initialGenre]);
 
+    const evictMangaCaches = () => {
+        // Drop the cached MangaType so MangaCard / MangaDetails re-query
+        // and pick up the new thumbnailUrlLastFetched (which busts the
+        // browser's <img> cache for /api/v1/manga/{id}/thumbnail).
+        apolloClient.cache.evict({ id: `MangaType:${mangaId}` });
+        apolloClient.cache.evict({ fieldName: 'manga', args: { id: mangaId } });
+        apolloClient.cache.evict({ fieldName: 'mangas' });
+        apolloClient.cache.gc();
+    };
+
     const refetchOptions = {
         client: apolloClient,
         refetchQueries: [{ query: GET_MANGA_USER_OVERRIDE, variables: { mangaId } }],
+        onCompleted: evictMangaCaches,
     };
     const [setOverride, setState] = useMutation<
         SetMangaUserOverrideMutation,
