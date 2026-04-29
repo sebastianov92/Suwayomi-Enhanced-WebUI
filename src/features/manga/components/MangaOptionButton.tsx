@@ -44,12 +44,6 @@ export const MangaOptionButton = ({
 
     const bindTriggerProps = useMemo(() => bindTrigger(popupState), [popupState]);
 
-    const handleOptionClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.stopPropagation();
-        e.preventDefault();
-        bindTriggerProps.onClick?.(e);
-    };
-
     const handleSelectionChange = (e: ChangeEvent, isSelected: boolean) => {
         preventDefaultAction(e);
         handleSelection?.(id, isSelected);
@@ -77,8 +71,7 @@ export const MangaOptionButton = ({
             <CustomTooltip title={t`Options`}>
                 <IconButton
                     ref={ref}
-                    {...MUIUtil.preventRippleProp({})}
-                    onClick={handleOptionClick}
+                    {...MUIUtil.preventRippleProp(bindTriggerProps, { onClick: preventDefaultAction })}
                     aria-label="more"
                 >
                     <MoreVertIcon />
@@ -91,8 +84,7 @@ export const MangaOptionButton = ({
         <CustomTooltip title={t`Options`}>
             <Button
                 ref={ref}
-                {...MUIUtil.preventRippleProp({})}
-                onClick={handleOptionClick}
+                {...MUIUtil.preventRippleProp(bindTriggerProps, { onClick: preventDefaultAction })}
                 className="manga-option-button"
                 size="small"
                 variant="contained"
