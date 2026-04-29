@@ -58,17 +58,37 @@ export const MangaOptionButton = ({
     useEffect(() => {
         const el = buttonRef.current;
         if (!el) return undefined;
-        // Walk up to the wrapping <Link> (the click target for the whole
-        // card). Fall back to the parent if we can't find one.
-        const cardRoot = (el.closest('a') ?? el.parentElement) as HTMLElement | null;
+        // Prefer the closest MUI Card (the visible card box), fall back to
+        // the wrapping <a> Link. Using mouseover/mouseout (which bubble and
+        // re-fire as the cursor moves between descendants) instead of
+        // mouseenter/mouseleave avoids cases where the menu portal opening
+        // would silently desync our hovered state.
+        const cardRoot = (el.closest('.MuiCard-root') ?? el.closest('a') ?? el.parentElement) as
+            | HTMLElement
+            | null;
         if (!cardRoot) return undefined;
-        const onEnter = () => setCardHovered(true);
-        const onLeave = () => setCardHovered(false);
-        cardRoot.addEventListener('mouseenter', onEnter);
-        cardRoot.addEventListener('mouseleave', onLeave);
+
+        const isInside = (target: EventTarget | null) =>
+            target instanceof Node && cardRoot.contains(target);
+
+        const onOver = (e: MouseEvent) => {
+            if (isInside(e.target) || isInside(e.relatedTarget)) {
+                setCardHovered(true);
+            }
+        };
+        const onOut = (e: MouseEvent) => {
+            // mouseout fires on every descendant transition; only flip false
+            // if the cursor truly left the card subtree.
+            if (!isInside(e.relatedTarget)) {
+                setCardHovered(false);
+            }
+        };
+
+        cardRoot.addEventListener('mouseover', onOver);
+        cardRoot.addEventListener('mouseout', onOut);
         return () => {
-            cardRoot.removeEventListener('mouseenter', onEnter);
-            cardRoot.removeEventListener('mouseleave', onLeave);
+            cardRoot.removeEventListener('mouseover', onOver);
+            cardRoot.removeEventListener('mouseout', onOut);
         };
     }, []);
 
