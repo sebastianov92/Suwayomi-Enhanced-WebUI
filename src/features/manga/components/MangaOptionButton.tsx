@@ -112,13 +112,13 @@ export const MangaOptionButton = ({
                     minWidth: 'unset',
                     paddingX: '0',
                     paddingY: '2.5px',
-                    // Always visible on desktop. The original upstream code
-                    // hid the button until hover, but the hover selector on
-                    // the parent Box fails to apply in Safari macOS, so we
-                    // make it permanent on (pointer: fine) and rely on the
-                    // touch fallback below to hide it on mobile.
-                    visibility: 'visible',
-                    pointerEvents: 'all',
+                    // Hidden by default; the parent MangaGridCard sets
+                    // `&:hover .manga-option-button { visibility: visible; pointer-events: all }`
+                    // on (hover: hover) and (pointer: fine) devices. While the
+                    // popup is open we keep it visible regardless of hover so
+                    // it doesn't disappear when the menu portal steals focus.
+                    visibility: popupState.isOpen ? 'visible' : 'hidden',
+                    pointerEvents: popupState.isOpen ? 'all' : 'none',
                     '@media not (pointer: fine)': {
                         visibility: popupState.isOpen ? 'visible' : 'hidden',
                         width: popupState.isOpen ? undefined : 0,
