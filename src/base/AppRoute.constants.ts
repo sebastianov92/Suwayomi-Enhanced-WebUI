@@ -135,6 +135,10 @@ export const AppRoutes = {
                 match: 'local-source',
                 path: '/settings/local-source',
             },
+            kindleQueue: {
+                match: 'kindle-queue',
+                path: '/settings/kindle-queue',
+            },
         },
     },
     sources: {

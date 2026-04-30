@@ -42,6 +42,16 @@ import type {
     SetMangaUserOverrideMutationVariables,
 } from '@/lib/graphql/generated/graphql.ts';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import { GET_MANGA_KINDLE_CONFIG } from '@/lib/graphql/kindle/KindleQuery.ts';
+import { SET_MANGA_KINDLE_CONFIG } from '@/lib/graphql/kindle/KindleMutation.ts';
+import type {
+    GetMangaKindleConfigQuery,
+    GetMangaKindleConfigQueryVariables,
+    SetMangaKindleConfigMutation,
+    SetMangaKindleConfigMutationVariables,
+} from '@/lib/graphql/generated/graphql.ts';
 
 type Props = {
     open: boolean;
@@ -132,6 +142,28 @@ export function MangaUserOverrideDialog({
 
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+    // Per-manga Kindle config
+    const kindleConfigQuery = useQuery<GetMangaKindleConfigQuery, GetMangaKindleConfigQueryVariables>(
+        GET_MANGA_KINDLE_CONFIG,
+        { client: apolloClient, variables: { mangaId }, skip: !open },
+    );
+    const [setMangaKindleConfig] = useMutation<
+        SetMangaKindleConfigMutation,
+        SetMangaKindleConfigMutationVariables
+    >(SET_MANGA_KINDLE_CONFIG, {
+        client: apolloClient,
+        refetchQueries: [{ query: GET_MANGA_KINDLE_CONFIG, variables: { mangaId } }],
+    });
+    const [autoSendToKindle, setAutoSendToKindle] = useState(false);
+    const [kindleDestination, setKindleDestination] = useState('');
+
+    useEffect(() => {
+        if (!open) return;
+        const c = kindleConfigQuery.data?.mangaKindleConfig;
+        setAutoSendToKindle(c?.autoSend ?? false);
+        setKindleDestination(c?.destination ?? '');
+    }, [open, kindleConfigQuery.data]);
+
     const error =
         setState.error ??
         clearState.error ??
@@ -164,6 +196,15 @@ export function MangaUserOverrideDialog({
                         genre: splitGenre,
                         notes: notes.trim() || null,
                     },
+                },
+            },
+        });
+        await setMangaKindleConfig({
+            variables: {
+                input: {
+                    mangaId,
+                    autoSend: autoSendToKindle,
+                    destination: kindleDestination.trim() || null,
                 },
             },
         });
@@ -310,6 +351,30 @@ export function MangaUserOverrideDialog({
                                 />
                             </Box>
                         )}
+                    </Box>
+
+                    <Box sx={{ borderTop: 1, borderColor: 'divider', pt: 2 }}>
+                        <Typography variant="subtitle2" sx={{ mb: 1 }}>
+                            {t`Send-to-Kindle (this manga)`}
+                        </Typography>
+                        <FormControlLabel
+                            control={
+                                <Switch
+                                    checked={autoSendToKindle}
+                                    onChange={(_, checked) => setAutoSendToKindle(checked)}
+                                />
+                            }
+                            label={t`Auto-send new chapters to Kindle`}
+                        />
+                        <TextField
+                            sx={{ mt: 1 }}
+                            size="small"
+                            fullWidth
+                            label={t`Override destination email (optional)`}
+                            placeholder={t`Leave empty to use the global Kindle email`}
+                            value={kindleDestination}
+                            onChange={(e) => setKindleDestination(e.target.value)}
+                        />
                     </Box>
                 </Stack>
             </DialogContent>

@@ -11,6 +11,16 @@ import CheckBoxOutlineBlank from '@mui/icons-material/CheckBoxOutlineBlank';
 import Delete from '@mui/icons-material/Delete';
 import Download from '@mui/icons-material/Download';
 import SaveAlt from '@mui/icons-material/SaveAlt';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import SendIcon from '@mui/icons-material/Send';
+import { useMutation as useApolloMutation } from '@apollo/client/react';
+import { SEND_CHAPTER_TO_KINDLE } from '@/lib/graphql/kindle/KindleMutation.ts';
+import type {
+    SendChapterToKindleMutation,
+    SendChapterToKindleMutationVariables,
+} from '@/lib/graphql/generated/graphql.ts';
+import { makeToast } from '@/base/utils/Toast.ts';
+import { getErrorMessage } from '@/lib/HelperFunctions.ts';
 import RemoveDone from '@mui/icons-material/RemoveDone';
 import Done from '@mui/icons-material/Done';
 import BookmarkRemove from '@mui/icons-material/BookmarkRemove';
@@ -78,6 +88,11 @@ export const ChapterActionMenuItems = ({
     selectable = true,
 }: Props) => {
     const { t } = useLingui();
+
+    const [sendToKindle] = useApolloMutation<
+        SendChapterToKindleMutation,
+        SendChapterToKindleMutationVariables
+    >(SEND_CHAPTER_TO_KINDLE, { client: requestManager.graphQLClient.client });
 
     const isSingleMode = !!chapter;
     const { isDownloaded, isRead, isBookmarked } = chapter ?? STABLE_EMPTY_OBJECT;
@@ -226,10 +241,6 @@ export const ChapterActionMenuItems = ({
                 <MenuItem
                     Icon={SaveAlt}
                     onClick={() => {
-                        // Trigger a CBZ download on the user's device.
-                        // Use the absolute server URL (different origin than
-                        // the WebUI in dev) so the browser actually hits the
-                        // streaming endpoint.
                         const url = requestManager.getValidUrlFor(`chapter/${chapter.id}/download`);
                         const a = document.createElement('a');
                         a.href = url;
@@ -241,6 +252,44 @@ export const ChapterActionMenuItems = ({
                         onClose();
                     }}
                     title={t`Save CBZ to this device`}
+                />
+            )}
+            {isSingleMode && isDownloaded && chapter && (
+                <MenuItem
+                    Icon={MenuBookIcon}
+                    onClick={() => {
+                        const url = requestManager.getValidUrlFor(`chapter/${chapter.id}/download.epub`);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.rel = 'noopener';
+                        a.target = '_blank';
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                        onClose();
+                    }}
+                    title={t`Save EPUB to this device`}
+                />
+            )}
+            {isSingleMode && isDownloaded && chapter && (
+                <MenuItem
+                    Icon={SendIcon}
+                    onClick={async () => {
+                        try {
+                            const res = await sendToKindle({
+                                variables: { input: { chapterId: chapter.id } },
+                            });
+                            if (res.data?.sendChapterToKindle?.alreadyQueued) {
+                                makeToast(t`Chapter already queued for Kindle`, 'info');
+                            } else {
+                                makeToast(t`Queued for Kindle`, 'success');
+                            }
+                        } catch (e) {
+                            makeToast(t`Send to Kindle failed`, 'error', getErrorMessage(e));
+                        }
+                        onClose();
+                    }}
+                    title={t`Send to Kindle`}
                 />
             )}
             {shouldShowMenuItem(!isBookmarked) && (

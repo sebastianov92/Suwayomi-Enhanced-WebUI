@@ -140,5 +140,21 @@ export const SERVER_SETTINGS = gql`
         telegramNotificationsEnabled
         telegramBotToken
         telegramChatId
+
+        # Send-to-Kindle / SMTP (Suwayomi-Enhanced)
+        smtpProvider
+        smtpHost
+        smtpPort
+        smtpUseStartTls
+        smtpUsername
+        smtpPasswordEncrypted
+        smtpFromEmail
+        smtpAttachmentLimitBytes
+        kindleEmail
+        ebookFormat
+        ebookRtl
+        kindleSendIntervalSeconds
+        kindleAutoSendEnabled
+        notifyOnKindleSend
     }
 `;

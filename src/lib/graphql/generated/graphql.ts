@@ -119,6 +119,17 @@ export type BooleanFilterInput = {
   notIn?: InputMaybe<Array<Scalars['Boolean']['input']>>;
 };
 
+export type CancelKindleQueueEntryInput = {
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['Int']['input'];
+};
+
+export type CancelKindleQueueEntryPayload = {
+  __typename?: 'CancelKindleQueueEntryPayload';
+  cancelled: Scalars['Boolean']['output'];
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+};
+
 export type CategoryConditionInput = {
   default?: InputMaybe<Scalars['Boolean']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
@@ -766,6 +777,15 @@ export type EditTextPreference = {
   visible: Scalars['Boolean']['output'];
 };
 
+export type EmailPresetEntry = {
+  __typename?: 'EmailPresetEntry';
+  displayName: Scalars['String']['output'];
+  host: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  port: Scalars['Int']['output'];
+  useStartTls: Scalars['Boolean']['output'];
+};
+
 export type EnqueueChapterDownloadInput = {
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['Int']['input'];
@@ -1019,6 +1039,23 @@ export type IntFilterInput = {
   notIn?: InputMaybe<Array<Scalars['Int']['input']>>;
 };
 
+export type KindleQueueEntry = {
+  __typename?: 'KindleQueueEntry';
+  attempts: Scalars['Int']['output'];
+  chapterId: Scalars['Int']['output'];
+  chapterName: Scalars['String']['output'];
+  destination?: Maybe<Scalars['String']['output']>;
+  enqueuedAt: Scalars['LongString']['output'];
+  id: Scalars['Int']['output'];
+  lastAttemptAt?: Maybe<Scalars['LongString']['output']>;
+  lastError?: Maybe<Scalars['String']['output']>;
+  mangaId: Scalars['Int']['output'];
+  mangaTitle: Scalars['String']['output'];
+  nextAttemptAt: Scalars['LongString']['output'];
+  status: Scalars['String']['output'];
+  triggerSource: Scalars['String']['output'];
+};
+
 export type KoSyncConnectPayload = {
   __typename?: 'KoSyncConnectPayload';
   clientMutationId?: Maybe<Scalars['String']['output']>;
@@ -1229,6 +1266,13 @@ export enum MangaJobStatus {
   Skipped = 'SKIPPED'
 }
 
+export type MangaKindleConfigEntry = {
+  __typename?: 'MangaKindleConfigEntry';
+  autoSend: Scalars['Boolean']['output'];
+  destination?: Maybe<Scalars['String']['output']>;
+  mangaId: Scalars['Int']['output'];
+};
+
 export type MangaMetaType = MetaType & {
   __typename?: 'MangaMetaType';
   key: Scalars['String']['output'];
@@ -1419,6 +1463,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addMangaFromUrl?: Maybe<AddMangaFromUrlPayload>;
   bindTrack: BindTrackPayload;
+  cancelKindleQueueEntry?: Maybe<CancelKindleQueueEntryPayload>;
   clearCachedImages: ClearCachedImagesPayload;
   clearDownloader?: Maybe<ClearDownloaderPayload>;
   clearMangaCustomCover?: Maybe<ClearMangaCustomCoverPayload>;
@@ -1465,6 +1510,9 @@ export type Mutation = {
   resetSettings: ResetSettingsPayload;
   resetWebUIUpdateStatus?: Maybe<WebUiUpdateStatus>;
   restoreBackup: RestoreBackupPayload;
+  retryKindleQueueEntry?: Maybe<RetryKindleQueueEntryPayload>;
+  sendChapterToKindle?: Maybe<SendChapterToKindlePayload>;
+  sendTestEmail?: Maybe<SendTestEmailPayload>;
   sendTestNotification?: Maybe<TestNotificationPayload>;
   setCategoryMeta?: Maybe<SetCategoryMetaPayload>;
   setCategoryMetas?: Maybe<SetCategoryMetasPayload>;
@@ -1474,10 +1522,12 @@ export type Mutation = {
   setGlobalMetas?: Maybe<SetGlobalMetasPayload>;
   setMangaCustomCover?: Maybe<SetMangaCustomCoverPayload>;
   setMangaCustomCoverFromUrl?: Maybe<SetMangaCustomCoverFromUrlPayload>;
+  setMangaKindleConfig?: Maybe<SetMangaKindleConfigPayload>;
   setMangaMeta?: Maybe<SetMangaMetaPayload>;
   setMangaMetas?: Maybe<SetMangaMetasPayload>;
   setMangaUserOverride?: Maybe<SetMangaUserOverridePayload>;
   setSettings: SetSettingsPayload;
+  setSmtpPassword?: Maybe<SetSmtpPasswordPayload>;
   setSourceMeta?: Maybe<SetSourceMetaPayload>;
   setSourceMetas?: Maybe<SetSourceMetasPayload>;
   startDownloader?: Maybe<StartDownloaderPayload>;
@@ -1513,6 +1563,11 @@ export type MutationAddMangaFromUrlArgs = {
 
 export type MutationBindTrackArgs = {
   input: BindTrackInput;
+};
+
+
+export type MutationCancelKindleQueueEntryArgs = {
+  input: CancelKindleQueueEntryInput;
 };
 
 
@@ -1741,6 +1796,21 @@ export type MutationRestoreBackupArgs = {
 };
 
 
+export type MutationRetryKindleQueueEntryArgs = {
+  input: RetryKindleQueueEntryInput;
+};
+
+
+export type MutationSendChapterToKindleArgs = {
+  input: SendChapterToKindleInput;
+};
+
+
+export type MutationSendTestEmailArgs = {
+  input: SendTestEmailInput;
+};
+
+
 export type MutationSendTestNotificationArgs = {
   input: TestNotificationInput;
 };
@@ -1786,6 +1856,11 @@ export type MutationSetMangaCustomCoverFromUrlArgs = {
 };
 
 
+export type MutationSetMangaKindleConfigArgs = {
+  input: SetMangaKindleConfigInput;
+};
+
+
 export type MutationSetMangaMetaArgs = {
   input: SetMangaMetaInput;
 };
@@ -1803,6 +1878,11 @@ export type MutationSetMangaUserOverrideArgs = {
 
 export type MutationSetSettingsArgs = {
   input: SetSettingsInput;
+};
+
+
+export type MutationSetSmtpPasswordArgs = {
+  input: SetSmtpPasswordInput;
 };
 
 
@@ -2000,6 +2080,8 @@ export type PartialSettingsType = Settings & {
   downloadAsCbz?: Maybe<Scalars['Boolean']['output']>;
   downloadConversions?: Maybe<Array<SettingsDownloadConversionType>>;
   downloadsPath?: Maybe<Scalars['String']['output']>;
+  ebookFormat?: Maybe<Scalars['String']['output']>;
+  ebookRtl?: Maybe<Scalars['Boolean']['output']>;
   electronPath?: Maybe<Scalars['String']['output']>;
   excludeCompleted?: Maybe<Scalars['Boolean']['output']>;
   excludeEntryWithUnreadChapters?: Maybe<Scalars['Boolean']['output']>;
@@ -2020,6 +2102,9 @@ export type PartialSettingsType = Settings & {
   jwtAudience?: Maybe<Scalars['String']['output']>;
   jwtRefreshExpiry?: Maybe<Scalars['Duration']['output']>;
   jwtTokenExpiry?: Maybe<Scalars['Duration']['output']>;
+  kindleAutoSendEnabled?: Maybe<Scalars['Boolean']['output']>;
+  kindleEmail?: Maybe<Scalars['String']['output']>;
+  kindleSendIntervalSeconds?: Maybe<Scalars['Int']['output']>;
   koreaderSyncChecksumMethod?: Maybe<KoreaderSyncChecksumMethod>;
   /** @deprecated Moved to preference store. Is supposed to be random and gets auto generated, replace with MOVE TO PREFERENCES */
   koreaderSyncDeviceId?: Maybe<Scalars['String']['output']>;
@@ -2039,6 +2124,7 @@ export type PartialSettingsType = Settings & {
   maxLogFiles?: Maybe<Scalars['Int']['output']>;
   maxLogFolderSize?: Maybe<Scalars['String']['output']>;
   maxSourcesInParallel?: Maybe<Scalars['Int']['output']>;
+  notifyOnKindleSend?: Maybe<Scalars['Boolean']['output']>;
   opdsCbzMimetype?: Maybe<CbzMediaType>;
   opdsChapterSortOrder?: Maybe<SortOrder>;
   opdsEnablePageReadProgress?: Maybe<Scalars['Boolean']['output']>;
@@ -2049,6 +2135,14 @@ export type PartialSettingsType = Settings & {
   opdsUseBinaryFileSizes?: Maybe<Scalars['Boolean']['output']>;
   port?: Maybe<Scalars['Int']['output']>;
   serveConversions?: Maybe<Array<SettingsDownloadConversionType>>;
+  smtpAttachmentLimitBytes?: Maybe<Scalars['Int']['output']>;
+  smtpFromEmail?: Maybe<Scalars['String']['output']>;
+  smtpHost?: Maybe<Scalars['String']['output']>;
+  smtpPasswordEncrypted?: Maybe<Scalars['String']['output']>;
+  smtpPort?: Maybe<Scalars['Int']['output']>;
+  smtpProvider?: Maybe<Scalars['String']['output']>;
+  smtpUseStartTls?: Maybe<Scalars['Boolean']['output']>;
+  smtpUsername?: Maybe<Scalars['String']['output']>;
   socksProxyEnabled?: Maybe<Scalars['Boolean']['output']>;
   socksProxyHost?: Maybe<Scalars['String']['output']>;
   socksProxyPassword?: Maybe<Scalars['String']['output']>;
@@ -2093,6 +2187,8 @@ export type PartialSettingsTypeInput = {
   downloadAsCbz?: InputMaybe<Scalars['Boolean']['input']>;
   downloadConversions?: InputMaybe<Array<SettingsDownloadConversionTypeInput>>;
   downloadsPath?: InputMaybe<Scalars['String']['input']>;
+  ebookFormat?: InputMaybe<Scalars['String']['input']>;
+  ebookRtl?: InputMaybe<Scalars['Boolean']['input']>;
   electronPath?: InputMaybe<Scalars['String']['input']>;
   excludeCompleted?: InputMaybe<Scalars['Boolean']['input']>;
   excludeEntryWithUnreadChapters?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2111,6 +2207,9 @@ export type PartialSettingsTypeInput = {
   jwtAudience?: InputMaybe<Scalars['String']['input']>;
   jwtRefreshExpiry?: InputMaybe<Scalars['Duration']['input']>;
   jwtTokenExpiry?: InputMaybe<Scalars['Duration']['input']>;
+  kindleAutoSendEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  kindleEmail?: InputMaybe<Scalars['String']['input']>;
+  kindleSendIntervalSeconds?: InputMaybe<Scalars['Int']['input']>;
   koreaderSyncChecksumMethod?: InputMaybe<KoreaderSyncChecksumMethod>;
   koreaderSyncPercentageTolerance?: InputMaybe<Scalars['Float']['input']>;
   koreaderSyncStrategyBackward?: InputMaybe<KoreaderSyncConflictStrategy>;
@@ -2120,6 +2219,7 @@ export type PartialSettingsTypeInput = {
   maxLogFiles?: InputMaybe<Scalars['Int']['input']>;
   maxLogFolderSize?: InputMaybe<Scalars['String']['input']>;
   maxSourcesInParallel?: InputMaybe<Scalars['Int']['input']>;
+  notifyOnKindleSend?: InputMaybe<Scalars['Boolean']['input']>;
   opdsCbzMimetype?: InputMaybe<CbzMediaType>;
   opdsChapterSortOrder?: InputMaybe<SortOrder>;
   opdsEnablePageReadProgress?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2130,6 +2230,14 @@ export type PartialSettingsTypeInput = {
   opdsUseBinaryFileSizes?: InputMaybe<Scalars['Boolean']['input']>;
   port?: InputMaybe<Scalars['Int']['input']>;
   serveConversions?: InputMaybe<Array<SettingsDownloadConversionTypeInput>>;
+  smtpAttachmentLimitBytes?: InputMaybe<Scalars['Int']['input']>;
+  smtpFromEmail?: InputMaybe<Scalars['String']['input']>;
+  smtpHost?: InputMaybe<Scalars['String']['input']>;
+  smtpPasswordEncrypted?: InputMaybe<Scalars['String']['input']>;
+  smtpPort?: InputMaybe<Scalars['Int']['input']>;
+  smtpProvider?: InputMaybe<Scalars['String']['input']>;
+  smtpUseStartTls?: InputMaybe<Scalars['Boolean']['input']>;
+  smtpUsername?: InputMaybe<Scalars['String']['input']>;
   socksProxyEnabled?: InputMaybe<Scalars['Boolean']['input']>;
   socksProxyHost?: InputMaybe<Scalars['String']['input']>;
   socksProxyPassword?: InputMaybe<Scalars['String']['input']>;
@@ -2186,16 +2294,19 @@ export type Query = {
   checkForWebUIUpdate: WebUiUpdateCheck;
   distinctScanlators: Array<DistinctScanlatorEntry>;
   downloadStatus: DownloadStatus;
+  emailPresets: Array<EmailPresetEntry>;
   extension: ExtensionType;
   extensions: ExtensionNodeList;
   findDuplicateMangas: Array<MangaType>;
   getWebUIUpdateStatus: WebUiUpdateStatus;
+  kindleQueue: Array<KindleQueueEntry>;
   koSyncStatus: KoSyncStatusPayload;
   lastUpdateTimestamp: LastUpdateTimestampPayload;
   libraryRecommendations?: Maybe<Array<RecommendationEntry>>;
   libraryUpdateStatus: LibraryUpdateStatus;
   localSourceEntries: Array<LocalSourceEntryType>;
   manga: MangaType;
+  mangaKindleConfig: MangaKindleConfigEntry;
   mangaRecommendations?: Maybe<Array<RecommendationEntry>>;
   mangaUserOverride?: Maybe<MangaUserOverrideType>;
   mangas: MangaNodeList;
@@ -2295,6 +2406,11 @@ export type QueryLibraryRecommendationsArgs = {
 
 export type QueryMangaArgs = {
   id: Scalars['Int']['input'];
+};
+
+
+export type QueryMangaKindleConfigArgs = {
+  mangaId: Scalars['Int']['input'];
 };
 
 
@@ -2503,6 +2619,17 @@ export type RestoreBackupPayload = {
   status?: Maybe<BackupRestoreStatus>;
 };
 
+export type RetryKindleQueueEntryInput = {
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['Int']['input'];
+};
+
+export type RetryKindleQueueEntryPayload = {
+  __typename?: 'RetryKindleQueueEntryPayload';
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  retried: Scalars['Boolean']['output'];
+};
+
 export type ScanlatorAliasEdge = Edge & {
   __typename?: 'ScanlatorAliasEdge';
   cursor: Scalars['Cursor']['output'];
@@ -2541,6 +2668,31 @@ export type SelectFilter = {
   default: Scalars['Int']['output'];
   name: Scalars['String']['output'];
   values: Array<Scalars['String']['output']>;
+};
+
+export type SendChapterToKindleInput = {
+  chapterId: Scalars['Int']['input'];
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  destination?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SendChapterToKindlePayload = {
+  __typename?: 'SendChapterToKindlePayload';
+  alreadyQueued: Scalars['Boolean']['output'];
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  queueEntryId?: Maybe<Scalars['Int']['output']>;
+};
+
+export type SendTestEmailInput = {
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  destination?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SendTestEmailPayload = {
+  __typename?: 'SendTestEmailPayload';
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  message?: Maybe<Scalars['String']['output']>;
+  sent: Scalars['Boolean']['output'];
 };
 
 export type SeparatorFilter = {
@@ -2650,6 +2802,21 @@ export type SetMangaCustomCoverPayload = {
   override: MangaUserOverrideType;
 };
 
+export type SetMangaKindleConfigInput = {
+  autoSend: Scalars['Boolean']['input'];
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  destination?: InputMaybe<Scalars['String']['input']>;
+  mangaId: Scalars['Int']['input'];
+};
+
+export type SetMangaKindleConfigPayload = {
+  __typename?: 'SetMangaKindleConfigPayload';
+  autoSend: Scalars['Boolean']['output'];
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  destination?: Maybe<Scalars['String']['output']>;
+  mangaId: Scalars['Int']['output'];
+};
+
 export type SetMangaMetaInput = {
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
   meta: MangaMetaTypeInput;
@@ -2699,6 +2866,17 @@ export type SetSettingsPayload = {
   __typename?: 'SetSettingsPayload';
   clientMutationId?: Maybe<Scalars['String']['output']>;
   settings: SettingsType;
+};
+
+export type SetSmtpPasswordInput = {
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  password: Scalars['String']['input'];
+};
+
+export type SetSmtpPasswordPayload = {
+  __typename?: 'SetSmtpPasswordPayload';
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  saved: Scalars['Boolean']['output'];
 };
 
 export type SetSourceMetaInput = {
@@ -2763,6 +2941,8 @@ export type Settings = {
   downloadAsCbz?: Maybe<Scalars['Boolean']['output']>;
   downloadConversions?: Maybe<Array<SettingsDownloadConversion>>;
   downloadsPath?: Maybe<Scalars['String']['output']>;
+  ebookFormat?: Maybe<Scalars['String']['output']>;
+  ebookRtl?: Maybe<Scalars['Boolean']['output']>;
   electronPath?: Maybe<Scalars['String']['output']>;
   excludeCompleted?: Maybe<Scalars['Boolean']['output']>;
   excludeEntryWithUnreadChapters?: Maybe<Scalars['Boolean']['output']>;
@@ -2783,6 +2963,9 @@ export type Settings = {
   jwtAudience?: Maybe<Scalars['String']['output']>;
   jwtRefreshExpiry?: Maybe<Scalars['Duration']['output']>;
   jwtTokenExpiry?: Maybe<Scalars['Duration']['output']>;
+  kindleAutoSendEnabled?: Maybe<Scalars['Boolean']['output']>;
+  kindleEmail?: Maybe<Scalars['String']['output']>;
+  kindleSendIntervalSeconds?: Maybe<Scalars['Int']['output']>;
   koreaderSyncChecksumMethod?: Maybe<KoreaderSyncChecksumMethod>;
   /** @deprecated Moved to preference store. Is supposed to be random and gets auto generated, replace with MOVE TO PREFERENCES */
   koreaderSyncDeviceId?: Maybe<Scalars['String']['output']>;
@@ -2802,6 +2985,7 @@ export type Settings = {
   maxLogFiles?: Maybe<Scalars['Int']['output']>;
   maxLogFolderSize?: Maybe<Scalars['String']['output']>;
   maxSourcesInParallel?: Maybe<Scalars['Int']['output']>;
+  notifyOnKindleSend?: Maybe<Scalars['Boolean']['output']>;
   opdsCbzMimetype?: Maybe<CbzMediaType>;
   opdsChapterSortOrder?: Maybe<SortOrder>;
   opdsEnablePageReadProgress?: Maybe<Scalars['Boolean']['output']>;
@@ -2812,6 +2996,14 @@ export type Settings = {
   opdsUseBinaryFileSizes?: Maybe<Scalars['Boolean']['output']>;
   port?: Maybe<Scalars['Int']['output']>;
   serveConversions?: Maybe<Array<SettingsDownloadConversion>>;
+  smtpAttachmentLimitBytes?: Maybe<Scalars['Int']['output']>;
+  smtpFromEmail?: Maybe<Scalars['String']['output']>;
+  smtpHost?: Maybe<Scalars['String']['output']>;
+  smtpPasswordEncrypted?: Maybe<Scalars['String']['output']>;
+  smtpPort?: Maybe<Scalars['Int']['output']>;
+  smtpProvider?: Maybe<Scalars['String']['output']>;
+  smtpUseStartTls?: Maybe<Scalars['Boolean']['output']>;
+  smtpUsername?: Maybe<Scalars['String']['output']>;
   socksProxyEnabled?: Maybe<Scalars['Boolean']['output']>;
   socksProxyHost?: Maybe<Scalars['String']['output']>;
   socksProxyPassword?: Maybe<Scalars['String']['output']>;
@@ -2909,6 +3101,8 @@ export type SettingsType = Settings & {
   downloadAsCbz: Scalars['Boolean']['output'];
   downloadConversions: Array<SettingsDownloadConversionType>;
   downloadsPath: Scalars['String']['output'];
+  ebookFormat: Scalars['String']['output'];
+  ebookRtl: Scalars['Boolean']['output'];
   electronPath: Scalars['String']['output'];
   excludeCompleted: Scalars['Boolean']['output'];
   excludeEntryWithUnreadChapters: Scalars['Boolean']['output'];
@@ -2929,6 +3123,9 @@ export type SettingsType = Settings & {
   jwtAudience: Scalars['String']['output'];
   jwtRefreshExpiry: Scalars['Duration']['output'];
   jwtTokenExpiry: Scalars['Duration']['output'];
+  kindleAutoSendEnabled: Scalars['Boolean']['output'];
+  kindleEmail: Scalars['String']['output'];
+  kindleSendIntervalSeconds: Scalars['Int']['output'];
   koreaderSyncChecksumMethod: KoreaderSyncChecksumMethod;
   /** @deprecated Moved to preference store. Is supposed to be random and gets auto generated, replace with MOVE TO PREFERENCES */
   koreaderSyncDeviceId: Scalars['String']['output'];
@@ -2948,6 +3145,7 @@ export type SettingsType = Settings & {
   maxLogFiles: Scalars['Int']['output'];
   maxLogFolderSize: Scalars['String']['output'];
   maxSourcesInParallel: Scalars['Int']['output'];
+  notifyOnKindleSend: Scalars['Boolean']['output'];
   opdsCbzMimetype: CbzMediaType;
   opdsChapterSortOrder: SortOrder;
   opdsEnablePageReadProgress: Scalars['Boolean']['output'];
@@ -2958,6 +3156,14 @@ export type SettingsType = Settings & {
   opdsUseBinaryFileSizes: Scalars['Boolean']['output'];
   port: Scalars['Int']['output'];
   serveConversions: Array<SettingsDownloadConversionType>;
+  smtpAttachmentLimitBytes: Scalars['Int']['output'];
+  smtpFromEmail: Scalars['String']['output'];
+  smtpHost: Scalars['String']['output'];
+  smtpPasswordEncrypted: Scalars['String']['output'];
+  smtpPort: Scalars['Int']['output'];
+  smtpProvider: Scalars['String']['output'];
+  smtpUseStartTls: Scalars['Boolean']['output'];
+  smtpUsername: Scalars['String']['output'];
   socksProxyEnabled: Scalars['Boolean']['output'];
   socksProxyHost: Scalars['String']['output'];
   socksProxyPassword: Scalars['String']['output'];
@@ -4243,6 +4449,65 @@ export type ClearServerCacheMutationVariables = Exact<{
 
 export type ClearServerCacheMutation = { __typename?: 'Mutation', clearCachedImages: { __typename?: 'ClearCachedImagesPayload', cachedPages?: boolean | null, cachedThumbnails?: boolean | null, downloadedThumbnails?: boolean | null } };
 
+export type SendChapterToKindleMutationVariables = Exact<{
+  input: SendChapterToKindleInput;
+}>;
+
+
+export type SendChapterToKindleMutation = { __typename?: 'Mutation', sendChapterToKindle?: { __typename?: 'SendChapterToKindlePayload', queueEntryId?: number | null, alreadyQueued: boolean } | null };
+
+export type CancelKindleQueueEntryMutationVariables = Exact<{
+  input: CancelKindleQueueEntryInput;
+}>;
+
+
+export type CancelKindleQueueEntryMutation = { __typename?: 'Mutation', cancelKindleQueueEntry?: { __typename?: 'CancelKindleQueueEntryPayload', cancelled: boolean } | null };
+
+export type RetryKindleQueueEntryMutationVariables = Exact<{
+  input: RetryKindleQueueEntryInput;
+}>;
+
+
+export type RetryKindleQueueEntryMutation = { __typename?: 'Mutation', retryKindleQueueEntry?: { __typename?: 'RetryKindleQueueEntryPayload', retried: boolean } | null };
+
+export type SetMangaKindleConfigMutationVariables = Exact<{
+  input: SetMangaKindleConfigInput;
+}>;
+
+
+export type SetMangaKindleConfigMutation = { __typename?: 'Mutation', setMangaKindleConfig?: { __typename?: 'SetMangaKindleConfigPayload', mangaId: number, autoSend: boolean, destination?: string | null } | null };
+
+export type SetSmtpPasswordMutationVariables = Exact<{
+  input: SetSmtpPasswordInput;
+}>;
+
+
+export type SetSmtpPasswordMutation = { __typename?: 'Mutation', setSmtpPassword?: { __typename?: 'SetSmtpPasswordPayload', saved: boolean } | null };
+
+export type SendTestEmailMutationVariables = Exact<{
+  input: SendTestEmailInput;
+}>;
+
+
+export type SendTestEmailMutation = { __typename?: 'Mutation', sendTestEmail?: { __typename?: 'SendTestEmailPayload', sent: boolean, message?: string | null } | null };
+
+export type GetKindleQueueQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetKindleQueueQuery = { __typename?: 'Query', kindleQueue: Array<{ __typename?: 'KindleQueueEntry', id: number, chapterId: number, mangaId: number, mangaTitle: string, chapterName: string, status: string, attempts: number, triggerSource: string, destination?: string | null, lastError?: string | null, enqueuedAt: string, lastAttemptAt?: string | null, nextAttemptAt: string }> };
+
+export type GetEmailPresetsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetEmailPresetsQuery = { __typename?: 'Query', emailPresets: Array<{ __typename?: 'EmailPresetEntry', id: string, displayName: string, host: string, port: number, useStartTls: boolean }> };
+
+export type GetMangaKindleConfigQueryVariables = Exact<{
+  mangaId: Scalars['Int']['input'];
+}>;
+
+
+export type GetMangaKindleConfigQuery = { __typename?: 'Query', mangaKindleConfig: { __typename?: 'MangaKindleConfigEntry', mangaId: number, autoSend: boolean, destination?: string | null } };
+
 export type KoSyncStatusFragment = { __typename?: 'KoSyncStatusPayload', isLoggedIn: boolean, serverAddress?: string | null, username?: string | null };
 
 export type KoSyncLoginMutationVariables = Exact<{
@@ -4659,26 +4924,26 @@ export type WebuiUpdateSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 export type WebuiUpdateSubscription = { __typename?: 'Subscription', webUIUpdateStatusChange: { __typename?: 'WebUIUpdateStatus', progress: number, state: UpdateState, info: { __typename?: 'WebUIUpdateInfo', channel: WebUiChannel, tag: string } } };
 
-export type ServerSettingsFragment = { __typename?: 'SettingsType', ip: string, port: number, socksProxyEnabled: boolean, socksProxyVersion: number, socksProxyHost: string, socksProxyPort: string, socksProxyUsername: string, socksProxyPassword: string, webUIFlavor: WebUiFlavor, initialOpenInBrowserEnabled: boolean, webUIInterface: WebUiInterface, electronPath: string, webUIChannel: WebUiChannel, webUIUpdateCheckInterval: number, downloadAsCbz: boolean, downloadsPath: string, autoDownloadNewChapters: boolean, excludeEntryWithUnreadChapters: boolean, autoDownloadNewChaptersLimit: number, autoDownloadIgnoreReUploads: boolean, extensionRepos: Array<string>, maxSourcesInParallel: number, excludeUnreadChapters: boolean, excludeNotStarted: boolean, excludeCompleted: boolean, globalUpdateInterval: number, updateMangas: boolean, authMode: AuthMode, authPassword: string, authUsername: string, jwtAudience: string, jwtTokenExpiry: string, jwtRefreshExpiry: string, debugLogsEnabled: boolean, systemTrayEnabled: boolean, maxLogFileSize: string, maxLogFiles: number, maxLogFolderSize: string, backupPath: string, backupTime: string, backupInterval: number, backupTTL: number, autoBackupIncludeCategories: boolean, autoBackupIncludeChapters: boolean, autoBackupIncludeClientData: boolean, autoBackupIncludeHistory: boolean, autoBackupIncludeManga: boolean, autoBackupIncludeServerSettings: boolean, autoBackupIncludeTracking: boolean, localSourcePath: string, flareSolverrEnabled: boolean, flareSolverrUrl: string, flareSolverrTimeout: number, flareSolverrSessionName: string, flareSolverrSessionTtl: number, flareSolverrAsResponseFallback: boolean, opdsUseBinaryFileSizes: boolean, opdsItemsPerPage: number, opdsEnablePageReadProgress: boolean, opdsMarkAsReadOnDownload: boolean, opdsShowOnlyUnreadChapters: boolean, opdsShowOnlyDownloadedChapters: boolean, opdsChapterSortOrder: SortOrder, opdsCbzMimetype: CbzMediaType, koreaderSyncChecksumMethod: KoreaderSyncChecksumMethod, koreaderSyncStrategyBackward: KoreaderSyncConflictStrategy, koreaderSyncStrategyForward: KoreaderSyncConflictStrategy, koreaderSyncPercentageTolerance: number, databaseType: DatabaseType, databaseUrl: string, databaseUsername: string, databasePassword: string, useHikariConnectionPool: boolean, telegramNotificationsEnabled: boolean, telegramBotToken: string, telegramChatId: string, downloadConversions: Array<{ __typename?: 'SettingsDownloadConversionType', mimeType: string, target: string, compressionLevel?: number | null, callTimeout?: string | null, connectTimeout?: string | null, headers?: Array<{ __typename?: 'SettingsDownloadConversionHeaderType', name: string, value: string }> | null }>, serveConversions: Array<{ __typename?: 'SettingsDownloadConversionType', mimeType: string, target: string, compressionLevel?: number | null, callTimeout?: string | null, connectTimeout?: string | null, headers?: Array<{ __typename?: 'SettingsDownloadConversionHeaderType', name: string, value: string }> | null }> };
+export type ServerSettingsFragment = { __typename?: 'SettingsType', ip: string, port: number, socksProxyEnabled: boolean, socksProxyVersion: number, socksProxyHost: string, socksProxyPort: string, socksProxyUsername: string, socksProxyPassword: string, webUIFlavor: WebUiFlavor, initialOpenInBrowserEnabled: boolean, webUIInterface: WebUiInterface, electronPath: string, webUIChannel: WebUiChannel, webUIUpdateCheckInterval: number, downloadAsCbz: boolean, downloadsPath: string, autoDownloadNewChapters: boolean, excludeEntryWithUnreadChapters: boolean, autoDownloadNewChaptersLimit: number, autoDownloadIgnoreReUploads: boolean, extensionRepos: Array<string>, maxSourcesInParallel: number, excludeUnreadChapters: boolean, excludeNotStarted: boolean, excludeCompleted: boolean, globalUpdateInterval: number, updateMangas: boolean, authMode: AuthMode, authPassword: string, authUsername: string, jwtAudience: string, jwtTokenExpiry: string, jwtRefreshExpiry: string, debugLogsEnabled: boolean, systemTrayEnabled: boolean, maxLogFileSize: string, maxLogFiles: number, maxLogFolderSize: string, backupPath: string, backupTime: string, backupInterval: number, backupTTL: number, autoBackupIncludeCategories: boolean, autoBackupIncludeChapters: boolean, autoBackupIncludeClientData: boolean, autoBackupIncludeHistory: boolean, autoBackupIncludeManga: boolean, autoBackupIncludeServerSettings: boolean, autoBackupIncludeTracking: boolean, localSourcePath: string, flareSolverrEnabled: boolean, flareSolverrUrl: string, flareSolverrTimeout: number, flareSolverrSessionName: string, flareSolverrSessionTtl: number, flareSolverrAsResponseFallback: boolean, opdsUseBinaryFileSizes: boolean, opdsItemsPerPage: number, opdsEnablePageReadProgress: boolean, opdsMarkAsReadOnDownload: boolean, opdsShowOnlyUnreadChapters: boolean, opdsShowOnlyDownloadedChapters: boolean, opdsChapterSortOrder: SortOrder, opdsCbzMimetype: CbzMediaType, koreaderSyncChecksumMethod: KoreaderSyncChecksumMethod, koreaderSyncStrategyBackward: KoreaderSyncConflictStrategy, koreaderSyncStrategyForward: KoreaderSyncConflictStrategy, koreaderSyncPercentageTolerance: number, databaseType: DatabaseType, databaseUrl: string, databaseUsername: string, databasePassword: string, useHikariConnectionPool: boolean, telegramNotificationsEnabled: boolean, telegramBotToken: string, telegramChatId: string, smtpProvider: string, smtpHost: string, smtpPort: number, smtpUseStartTls: boolean, smtpUsername: string, smtpPasswordEncrypted: string, smtpFromEmail: string, smtpAttachmentLimitBytes: number, kindleEmail: string, ebookFormat: string, ebookRtl: boolean, kindleSendIntervalSeconds: number, kindleAutoSendEnabled: boolean, notifyOnKindleSend: boolean, downloadConversions: Array<{ __typename?: 'SettingsDownloadConversionType', mimeType: string, target: string, compressionLevel?: number | null, callTimeout?: string | null, connectTimeout?: string | null, headers?: Array<{ __typename?: 'SettingsDownloadConversionHeaderType', name: string, value: string }> | null }>, serveConversions: Array<{ __typename?: 'SettingsDownloadConversionType', mimeType: string, target: string, compressionLevel?: number | null, callTimeout?: string | null, connectTimeout?: string | null, headers?: Array<{ __typename?: 'SettingsDownloadConversionHeaderType', name: string, value: string }> | null }> };
 
 export type ResetServerSettingsMutationVariables = Exact<{
   input: ResetSettingsInput;
 }>;
 
 
-export type ResetServerSettingsMutation = { __typename?: 'Mutation', resetSettings: { __typename?: 'ResetSettingsPayload', settings: { __typename?: 'SettingsType', ip: string, port: number, socksProxyEnabled: boolean, socksProxyVersion: number, socksProxyHost: string, socksProxyPort: string, socksProxyUsername: string, socksProxyPassword: string, webUIFlavor: WebUiFlavor, initialOpenInBrowserEnabled: boolean, webUIInterface: WebUiInterface, electronPath: string, webUIChannel: WebUiChannel, webUIUpdateCheckInterval: number, downloadAsCbz: boolean, downloadsPath: string, autoDownloadNewChapters: boolean, excludeEntryWithUnreadChapters: boolean, autoDownloadNewChaptersLimit: number, autoDownloadIgnoreReUploads: boolean, extensionRepos: Array<string>, maxSourcesInParallel: number, excludeUnreadChapters: boolean, excludeNotStarted: boolean, excludeCompleted: boolean, globalUpdateInterval: number, updateMangas: boolean, authMode: AuthMode, authPassword: string, authUsername: string, jwtAudience: string, jwtTokenExpiry: string, jwtRefreshExpiry: string, debugLogsEnabled: boolean, systemTrayEnabled: boolean, maxLogFileSize: string, maxLogFiles: number, maxLogFolderSize: string, backupPath: string, backupTime: string, backupInterval: number, backupTTL: number, autoBackupIncludeCategories: boolean, autoBackupIncludeChapters: boolean, autoBackupIncludeClientData: boolean, autoBackupIncludeHistory: boolean, autoBackupIncludeManga: boolean, autoBackupIncludeServerSettings: boolean, autoBackupIncludeTracking: boolean, localSourcePath: string, flareSolverrEnabled: boolean, flareSolverrUrl: string, flareSolverrTimeout: number, flareSolverrSessionName: string, flareSolverrSessionTtl: number, flareSolverrAsResponseFallback: boolean, opdsUseBinaryFileSizes: boolean, opdsItemsPerPage: number, opdsEnablePageReadProgress: boolean, opdsMarkAsReadOnDownload: boolean, opdsShowOnlyUnreadChapters: boolean, opdsShowOnlyDownloadedChapters: boolean, opdsChapterSortOrder: SortOrder, opdsCbzMimetype: CbzMediaType, koreaderSyncChecksumMethod: KoreaderSyncChecksumMethod, koreaderSyncStrategyBackward: KoreaderSyncConflictStrategy, koreaderSyncStrategyForward: KoreaderSyncConflictStrategy, koreaderSyncPercentageTolerance: number, databaseType: DatabaseType, databaseUrl: string, databaseUsername: string, databasePassword: string, useHikariConnectionPool: boolean, telegramNotificationsEnabled: boolean, telegramBotToken: string, telegramChatId: string, downloadConversions: Array<{ __typename?: 'SettingsDownloadConversionType', mimeType: string, target: string, compressionLevel?: number | null, callTimeout?: string | null, connectTimeout?: string | null, headers?: Array<{ __typename?: 'SettingsDownloadConversionHeaderType', name: string, value: string }> | null }>, serveConversions: Array<{ __typename?: 'SettingsDownloadConversionType', mimeType: string, target: string, compressionLevel?: number | null, callTimeout?: string | null, connectTimeout?: string | null, headers?: Array<{ __typename?: 'SettingsDownloadConversionHeaderType', name: string, value: string }> | null }> } } };
+export type ResetServerSettingsMutation = { __typename?: 'Mutation', resetSettings: { __typename?: 'ResetSettingsPayload', settings: { __typename?: 'SettingsType', ip: string, port: number, socksProxyEnabled: boolean, socksProxyVersion: number, socksProxyHost: string, socksProxyPort: string, socksProxyUsername: string, socksProxyPassword: string, webUIFlavor: WebUiFlavor, initialOpenInBrowserEnabled: boolean, webUIInterface: WebUiInterface, electronPath: string, webUIChannel: WebUiChannel, webUIUpdateCheckInterval: number, downloadAsCbz: boolean, downloadsPath: string, autoDownloadNewChapters: boolean, excludeEntryWithUnreadChapters: boolean, autoDownloadNewChaptersLimit: number, autoDownloadIgnoreReUploads: boolean, extensionRepos: Array<string>, maxSourcesInParallel: number, excludeUnreadChapters: boolean, excludeNotStarted: boolean, excludeCompleted: boolean, globalUpdateInterval: number, updateMangas: boolean, authMode: AuthMode, authPassword: string, authUsername: string, jwtAudience: string, jwtTokenExpiry: string, jwtRefreshExpiry: string, debugLogsEnabled: boolean, systemTrayEnabled: boolean, maxLogFileSize: string, maxLogFiles: number, maxLogFolderSize: string, backupPath: string, backupTime: string, backupInterval: number, backupTTL: number, autoBackupIncludeCategories: boolean, autoBackupIncludeChapters: boolean, autoBackupIncludeClientData: boolean, autoBackupIncludeHistory: boolean, autoBackupIncludeManga: boolean, autoBackupIncludeServerSettings: boolean, autoBackupIncludeTracking: boolean, localSourcePath: string, flareSolverrEnabled: boolean, flareSolverrUrl: string, flareSolverrTimeout: number, flareSolverrSessionName: string, flareSolverrSessionTtl: number, flareSolverrAsResponseFallback: boolean, opdsUseBinaryFileSizes: boolean, opdsItemsPerPage: number, opdsEnablePageReadProgress: boolean, opdsMarkAsReadOnDownload: boolean, opdsShowOnlyUnreadChapters: boolean, opdsShowOnlyDownloadedChapters: boolean, opdsChapterSortOrder: SortOrder, opdsCbzMimetype: CbzMediaType, koreaderSyncChecksumMethod: KoreaderSyncChecksumMethod, koreaderSyncStrategyBackward: KoreaderSyncConflictStrategy, koreaderSyncStrategyForward: KoreaderSyncConflictStrategy, koreaderSyncPercentageTolerance: number, databaseType: DatabaseType, databaseUrl: string, databaseUsername: string, databasePassword: string, useHikariConnectionPool: boolean, telegramNotificationsEnabled: boolean, telegramBotToken: string, telegramChatId: string, smtpProvider: string, smtpHost: string, smtpPort: number, smtpUseStartTls: boolean, smtpUsername: string, smtpPasswordEncrypted: string, smtpFromEmail: string, smtpAttachmentLimitBytes: number, kindleEmail: string, ebookFormat: string, ebookRtl: boolean, kindleSendIntervalSeconds: number, kindleAutoSendEnabled: boolean, notifyOnKindleSend: boolean, downloadConversions: Array<{ __typename?: 'SettingsDownloadConversionType', mimeType: string, target: string, compressionLevel?: number | null, callTimeout?: string | null, connectTimeout?: string | null, headers?: Array<{ __typename?: 'SettingsDownloadConversionHeaderType', name: string, value: string }> | null }>, serveConversions: Array<{ __typename?: 'SettingsDownloadConversionType', mimeType: string, target: string, compressionLevel?: number | null, callTimeout?: string | null, connectTimeout?: string | null, headers?: Array<{ __typename?: 'SettingsDownloadConversionHeaderType', name: string, value: string }> | null }> } } };
 
 export type UpdateServerSettingsMutationVariables = Exact<{
   input: SetSettingsInput;
 }>;
 
 
-export type UpdateServerSettingsMutation = { __typename?: 'Mutation', setSettings: { __typename?: 'SetSettingsPayload', settings: { __typename?: 'SettingsType', ip: string, port: number, socksProxyEnabled: boolean, socksProxyVersion: number, socksProxyHost: string, socksProxyPort: string, socksProxyUsername: string, socksProxyPassword: string, webUIFlavor: WebUiFlavor, initialOpenInBrowserEnabled: boolean, webUIInterface: WebUiInterface, electronPath: string, webUIChannel: WebUiChannel, webUIUpdateCheckInterval: number, downloadAsCbz: boolean, downloadsPath: string, autoDownloadNewChapters: boolean, excludeEntryWithUnreadChapters: boolean, autoDownloadNewChaptersLimit: number, autoDownloadIgnoreReUploads: boolean, extensionRepos: Array<string>, maxSourcesInParallel: number, excludeUnreadChapters: boolean, excludeNotStarted: boolean, excludeCompleted: boolean, globalUpdateInterval: number, updateMangas: boolean, authMode: AuthMode, authPassword: string, authUsername: string, jwtAudience: string, jwtTokenExpiry: string, jwtRefreshExpiry: string, debugLogsEnabled: boolean, systemTrayEnabled: boolean, maxLogFileSize: string, maxLogFiles: number, maxLogFolderSize: string, backupPath: string, backupTime: string, backupInterval: number, backupTTL: number, autoBackupIncludeCategories: boolean, autoBackupIncludeChapters: boolean, autoBackupIncludeClientData: boolean, autoBackupIncludeHistory: boolean, autoBackupIncludeManga: boolean, autoBackupIncludeServerSettings: boolean, autoBackupIncludeTracking: boolean, localSourcePath: string, flareSolverrEnabled: boolean, flareSolverrUrl: string, flareSolverrTimeout: number, flareSolverrSessionName: string, flareSolverrSessionTtl: number, flareSolverrAsResponseFallback: boolean, opdsUseBinaryFileSizes: boolean, opdsItemsPerPage: number, opdsEnablePageReadProgress: boolean, opdsMarkAsReadOnDownload: boolean, opdsShowOnlyUnreadChapters: boolean, opdsShowOnlyDownloadedChapters: boolean, opdsChapterSortOrder: SortOrder, opdsCbzMimetype: CbzMediaType, koreaderSyncChecksumMethod: KoreaderSyncChecksumMethod, koreaderSyncStrategyBackward: KoreaderSyncConflictStrategy, koreaderSyncStrategyForward: KoreaderSyncConflictStrategy, koreaderSyncPercentageTolerance: number, databaseType: DatabaseType, databaseUrl: string, databaseUsername: string, databasePassword: string, useHikariConnectionPool: boolean, telegramNotificationsEnabled: boolean, telegramBotToken: string, telegramChatId: string, downloadConversions: Array<{ __typename?: 'SettingsDownloadConversionType', mimeType: string, target: string, compressionLevel?: number | null, callTimeout?: string | null, connectTimeout?: string | null, headers?: Array<{ __typename?: 'SettingsDownloadConversionHeaderType', name: string, value: string }> | null }>, serveConversions: Array<{ __typename?: 'SettingsDownloadConversionType', mimeType: string, target: string, compressionLevel?: number | null, callTimeout?: string | null, connectTimeout?: string | null, headers?: Array<{ __typename?: 'SettingsDownloadConversionHeaderType', name: string, value: string }> | null }> } } };
+export type UpdateServerSettingsMutation = { __typename?: 'Mutation', setSettings: { __typename?: 'SetSettingsPayload', settings: { __typename?: 'SettingsType', ip: string, port: number, socksProxyEnabled: boolean, socksProxyVersion: number, socksProxyHost: string, socksProxyPort: string, socksProxyUsername: string, socksProxyPassword: string, webUIFlavor: WebUiFlavor, initialOpenInBrowserEnabled: boolean, webUIInterface: WebUiInterface, electronPath: string, webUIChannel: WebUiChannel, webUIUpdateCheckInterval: number, downloadAsCbz: boolean, downloadsPath: string, autoDownloadNewChapters: boolean, excludeEntryWithUnreadChapters: boolean, autoDownloadNewChaptersLimit: number, autoDownloadIgnoreReUploads: boolean, extensionRepos: Array<string>, maxSourcesInParallel: number, excludeUnreadChapters: boolean, excludeNotStarted: boolean, excludeCompleted: boolean, globalUpdateInterval: number, updateMangas: boolean, authMode: AuthMode, authPassword: string, authUsername: string, jwtAudience: string, jwtTokenExpiry: string, jwtRefreshExpiry: string, debugLogsEnabled: boolean, systemTrayEnabled: boolean, maxLogFileSize: string, maxLogFiles: number, maxLogFolderSize: string, backupPath: string, backupTime: string, backupInterval: number, backupTTL: number, autoBackupIncludeCategories: boolean, autoBackupIncludeChapters: boolean, autoBackupIncludeClientData: boolean, autoBackupIncludeHistory: boolean, autoBackupIncludeManga: boolean, autoBackupIncludeServerSettings: boolean, autoBackupIncludeTracking: boolean, localSourcePath: string, flareSolverrEnabled: boolean, flareSolverrUrl: string, flareSolverrTimeout: number, flareSolverrSessionName: string, flareSolverrSessionTtl: number, flareSolverrAsResponseFallback: boolean, opdsUseBinaryFileSizes: boolean, opdsItemsPerPage: number, opdsEnablePageReadProgress: boolean, opdsMarkAsReadOnDownload: boolean, opdsShowOnlyUnreadChapters: boolean, opdsShowOnlyDownloadedChapters: boolean, opdsChapterSortOrder: SortOrder, opdsCbzMimetype: CbzMediaType, koreaderSyncChecksumMethod: KoreaderSyncChecksumMethod, koreaderSyncStrategyBackward: KoreaderSyncConflictStrategy, koreaderSyncStrategyForward: KoreaderSyncConflictStrategy, koreaderSyncPercentageTolerance: number, databaseType: DatabaseType, databaseUrl: string, databaseUsername: string, databasePassword: string, useHikariConnectionPool: boolean, telegramNotificationsEnabled: boolean, telegramBotToken: string, telegramChatId: string, smtpProvider: string, smtpHost: string, smtpPort: number, smtpUseStartTls: boolean, smtpUsername: string, smtpPasswordEncrypted: string, smtpFromEmail: string, smtpAttachmentLimitBytes: number, kindleEmail: string, ebookFormat: string, ebookRtl: boolean, kindleSendIntervalSeconds: number, kindleAutoSendEnabled: boolean, notifyOnKindleSend: boolean, downloadConversions: Array<{ __typename?: 'SettingsDownloadConversionType', mimeType: string, target: string, compressionLevel?: number | null, callTimeout?: string | null, connectTimeout?: string | null, headers?: Array<{ __typename?: 'SettingsDownloadConversionHeaderType', name: string, value: string }> | null }>, serveConversions: Array<{ __typename?: 'SettingsDownloadConversionType', mimeType: string, target: string, compressionLevel?: number | null, callTimeout?: string | null, connectTimeout?: string | null, headers?: Array<{ __typename?: 'SettingsDownloadConversionHeaderType', name: string, value: string }> | null }> } } };
 
 export type GetServerSettingsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetServerSettingsQuery = { __typename?: 'Query', settings: { __typename?: 'SettingsType', ip: string, port: number, socksProxyEnabled: boolean, socksProxyVersion: number, socksProxyHost: string, socksProxyPort: string, socksProxyUsername: string, socksProxyPassword: string, webUIFlavor: WebUiFlavor, initialOpenInBrowserEnabled: boolean, webUIInterface: WebUiInterface, electronPath: string, webUIChannel: WebUiChannel, webUIUpdateCheckInterval: number, downloadAsCbz: boolean, downloadsPath: string, autoDownloadNewChapters: boolean, excludeEntryWithUnreadChapters: boolean, autoDownloadNewChaptersLimit: number, autoDownloadIgnoreReUploads: boolean, extensionRepos: Array<string>, maxSourcesInParallel: number, excludeUnreadChapters: boolean, excludeNotStarted: boolean, excludeCompleted: boolean, globalUpdateInterval: number, updateMangas: boolean, authMode: AuthMode, authPassword: string, authUsername: string, jwtAudience: string, jwtTokenExpiry: string, jwtRefreshExpiry: string, debugLogsEnabled: boolean, systemTrayEnabled: boolean, maxLogFileSize: string, maxLogFiles: number, maxLogFolderSize: string, backupPath: string, backupTime: string, backupInterval: number, backupTTL: number, autoBackupIncludeCategories: boolean, autoBackupIncludeChapters: boolean, autoBackupIncludeClientData: boolean, autoBackupIncludeHistory: boolean, autoBackupIncludeManga: boolean, autoBackupIncludeServerSettings: boolean, autoBackupIncludeTracking: boolean, localSourcePath: string, flareSolverrEnabled: boolean, flareSolverrUrl: string, flareSolverrTimeout: number, flareSolverrSessionName: string, flareSolverrSessionTtl: number, flareSolverrAsResponseFallback: boolean, opdsUseBinaryFileSizes: boolean, opdsItemsPerPage: number, opdsEnablePageReadProgress: boolean, opdsMarkAsReadOnDownload: boolean, opdsShowOnlyUnreadChapters: boolean, opdsShowOnlyDownloadedChapters: boolean, opdsChapterSortOrder: SortOrder, opdsCbzMimetype: CbzMediaType, koreaderSyncChecksumMethod: KoreaderSyncChecksumMethod, koreaderSyncStrategyBackward: KoreaderSyncConflictStrategy, koreaderSyncStrategyForward: KoreaderSyncConflictStrategy, koreaderSyncPercentageTolerance: number, databaseType: DatabaseType, databaseUrl: string, databaseUsername: string, databasePassword: string, useHikariConnectionPool: boolean, telegramNotificationsEnabled: boolean, telegramBotToken: string, telegramChatId: string, downloadConversions: Array<{ __typename?: 'SettingsDownloadConversionType', mimeType: string, target: string, compressionLevel?: number | null, callTimeout?: string | null, connectTimeout?: string | null, headers?: Array<{ __typename?: 'SettingsDownloadConversionHeaderType', name: string, value: string }> | null }>, serveConversions: Array<{ __typename?: 'SettingsDownloadConversionType', mimeType: string, target: string, compressionLevel?: number | null, callTimeout?: string | null, connectTimeout?: string | null, headers?: Array<{ __typename?: 'SettingsDownloadConversionHeaderType', name: string, value: string }> | null }> } };
+export type GetServerSettingsQuery = { __typename?: 'Query', settings: { __typename?: 'SettingsType', ip: string, port: number, socksProxyEnabled: boolean, socksProxyVersion: number, socksProxyHost: string, socksProxyPort: string, socksProxyUsername: string, socksProxyPassword: string, webUIFlavor: WebUiFlavor, initialOpenInBrowserEnabled: boolean, webUIInterface: WebUiInterface, electronPath: string, webUIChannel: WebUiChannel, webUIUpdateCheckInterval: number, downloadAsCbz: boolean, downloadsPath: string, autoDownloadNewChapters: boolean, excludeEntryWithUnreadChapters: boolean, autoDownloadNewChaptersLimit: number, autoDownloadIgnoreReUploads: boolean, extensionRepos: Array<string>, maxSourcesInParallel: number, excludeUnreadChapters: boolean, excludeNotStarted: boolean, excludeCompleted: boolean, globalUpdateInterval: number, updateMangas: boolean, authMode: AuthMode, authPassword: string, authUsername: string, jwtAudience: string, jwtTokenExpiry: string, jwtRefreshExpiry: string, debugLogsEnabled: boolean, systemTrayEnabled: boolean, maxLogFileSize: string, maxLogFiles: number, maxLogFolderSize: string, backupPath: string, backupTime: string, backupInterval: number, backupTTL: number, autoBackupIncludeCategories: boolean, autoBackupIncludeChapters: boolean, autoBackupIncludeClientData: boolean, autoBackupIncludeHistory: boolean, autoBackupIncludeManga: boolean, autoBackupIncludeServerSettings: boolean, autoBackupIncludeTracking: boolean, localSourcePath: string, flareSolverrEnabled: boolean, flareSolverrUrl: string, flareSolverrTimeout: number, flareSolverrSessionName: string, flareSolverrSessionTtl: number, flareSolverrAsResponseFallback: boolean, opdsUseBinaryFileSizes: boolean, opdsItemsPerPage: number, opdsEnablePageReadProgress: boolean, opdsMarkAsReadOnDownload: boolean, opdsShowOnlyUnreadChapters: boolean, opdsShowOnlyDownloadedChapters: boolean, opdsChapterSortOrder: SortOrder, opdsCbzMimetype: CbzMediaType, koreaderSyncChecksumMethod: KoreaderSyncChecksumMethod, koreaderSyncStrategyBackward: KoreaderSyncConflictStrategy, koreaderSyncStrategyForward: KoreaderSyncConflictStrategy, koreaderSyncPercentageTolerance: number, databaseType: DatabaseType, databaseUrl: string, databaseUsername: string, databasePassword: string, useHikariConnectionPool: boolean, telegramNotificationsEnabled: boolean, telegramBotToken: string, telegramChatId: string, smtpProvider: string, smtpHost: string, smtpPort: number, smtpUseStartTls: boolean, smtpUsername: string, smtpPasswordEncrypted: string, smtpFromEmail: string, smtpAttachmentLimitBytes: number, kindleEmail: string, ebookFormat: string, ebookRtl: boolean, kindleSendIntervalSeconds: number, kindleAutoSendEnabled: boolean, notifyOnKindleSend: boolean, downloadConversions: Array<{ __typename?: 'SettingsDownloadConversionType', mimeType: string, target: string, compressionLevel?: number | null, callTimeout?: string | null, connectTimeout?: string | null, headers?: Array<{ __typename?: 'SettingsDownloadConversionHeaderType', name: string, value: string }> | null }>, serveConversions: Array<{ __typename?: 'SettingsDownloadConversionType', mimeType: string, target: string, compressionLevel?: number | null, callTimeout?: string | null, connectTimeout?: string | null, headers?: Array<{ __typename?: 'SettingsDownloadConversionHeaderType', name: string, value: string }> | null }> } };
 
 export type SourceMetaFieldsFragment = { __typename?: 'SourceMetaType', sourceId: string, key: string, value: string };
 
