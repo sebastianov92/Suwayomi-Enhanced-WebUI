@@ -22,7 +22,9 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { AwaitableComponent } from 'awaitable-component';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import EditIcon from '@mui/icons-material/Edit';
+import SendIcon from '@mui/icons-material/Send';
 import { MangaUserOverrideDialog } from '@/features/manga/components/MangaUserOverrideDialog.tsx';
+import { MangaKindleConfigDialog } from '@/features/manga/components/MangaKindleConfigDialog.tsx';
 import { useLingui } from '@lingui/react/macro';
 import { CustomTooltip } from '@/base/components/CustomTooltip.tsx';
 import type { MangaType } from '@/lib/graphql/generated/graphql.ts';
@@ -46,6 +48,7 @@ export const MangaToolbarMenu = ({ manga, onRefresh, refreshing }: IProps) => {
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [overrideDialogOpen, setOverrideDialogOpen] = React.useState(false);
+    const [kindleDialogOpen, setKindleDialogOpen] = React.useState(false);
     const open = Boolean(anchorEl);
     const handleClose = () => {
         setAnchorEl(null);
@@ -91,6 +94,14 @@ export const MangaToolbarMenu = ({ manga, onRefresh, refreshing }: IProps) => {
                                     color="inherit"
                                 >
                                     <EditIcon />
+                                </IconButton>
+                            </CustomTooltip>
+                            <CustomTooltip title={t`Send-to-Kindle settings`}>
+                                <IconButton
+                                    onClick={() => setKindleDialogOpen(true)}
+                                    color="inherit"
+                                >
+                                    <SendIcon />
                                 </IconButton>
                             </CustomTooltip>
                             <CustomTooltip title={t`Migrate`}>
@@ -179,6 +190,18 @@ export const MangaToolbarMenu = ({ manga, onRefresh, refreshing }: IProps) => {
                                 <ListItemText>{t`Edit metadata`}</ListItemText>
                             </MenuItem>,
                             <MenuItem
+                                key="kindle-settings"
+                                onClick={() => {
+                                    setKindleDialogOpen(true);
+                                    handleClose();
+                                }}
+                            >
+                                <ListItemIcon>
+                                    <SendIcon fontSize="small" />
+                                </ListItemIcon>
+                                <ListItemText>{t`Send-to-Kindle settings`}</ListItemText>
+                            </MenuItem>,
+                            <MenuItem
                                 key="migrate"
                                 component={Link}
                                 to={AppRoutes.migrate.childRoutes.singleMangaSearch.path(
@@ -215,6 +238,11 @@ export const MangaToolbarMenu = ({ manga, onRefresh, refreshing }: IProps) => {
                 onClose={() => setOverrideDialogOpen(false)}
                 mangaId={manga.id}
                 initialTitle={manga.title}
+            />
+            <MangaKindleConfigDialog
+                open={kindleDialogOpen}
+                onClose={() => setKindleDialogOpen(false)}
+                mangaId={manga.id}
             />
         </>
     );
