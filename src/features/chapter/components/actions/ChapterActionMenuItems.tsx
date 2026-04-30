@@ -243,47 +243,61 @@ export const ChapterActionMenuItems = ({
                 const targets = isSingleMode ? (isDownloaded && chapter ? [chapter] : []) : downloadedChapters;
                 if (targets.length === 0) return null;
 
-                const triggerDownload = async (path: string) => {
-                    // Fetch each archive as a blob and save it via a fresh
-                    // <a download> click. Browsers reliably allow multiple
-                    // saves via blob URLs (vs. multiple direct anchor clicks
-                    // to the same origin which most engines collapse into a
-                    // single download).
-                    let okCount = 0;
-                    let failed = 0;
-                    for (const c of targets) {
-                        try {
-                            const url = requestManager.getValidUrlFor(`chapter/${c.id}/${path}`);
-                            const res = await fetch(url, { credentials: 'include' });
-                            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                            const blob = await res.blob();
-                            // Pull the filename out of Content-Disposition so the
-                            // override-aware server name is preserved.
-                            const disposition = res.headers.get('content-disposition') ?? '';
-                            const match = disposition.match(/filename="?([^";]+)"?/i);
-                            const filename =
-                                match?.[1] ?? `chapter-${c.id}.${path === 'download.epub' ? 'epub' : 'cbz'}`;
-                            const blobUrl = URL.createObjectURL(blob);
-                            const a = document.createElement('a');
-                            a.href = blobUrl;
-                            a.download = filename;
-                            document.body.appendChild(a);
-                            a.click();
-                            a.remove();
-                            // Defer revoke so Safari has time to start the download.
-                            setTimeout(() => URL.revokeObjectURL(blobUrl), 30_000);
-                            okCount += 1;
-                        } catch (e) {
-                            failed += 1;
-                            // eslint-disable-next-line no-console
-                            console.warn('chapter download failed', c.id, e);
+                const triggerDownload = async (format: 'CBZ' | 'EPUB') => {
+                    // Single chapter -> hit the per-chapter direct endpoint
+                    // (preserves Content-Disposition + works with HEAD pre-flight).
+                    if (targets.length === 1) {
+                        const c = targets[0];
+                        const path = format === 'EPUB' ? 'download.epub' : 'download';
+                        const url = requestManager.getValidUrlFor(`chapter/${c.id}/${path}`);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.rel = 'noopener';
+                        a.target = '_blank';
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                        return;
+                    }
+                    // Bulk -> ask the server to bundle every selection into
+                    // a single ZIP (override + scanlator-alias filenames are
+                    // baked in server-side). Browsers happily save one big
+                    // file even when they would block N small ones.
+                    try {
+                        const res = await fetch(requestManager.getValidUrlFor('chapter/bulk-archive'), {
+                            method: 'POST',
+                            credentials: 'include',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                chapterIds: targets.map((c) => c.id),
+                                format,
+                            }),
+                        });
+                        if (!res.ok) {
+                            const errMsg = await res.text();
+                            throw new Error(`HTTP ${res.status}: ${errMsg}`);
                         }
-                    }
-                    if (okCount > 0 && targets.length > 1) {
-                        makeToast(t`Downloaded ${okCount} chapter(s)`, 'success');
-                    }
-                    if (failed > 0) {
-                        makeToast(t`${failed} chapter(s) failed to download`, 'error');
+                        const blob = await res.blob();
+                        const disposition = res.headers.get('content-disposition') ?? '';
+                        const match = disposition.match(/filename="?([^";]+)"?/i);
+                        const filename =
+                            match?.[1] ?? `chapters-${format.toLowerCase()}.zip`;
+                        const blobUrl = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = blobUrl;
+                        a.download = filename;
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                        setTimeout(() => URL.revokeObjectURL(blobUrl), 30_000);
+                        makeToast(
+                            t`Bundled ${targets.length} chapter(s) into a single ZIP`,
+                            'success',
+                        );
+                    } catch (e) {
+                        // eslint-disable-next-line no-console
+                        console.warn('bulk archive download failed', e);
+                        makeToast(t`Bulk download failed`, 'error');
                     }
                 };
 
@@ -324,7 +338,7 @@ export const ChapterActionMenuItems = ({
                         <MenuItem
                             Icon={SaveAlt}
                             onClick={() => {
-                                void triggerDownload('download');
+                                void triggerDownload('CBZ');
                                 onClose();
                             }}
                             title={t`Save CBZ to this device${suffix}`}
@@ -332,7 +346,7 @@ export const ChapterActionMenuItems = ({
                         <MenuItem
                             Icon={MenuBookIcon}
                             onClick={() => {
-                                void triggerDownload('download.epub');
+                                void triggerDownload('EPUB');
                                 onClose();
                             }}
                             title={t`Save EPUB to this device${suffix}`}
