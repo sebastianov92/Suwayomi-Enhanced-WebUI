@@ -20,7 +20,6 @@ import type {
     SendChapterToKindleMutationVariables,
 } from '@/lib/graphql/generated/graphql.ts';
 import { makeToast } from '@/base/utils/Toast.ts';
-import { getErrorMessage } from '@/lib/HelperFunctions.ts';
 import RemoveDone from '@mui/icons-material/RemoveDone';
 import Done from '@mui/icons-material/Done';
 import BookmarkRemove from '@mui/icons-material/BookmarkRemove';
@@ -237,61 +236,91 @@ export const ChapterActionMenuItems = ({
                     title={getMenuItemTitle('delete', downloadedChapters.length)}
                 />
             )}
-            {isSingleMode && isDownloaded && chapter && (
-                <MenuItem
-                    Icon={SaveAlt}
-                    onClick={() => {
-                        const url = requestManager.getValidUrlFor(`chapter/${chapter.id}/download`);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.rel = 'noopener';
-                        a.target = '_blank';
-                        document.body.appendChild(a);
-                        a.click();
-                        a.remove();
-                        onClose();
-                    }}
-                    title={t`Save CBZ to this device`}
-                />
-            )}
-            {isSingleMode && isDownloaded && chapter && (
-                <MenuItem
-                    Icon={MenuBookIcon}
-                    onClick={() => {
-                        const url = requestManager.getValidUrlFor(`chapter/${chapter.id}/download.epub`);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.rel = 'noopener';
-                        a.target = '_blank';
-                        document.body.appendChild(a);
-                        a.click();
-                        a.remove();
-                        onClose();
-                    }}
-                    title={t`Save EPUB to this device`}
-                />
-            )}
-            {isSingleMode && isDownloaded && chapter && (
-                <MenuItem
-                    Icon={SendIcon}
-                    onClick={async () => {
+            {(() => {
+                // Targets for the device/Kindle actions:
+                //  - single mode: just the focused chapter when downloaded
+                //  - select mode: every selected chapter that's downloaded
+                const targets = isSingleMode ? (isDownloaded && chapter ? [chapter] : []) : downloadedChapters;
+                if (targets.length === 0) return null;
+
+                const triggerDownload = (path: string) => {
+                    targets.forEach((c, idx) => {
+                        const url = requestManager.getValidUrlFor(`chapter/${c.id}/${path}`);
+                        // Stagger anchor clicks slightly so browsers don't
+                        // collapse multiple downloads into one prompt.
+                        setTimeout(() => {
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.rel = 'noopener';
+                            a.target = '_blank';
+                            document.body.appendChild(a);
+                            a.click();
+                            a.remove();
+                        }, idx * 200);
+                    });
+                };
+
+                const sendAllToKindle = async () => {
+                    let queued = 0;
+                    let already = 0;
+                    let failed = 0;
+                    for (const c of targets) {
                         try {
-                            const res = await sendToKindle({
-                                variables: { input: { chapterId: chapter.id } },
-                            });
+                            const res = await sendToKindle({ variables: { input: { chapterId: c.id } } });
                             if (res.data?.sendChapterToKindle?.alreadyQueued) {
-                                makeToast(t`Chapter already queued for Kindle`, 'info');
+                                already += 1;
+                            } else if (res.data?.sendChapterToKindle?.queueEntryId) {
+                                queued += 1;
                             } else {
-                                makeToast(t`Queued for Kindle`, 'success');
+                                failed += 1;
                             }
                         } catch (e) {
-                            makeToast(t`Send to Kindle failed`, 'error', getErrorMessage(e));
+                            failed += 1;
+                            // eslint-disable-next-line no-console
+                            console.warn('sendChapterToKindle failed', e);
                         }
-                        onClose();
-                    }}
-                    title={t`Send to Kindle`}
-                />
-            )}
+                    }
+                    if (queued > 0) {
+                        makeToast(t`Queued ${queued} chapter(s) for Kindle`, 'success');
+                    }
+                    if (already > 0) {
+                        makeToast(t`${already} chapter(s) already in queue`, 'info');
+                    }
+                    if (failed > 0) {
+                        makeToast(t`${failed} chapter(s) failed to queue`, 'error');
+                    }
+                };
+
+                const suffix = isSingleMode ? '' : ` (${targets.length})`;
+                return (
+                    <>
+                        <MenuItem
+                            Icon={SaveAlt}
+                            onClick={() => {
+                                triggerDownload('download');
+                                onClose();
+                            }}
+                            title={t`Save CBZ to this device${suffix}`}
+                        />
+                        <MenuItem
+                            Icon={MenuBookIcon}
+                            onClick={() => {
+                                triggerDownload('download.epub');
+                                onClose();
+                            }}
+                            title={t`Save EPUB to this device${suffix}`}
+                        />
+                        <MenuItem
+                            Icon={SendIcon}
+                            onClick={async () => {
+                                await sendAllToKindle();
+                                onClose();
+                            }}
+                            title={t`Send to Kindle${suffix}`}
+                        />
+                    </>
+                );
+            })()}
             {shouldShowMenuItem(!isBookmarked) && (
                 <MenuItem
                     Icon={BookmarkAdd}
