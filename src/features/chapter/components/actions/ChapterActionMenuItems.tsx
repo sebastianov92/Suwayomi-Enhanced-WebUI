@@ -241,9 +241,34 @@ export const ChapterActionMenuItems = ({
                 //  - single mode: just the focused chapter when downloaded
                 //  - select mode: every selected chapter that's downloaded
                 const targets = isSingleMode ? (isDownloaded && chapter ? [chapter] : []) : downloadedChapters;
-                if (targets.length === 0) return null;
+                const totalSelected = isSingleMode ? 1 : selectedChapters.length;
+                const skipped = totalSelected - targets.length;
+                // Single mode hides the items when the chapter isn't
+                // downloaded (no use). Select mode keeps them visible so we
+                // can still surface a toast explaining the skip.
+                if (isSingleMode && targets.length === 0) return null;
+
+                const warnSkipped = () => {
+                    if (skipped > 0) {
+                        makeToast(
+                            t`${skipped} non-downloaded chapter(s) were skipped (download to server first)`,
+                            'warning',
+                        );
+                    }
+                };
+                const noTargetsToast = () => {
+                    makeToast(
+                        t`Selection has no downloaded chapters. Download to server first.`,
+                        'warning',
+                    );
+                };
 
                 const triggerDownload = async (format: 'CBZ' | 'EPUB') => {
+                    if (targets.length === 0) {
+                        noTargetsToast();
+                        return;
+                    }
+                    warnSkipped();
                     // Single chapter -> hit the per-chapter direct endpoint
                     // (preserves Content-Disposition + works with HEAD pre-flight).
                     if (targets.length === 1) {
@@ -302,6 +327,11 @@ export const ChapterActionMenuItems = ({
                 };
 
                 const sendAllToKindle = async () => {
+                    if (targets.length === 0) {
+                        noTargetsToast();
+                        return;
+                    }
+                    warnSkipped();
                     let queued = 0;
                     let already = 0;
                     let failed = 0;
