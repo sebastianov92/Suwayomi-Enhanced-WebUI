@@ -156,6 +156,7 @@ export const MangaOptionButton = ({
             <Button
                 ref={setRef}
                 onMouseDown={openPopup}
+                onMouseEnter={() => setCardHovered(true)}
                 onClick={stopAll}
                 onTouchStart={openPopup}
                 className="manga-option-button"
@@ -166,12 +167,17 @@ export const MangaOptionButton = ({
                     paddingX: '0',
                     paddingY: '2.5px',
                     transition: 'opacity 120ms ease',
-                    visibility: showOnDesktop ? 'visible' : 'hidden',
+                    // Always visible + clickable on desktop. We fade with
+                    // opacity instead of visibility:hidden so even if the
+                    // JS hover tracker misses an event the button stays
+                    // tappable (the previous implementation left users
+                    // with an invisible-and-unclickable affordance).
                     opacity: showOnDesktop ? 1 : 0,
-                    pointerEvents: showOnDesktop ? 'all' : 'none',
+                    pointerEvents: 'all',
                     '@media not (pointer: fine)': {
                         visibility: popupState.isOpen ? 'visible' : 'hidden',
                         opacity: popupState.isOpen ? 1 : 0,
+                        pointerEvents: popupState.isOpen ? 'all' : 'none',
                         width: popupState.isOpen ? undefined : 0,
                         height: popupState.isOpen ? undefined : 0,
                         p: popupState.isOpen ? undefined : 0,
