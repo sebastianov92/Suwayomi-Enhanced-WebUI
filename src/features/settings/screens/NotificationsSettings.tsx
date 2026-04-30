@@ -126,7 +126,6 @@ export function NotificationsSettings() {
     const port = settings.smtpPort ?? 587;
     const tls = settings.smtpUseStartTls ?? true;
     const smtpUser = settings.smtpUsername ?? '';
-    const fromEmail = settings.smtpFromEmail ?? '';
     const kindleEmail = settings.kindleEmail ?? '';
     const passwordSet = !!settings.smtpPasswordEncrypted;
     const interval = settings.kindleSendIntervalSeconds ?? 90;
@@ -229,36 +228,37 @@ export function NotificationsSettings() {
                                 <MenuItem value="CUSTOM">{t`Custom server…`}</MenuItem>
                             </Select>
                         </FormControl>
-                        <Stack direction="row" spacing={1}>
-                            <TextField
-                                size="small"
-                                fullWidth
-                                label={t`Host`}
-                                value={host}
-                                disabled={!isCustom}
-                                onChange={(e) => updateSetting('smtpHost', e.target.value)}
-                            />
-                            <TextField
-                                size="small"
-                                label={t`Port`}
-                                value={port}
-                                disabled={!isCustom}
-                                onChange={(e) =>
-                                    updateSetting('smtpPort', Number(e.target.value) || 587)
-                                }
-                                sx={{ width: 100 }}
-                            />
-                        </Stack>
-                        <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
-                            <Typography variant="body2" sx={{ flex: 1 }}>
-                                {t`Use STARTTLS`}
-                            </Typography>
-                            <Switch
-                                checked={tls}
-                                disabled={!isCustom}
-                                onChange={(_, checked) => updateSetting('smtpUseStartTls', checked)}
-                            />
-                        </Stack>
+                        {isCustom && (
+                            <>
+                                <Stack direction="row" spacing={1}>
+                                    <TextField
+                                        size="small"
+                                        fullWidth
+                                        label={t`Host`}
+                                        value={host}
+                                        onChange={(e) => updateSetting('smtpHost', e.target.value)}
+                                    />
+                                    <TextField
+                                        size="small"
+                                        label={t`Port`}
+                                        value={port}
+                                        onChange={(e) =>
+                                            updateSetting('smtpPort', Number(e.target.value) || 587)
+                                        }
+                                        sx={{ width: 100 }}
+                                    />
+                                </Stack>
+                                <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+                                    <Typography variant="body2" sx={{ flex: 1 }}>
+                                        {t`Use STARTTLS`}
+                                    </Typography>
+                                    <Switch
+                                        checked={tls}
+                                        onChange={(_, checked) => updateSetting('smtpUseStartTls', checked)}
+                                    />
+                                </Stack>
+                            </>
+                        )}
                         <TextField
                             size="small"
                             fullWidth
@@ -293,13 +293,6 @@ export function NotificationsSettings() {
                                 {t`Save`}
                             </Button>
                         </Stack>
-                        <TextField
-                            size="small"
-                            fullWidth
-                            label={t`From email (defaults to username)`}
-                            value={fromEmail}
-                            onChange={(e) => updateSetting('smtpFromEmail', e.target.value)}
-                        />
                         <TextField
                             size="small"
                             fullWidth
