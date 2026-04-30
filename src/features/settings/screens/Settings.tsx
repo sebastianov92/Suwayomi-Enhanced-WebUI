@@ -24,6 +24,7 @@ import ImageIcon from '@mui/icons-material/Image';
 import LabelIcon from '@mui/icons-material/Label';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
+import SendIcon from '@mui/icons-material/Send';
 import { useLingui } from '@lingui/react/macro';
 import { ListItemLink } from '@/base/components/lists/ListItemLink.tsx';
 import { AppRoutes } from '@/base/AppRoute.constants.ts';
@@ -95,6 +96,12 @@ export function Settings() {
                     <NotificationsIcon />
                 </ListItemIcon>
                 <ListItemText primary={t`Notifications`} />
+            </ListItemLink>
+            <ListItemLink to={AppRoutes.settings.childRoutes.sendToKindle.path}>
+                <ListItemIcon>
+                    <SendIcon />
+                </ListItemIcon>
+                <ListItemText primary={t`Send to Kindle`} />
             </ListItemLink>
             <ListItemLink to={AppRoutes.settings.childRoutes.localSource.path}>
                 <ListItemIcon>

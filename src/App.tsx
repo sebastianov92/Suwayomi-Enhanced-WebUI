@@ -124,6 +124,10 @@ const { KindleQueue } = loadable(
     () => import('@/features/settings/screens/KindleQueue.tsx'),
     lazyLoadFallback,
 );
+const { SendToKindleSettings } = loadable(
+    () => import('@/features/settings/screens/SendToKindleSettings.tsx'),
+    lazyLoadFallback,
+);
 
 if (import.meta.env.DEV) {
     // Adds messages only in a dev environment
@@ -366,6 +370,10 @@ const MainApp = () => {
                             <Route
                                 path={AppRoutes.settings.childRoutes.kindleQueue.match}
                                 element={<KindleQueue />}
+                            />
+                            <Route
+                                path={AppRoutes.settings.childRoutes.sendToKindle.match}
+                                element={<SendToKindleSettings />}
                             />
                             <Route path={AppRoutes.settings.childRoutes.device.match} element={<DeviceSetting />} />
                             <Route

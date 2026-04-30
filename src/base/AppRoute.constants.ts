@@ -139,6 +139,10 @@ export const AppRoutes = {
                 match: 'kindle-queue',
                 path: '/settings/kindle-queue',
             },
+            sendToKindle: {
+                match: 'send-to-kindle',
+                path: '/settings/send-to-kindle',
+            },
         },
     },
     sources: {
