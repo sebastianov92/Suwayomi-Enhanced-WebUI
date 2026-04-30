@@ -125,7 +125,8 @@ export function SendToKindleSettings() {
     const notifyOnSend = settings.notifyOnKindleSend ?? true;
 
     const presets = presetsQuery.data?.emailPresets ?? [];
-    const isCustom = provider === 'CUSTOM' || provider === 'NONE';
+    const isDisabled = provider === 'NONE';
+    const isCustom = provider === 'CUSTOM';
     const isGmail = provider === 'GMAIL';
 
     const applyPreset = async (presetId: string) => {
@@ -170,6 +171,12 @@ export function SendToKindleSettings() {
                                 <MenuItem value="CUSTOM">{t`Custom server…`}</MenuItem>
                             </Select>
                         </FormControl>
+
+                        {isDisabled && (
+                            <Alert severity="info">
+                                {t`Send-to-Kindle is disabled. Pick Gmail or Custom server to configure SMTP.`}
+                            </Alert>
+                        )}
 
                         {isGmail && (
                             <Alert severity="info" icon={false}>
@@ -223,143 +230,168 @@ export function SendToKindleSettings() {
                             </>
                         )}
 
-                        <TextField
-                            size="small"
-                            fullWidth
-                            label={t`Username (your email)`}
-                            value={smtpUser}
-                            onChange={(e) => updateSetting('smtpUsername', e.target.value)}
-                        />
-                        <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
-                            <TextField
-                                size="small"
-                                fullWidth
-                                type="password"
-                                label={passwordSet ? t`Password (saved — type to replace)` : t`Password`}
-                                value={pwInput}
-                                onChange={(e) => setPwInput(e.target.value)}
+                        {!isDisabled && (
+                            <>
+                                <TextField
+                                    size="small"
+                                    fullWidth
+                                    label={t`Username (your email)`}
+                                    value={smtpUser}
+                                    onChange={(e) => updateSetting('smtpUsername', e.target.value)}
+                                />
+                                <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+                                    <TextField
+                                        size="small"
+                                        fullWidth
+                                        type="password"
+                                        label={
+                                            passwordSet
+                                                ? t`Password (saved — type to replace)`
+                                                : t`Password`
+                                        }
+                                        value={pwInput}
+                                        onChange={(e) => setPwInput(e.target.value)}
+                                    />
+                                    <Button
+                                        variant="outlined"
+                                        disabled={pwInput.length === 0}
+                                        onClick={async () => {
+                                            try {
+                                                await setSmtpPassword({
+                                                    variables: { input: { password: pwInput } },
+                                                });
+                                                makeToast(t`Password saved (encrypted)`, 'success');
+                                                await refetch().catch(() => {});
+                                            } catch (e) {
+                                                makeToast(
+                                                    t`Failed to save password`,
+                                                    'error',
+                                                    getErrorMessage(e),
+                                                );
+                                            }
+                                        }}
+                                    >
+                                        {t`Save`}
+                                    </Button>
+                                </Stack>
+                                <TextField
+                                    size="small"
+                                    fullWidth
+                                    label={t`Kindle email (@kindle.com)`}
+                                    value={kindleEmail}
+                                    onChange={(e) => updateSetting('kindleEmail', e.target.value)}
+                                />
+                                <FormControl fullWidth size="small">
+                                    <InputLabel>{t`Throttle interval`}</InputLabel>
+                                    <Select
+                                        value={interval}
+                                        label={t`Throttle interval`}
+                                        onChange={(e) =>
+                                            updateSetting(
+                                                'kindleSendIntervalSeconds',
+                                                Number(e.target.value),
+                                            )
+                                        }
+                                    >
+                                        {SEND_INTERVAL_OPTIONS.map((opt) => (
+                                            <MenuItem key={opt.value} value={opt.value}>
+                                                {opt.label}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            </>
+                        )}
+                    </Stack>
+                </ListItem>
+
+                {!isDisabled && (
+                    <>
+                        <ListItem>
+                            <ListItemText
+                                primary={t`RTL ebooks`}
+                                secondary={t`Manga reading direction (right-to-left).`}
                             />
-                            <Button
-                                variant="outlined"
-                                disabled={pwInput.length === 0}
-                                onClick={async () => {
-                                    try {
-                                        await setSmtpPassword({
-                                            variables: { input: { password: pwInput } },
-                                        });
-                                        makeToast(t`Password saved (encrypted)`, 'success');
-                                        await refetch().catch(() => {});
-                                    } catch (e) {
-                                        makeToast(t`Failed to save password`, 'error', getErrorMessage(e));
-                                    }
-                                }}
-                            >
-                                {t`Save`}
-                            </Button>
-                        </Stack>
-                        <TextField
-                            size="small"
-                            fullWidth
-                            label={t`Kindle email (@kindle.com)`}
-                            value={kindleEmail}
-                            onChange={(e) => updateSetting('kindleEmail', e.target.value)}
-                        />
-                        <FormControl fullWidth size="small">
-                            <InputLabel>{t`Throttle interval`}</InputLabel>
-                            <Select
-                                value={interval}
-                                label={t`Throttle interval`}
-                                onChange={(e) =>
-                                    updateSetting('kindleSendIntervalSeconds', Number(e.target.value))
+                            <Switch
+                                edge="end"
+                                checked={ebookRtl}
+                                onChange={(_, checked) => updateSetting('ebookRtl', checked)}
+                            />
+                        </ListItem>
+
+                        <ListItem>
+                            <ListItemText
+                                primary={t`Auto-send all library`}
+                                secondary={t`When on, every newly-detected chapter for any in-library manga is queued.`}
+                            />
+                            <Switch
+                                edge="end"
+                                checked={autoSendGlobal}
+                                onChange={(_, checked) =>
+                                    updateSetting('kindleAutoSendEnabled', checked)
                                 }
-                            >
-                                {SEND_INTERVAL_OPTIONS.map((opt) => (
-                                    <MenuItem key={opt.value} value={opt.value}>
-                                        {opt.label}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </Stack>
-                </ListItem>
+                            />
+                        </ListItem>
 
-                <ListItem>
-                    <ListItemText
-                        primary={t`RTL ebooks`}
-                        secondary={t`Manga reading direction (right-to-left).`}
-                    />
-                    <Switch
-                        edge="end"
-                        checked={ebookRtl}
-                        onChange={(_, checked) => updateSetting('ebookRtl', checked)}
-                    />
-                </ListItem>
+                        <ListItem>
+                            <ListItemText
+                                primary={t`Telegram notify on Kindle send`}
+                                secondary={t`Notify when a chapter has been delivered (or fails) to Kindle.`}
+                            />
+                            <Switch
+                                edge="end"
+                                checked={notifyOnSend}
+                                onChange={(_, checked) => updateSetting('notifyOnKindleSend', checked)}
+                            />
+                        </ListItem>
 
-                <ListItem>
-                    <ListItemText
-                        primary={t`Auto-send all library`}
-                        secondary={t`When on, every newly-detected chapter for any in-library manga is queued.`}
-                    />
-                    <Switch
-                        edge="end"
-                        checked={autoSendGlobal}
-                        onChange={(_, checked) => updateSetting('kindleAutoSendEnabled', checked)}
-                    />
-                </ListItem>
-
-                <ListItem>
-                    <ListItemText
-                        primary={t`Telegram notify on Kindle send`}
-                        secondary={t`Notify when a chapter has been delivered (or fails) to Kindle.`}
-                    />
-                    <Switch
-                        edge="end"
-                        checked={notifyOnSend}
-                        onChange={(_, checked) => updateSetting('notifyOnKindleSend', checked)}
-                    />
-                </ListItem>
-
-                <ListItem>
-                    <Stack direction="row" spacing={1}>
-                        <Button
-                            variant="contained"
-                            disabled={
-                                !smtpUser ||
-                                !host ||
-                                !passwordSet ||
-                                !kindleEmail ||
-                                sendEmailState.loading
-                            }
-                            onClick={async () => {
-                                try {
-                                    const res = await sendTestEmail({
-                                        variables: { input: { destination: kindleEmail } },
-                                    });
-                                    if (res.data?.sendTestEmail?.sent) {
-                                        makeToast(t`Email test sent`, 'success');
-                                    } else {
-                                        makeToast(
-                                            t`Email test failed`,
-                                            'error',
-                                            res.data?.sendTestEmail?.message ?? '',
-                                        );
+                        <ListItem>
+                            <Stack direction="row" spacing={1}>
+                                <Button
+                                    variant="contained"
+                                    disabled={
+                                        !smtpUser ||
+                                        !host ||
+                                        !passwordSet ||
+                                        !kindleEmail ||
+                                        sendEmailState.loading
                                     }
-                                } catch (e) {
-                                    makeToast(t`Email test failed`, 'error', getErrorMessage(e));
-                                }
-                            }}
-                        >
-                            {t`Send email test`}
-                        </Button>
-                        <Button
-                            variant="outlined"
-                            component={RouterLink}
-                            to={AppRoutes.settings.childRoutes.kindleQueue.path}
-                        >
-                            {t`Open Kindle queue`}
-                        </Button>
-                    </Stack>
-                </ListItem>
+                                    onClick={async () => {
+                                        try {
+                                            const res = await sendTestEmail({
+                                                variables: { input: { destination: kindleEmail } },
+                                            });
+                                            if (res.data?.sendTestEmail?.sent) {
+                                                makeToast(t`Email test sent`, 'success');
+                                            } else {
+                                                makeToast(
+                                                    t`Email test failed`,
+                                                    'error',
+                                                    res.data?.sendTestEmail?.message ?? '',
+                                                );
+                                            }
+                                        } catch (e) {
+                                            makeToast(
+                                                t`Email test failed`,
+                                                'error',
+                                                getErrorMessage(e),
+                                            );
+                                        }
+                                    }}
+                                >
+                                    {t`Send email test`}
+                                </Button>
+                                <Button
+                                    variant="outlined"
+                                    component={RouterLink}
+                                    to={AppRoutes.settings.childRoutes.kindleQueue.path}
+                                >
+                                    {t`Open Kindle queue`}
+                                </Button>
+                            </Stack>
+                        </ListItem>
+                    </>
+                )}
             </List>
         </Box>
     );
