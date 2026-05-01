@@ -8,6 +8,7 @@
 
 import { useMemo } from 'react';
 import Link from '@mui/material/Link';
+import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -475,6 +476,41 @@ export const ServerSettings = () => {
                     </ListSubheader>
                 }
             >
+                <ListItem>
+                    <ListItemText
+                        primary={t`OPDS catalog URL`}
+                        secondary={
+                            <>
+                                <Link
+                                    component="a"
+                                    href={`${requestManager.getBaseUrl()}/api/opds/v1.2`}
+                                    target="_blank"
+                                    rel="noopener"
+                                    sx={{ wordBreak: 'break-all', display: 'block', mb: 1 }}
+                                >
+                                    {`${requestManager.getBaseUrl()}/api/opds/v1.2`}
+                                </Link>
+                                <Trans>
+                                    Paste this URL into your OPDS reader (KOReader, Moon+ Reader,
+                                    FBReader, etc). The host/port reflects how the WebUI is
+                                    currently reaching the server.
+                                </Trans>
+                            </>
+                        }
+                    />
+                    <Button
+                        size="small"
+                        onClick={() => {
+                            const url = `${requestManager.getBaseUrl()}/api/opds/v1.2`;
+                            void navigator.clipboard.writeText(url).then(
+                                () => makeToast(t`OPDS URL copied`, 'success'),
+                                () => makeToast(t`Could not copy`, 'error'),
+                            );
+                        }}
+                    >
+                        {t`Copy`}
+                    </Button>
+                </ListItem>
                 <ListItem>
                     <ListItemText
                         primary={t`Binary file size`}
