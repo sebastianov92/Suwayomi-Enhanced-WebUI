@@ -1,4 +1,44 @@
-# Suwayomi-WebUI
+# Suwayomi-Enhanced-WebUI
+
+Personal fork of [Suwayomi-WebUI](https://github.com/Suwayomi/Suwayomi-WebUI), paired with [Suwayomi-Enhanced](https://github.com/sebastianov92/Suwayomi-Enhanced) server fork.
+
+## Fork additions
+
+- **Settings**
+    - Scanlator aliases manager.
+    - Send-to-Kindle dedicated page (Gmail-only preset, App Password helper, hidden form when disabled).
+    - Local source tools.
+    - Notifications page (Telegram).
+    - OPDS catalog URL surfaced in Server settings.
+    - WebUI flavor selector removed (locked to this fork).
+- **Library**
+    - Advanced library search screen with combined filters.
+    - Recommendations screen (AniList).
+    - Card 3-dot button: opacity-based hover, always clickable.
+- **Manga page**
+    - Metadata override dialog (title/author/genres/custom cover).
+    - Per-manga Kindle config dialog (separate toolbar button).
+- **Chapter actions**
+    - Single + bulk Save CBZ / Save EPUB / Send to Kindle.
+    - Bulk Save downloads single ZIP via server endpoint with manga name.
+    - Toast warns when non-downloaded chapters skipped.
+
+## Releases
+
+Server expects releases tagged `rXXX` with a `Suwayomi-WebUI-rXXX.zip` asset:
+
+```bash
+yarn install
+yarn build
+yarn build-zip
+gh release create rXXX buildZip/Suwayomi-WebUI-rXXX.zip -t "rXXX" -n "Notes"
+```
+
+The `versionToServerVersionMapping.json` file at repo root tells the server which WebUI version is compatible with each server version.
+
+---
+
+# Upstream README
 
 This is the repository of the default client of [Suwayomi-Server](https://github.com/Suwayomi/Suwayomi-Server).
 
