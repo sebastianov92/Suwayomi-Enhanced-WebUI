@@ -16,7 +16,6 @@ import { WebUIUpdateIntervalSetting } from '@/features/settings/components/webUI
 import { TextSetting } from '@/base/components/settings/text/TextSetting.tsx';
 import { SelectSetting } from '@/base/components/settings/SelectSetting.tsx';
 import type { WebUiChannel, WebUiInterface } from '@/lib/graphql/generated/graphql.ts';
-import { WebUiFlavor } from '@/lib/graphql/generated/graphql.ts';
 import { LoadingPlaceholder } from '@/base/components/feedback/LoadingPlaceholder.tsx';
 import { EmptyViewAbsoluteCentered } from '@/base/components/feedback/EmptyViewAbsoluteCentered.tsx';
 import { defaultPromiseErrorHandler } from '@/lib/DefaultPromiseErrorHandler.ts';
@@ -31,7 +30,6 @@ import { getErrorMessage } from '@/lib/HelperFunctions.ts';
 import { useAppTitle } from '@/features/navigation-bar/hooks/useAppTitle.ts';
 import {
     WEB_UI_CHANNEL_SELECT_VALUES,
-    WEB_UI_FLAVOR_SELECT_VALUES,
     WEB_UI_INTERFACE_SELECT_VALUES,
 } from '@/features/settings/Settings.constants.ts';
 
@@ -101,16 +99,9 @@ export const WebUISettings = () => {
     }
 
     const webUISettings = data!.settings;
-    const isCustomWebUI = webUISettings.webUIFlavor === WebUiFlavor.Custom;
 
     return (
         <List sx={{ pt: 0 }}>
-            <SelectSetting<WebUiFlavor>
-                settingName={t`Flavor`}
-                value={webUISettings.webUIFlavor}
-                values={WEB_UI_FLAVOR_SELECT_VALUES}
-                handleChange={(flavor) => updateSetting('webUIFlavor', flavor)}
-            />
             <ListItem>
                 <ListItemText primary={t`Open the WebUI when starting the server`} />
                 <Switch
@@ -137,12 +128,8 @@ export const WebUISettings = () => {
                 value={webUISettings.webUIChannel}
                 values={WEB_UI_CHANNEL_SELECT_VALUES}
                 handleChange={(channel) => updateSetting('webUIChannel', channel)}
-                disabled={isCustomWebUI}
             />
-            <WebUIUpdateIntervalSetting
-                disabled={isCustomWebUI}
-                updateCheckInterval={webUISettings.webUIUpdateCheckInterval}
-            />
+            <WebUIUpdateIntervalSetting updateCheckInterval={webUISettings.webUIUpdateCheckInterval} />
             <ListItem>
                 <ListItemText
                     primary={t`Inform about updated version`}

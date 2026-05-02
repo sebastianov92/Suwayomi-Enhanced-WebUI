@@ -39,12 +39,7 @@ generatedGraphQLFile = fs.readFileSync(generatedGraphQLFilePath, 'utf8');
 const addImports = format(
     generatedGraphQLFile,
     `import { FieldPolicy, FieldReadFunction, TypePolicies, TypePolicy } from '@apollo/client/cache';`,
-    `import {FieldPolicy, FieldReadFunction, Reference, TypePolicies, TypePolicy} from '@apollo/client/cache';
-import {
-\tGetChaptersMangaQuery, GetDownloadStatusQueryVariables, GetGlobalMetadataQueryVariables,
-\tGetMangaScreenQueryVariables, GetSourceBrowseQueryVariables, GetUpdateStatusQueryVariables, GetWebuiUpdateStatusQueryVariables,
-} from "@/lib/graphql/generated/graphql.ts";
-import {FieldFunctionOptions} from "@apollo/client/cache";`,
+    `import {FieldPolicy, FieldReadFunction, TypePolicies, TypePolicy} from '@apollo/client/cache';`,
 );
 
 const fixTypingOfQueryTypePolicies = format(
