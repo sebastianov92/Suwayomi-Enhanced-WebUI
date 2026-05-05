@@ -13,6 +13,7 @@ import ListSubheader from '@mui/material/ListSubheader';
 import Divider from '@mui/material/Divider';
 import { useLingui } from '@lingui/react/macro';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
+import { makeToast } from '@/base/utils/Toast.ts';
 import { ListItemLink } from '@/base/components/lists/ListItemLink.tsx';
 import { LoadingPlaceholder } from '@/base/components/feedback/LoadingPlaceholder.tsx';
 import { UpdateState } from '@/lib/graphql/generated/graphql.ts';
@@ -95,8 +96,16 @@ export function About() {
                                 isUpdateAvailable={isServerUpdateAvailable}
                                 updateCheckError={serverUpdateCheckError}
                                 checkForUpdate={checkForServerUpdate}
-                                downloadAsLink
-                                url={selectedServerChannelInfo?.url ?? ''}
+                                triggerUpdate={() => {
+                                    requestManager
+                                        .triggerServerUpdate()
+                                        .response.then(() => {
+                                            makeToast(t`Server upgrade queued — restarting…`, 'success');
+                                        })
+                                        .catch(defaultPromiseErrorHandler('About::triggerServerUpdate'));
+                                }}
+                                updateState={UpdateState.Idle}
+                                progress={0}
                             />
                         }
                     />

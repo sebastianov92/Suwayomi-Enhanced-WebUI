@@ -2128,6 +2128,8 @@ export type PartialSettingsType = Settings & {
   opdsCbzMimetype?: Maybe<CbzMediaType>;
   opdsChapterSortOrder?: Maybe<SortOrder>;
   opdsEnablePageReadProgress?: Maybe<Scalars['Boolean']['output']>;
+  opdsIncludeAuthorInEntry?: Maybe<Scalars['Boolean']['output']>;
+  opdsIncludeScanlatorAsAuthor?: Maybe<Scalars['Boolean']['output']>;
   opdsItemsPerPage?: Maybe<Scalars['Int']['output']>;
   opdsMarkAsReadOnDownload?: Maybe<Scalars['Boolean']['output']>;
   opdsShowOnlyDownloadedChapters?: Maybe<Scalars['Boolean']['output']>;
@@ -2223,6 +2225,8 @@ export type PartialSettingsTypeInput = {
   opdsCbzMimetype?: InputMaybe<CbzMediaType>;
   opdsChapterSortOrder?: InputMaybe<SortOrder>;
   opdsEnablePageReadProgress?: InputMaybe<Scalars['Boolean']['input']>;
+  opdsIncludeAuthorInEntry?: InputMaybe<Scalars['Boolean']['input']>;
+  opdsIncludeScanlatorAsAuthor?: InputMaybe<Scalars['Boolean']['input']>;
   opdsItemsPerPage?: InputMaybe<Scalars['Int']['input']>;
   opdsMarkAsReadOnDownload?: InputMaybe<Scalars['Boolean']['input']>;
   opdsShowOnlyDownloadedChapters?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2989,6 +2993,8 @@ export type Settings = {
   opdsCbzMimetype?: Maybe<CbzMediaType>;
   opdsChapterSortOrder?: Maybe<SortOrder>;
   opdsEnablePageReadProgress?: Maybe<Scalars['Boolean']['output']>;
+  opdsIncludeAuthorInEntry?: Maybe<Scalars['Boolean']['output']>;
+  opdsIncludeScanlatorAsAuthor?: Maybe<Scalars['Boolean']['output']>;
   opdsItemsPerPage?: Maybe<Scalars['Int']['output']>;
   opdsMarkAsReadOnDownload?: Maybe<Scalars['Boolean']['output']>;
   opdsShowOnlyDownloadedChapters?: Maybe<Scalars['Boolean']['output']>;
@@ -3149,6 +3155,8 @@ export type SettingsType = Settings & {
   opdsCbzMimetype: CbzMediaType;
   opdsChapterSortOrder: SortOrder;
   opdsEnablePageReadProgress: Scalars['Boolean']['output'];
+  opdsIncludeAuthorInEntry: Scalars['Boolean']['output'];
+  opdsIncludeScanlatorAsAuthor: Scalars['Boolean']['output'];
   opdsItemsPerPage: Scalars['Int']['output'];
   opdsMarkAsReadOnDownload: Scalars['Boolean']['output'];
   opdsShowOnlyDownloadedChapters: Scalars['Boolean']['output'];

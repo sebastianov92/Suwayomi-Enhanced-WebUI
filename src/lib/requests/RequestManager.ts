@@ -1429,6 +1429,31 @@ export class RequestManager {
         return this.doRequest(GQLMethod.MUTATION, UPDATE_WEBUI, undefined, options);
     }
 
+    /**
+     * Direct fetch (no Apollo codegen) so the typed schema can ship
+     * before the server gains the `triggerServerUpdate` mutation.
+     * Falls back to a Promise.reject when the server returns errors.
+     */
+    public triggerServerUpdate(): { response: Promise<{ tag: string; downloaded: boolean }> } {
+        const url = `${this.getBaseUrl()}/api/graphql`;
+        const body = JSON.stringify({
+            query: 'mutation { triggerServerUpdate(input: {}) { tag downloaded } }',
+        });
+        const response = fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body,
+        }).then(async (res) => {
+            const json = await res.json();
+            if (json.errors?.length) {
+                throw new Error(json.errors[0].message ?? 'triggerServerUpdate failed');
+            }
+            return json.data?.triggerServerUpdate as { tag: string; downloaded: boolean };
+        });
+        return { response };
+    }
+
     public useGetExtension(
         pkgName: string,
         options?: QueryHookOptions<GetExtensionQuery, GetExtensionQueryVariables>,

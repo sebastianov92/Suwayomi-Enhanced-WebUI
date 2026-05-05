@@ -3490,6 +3490,10 @@ msgid "Server settings"
 msgstr "Server settings"
 
 #: src/features/settings/screens/About.tsx
+msgid "Server upgrade queued — restarting…"
+msgstr "Server upgrade queued — restarting…"
+
+#: src/features/settings/screens/About.tsx
 msgid "Server version"
 msgstr "Server version"
 
