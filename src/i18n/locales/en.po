@@ -335,10 +335,6 @@ msgstr "*: Active setting"
 msgid "<0>Suwayomi does not provide any support for 3rd party repositories or extensions!</0><1/>Use with caution as there could be malicious actors making those repositories.<2/>You as the user need to verify the security and that you trust any repository or extension."
 msgstr "<0>Suwayomi does not provide any support for 3rd party repositories or extensions!</0><1/>Use with caution as there could be malicious actors making those repositories.<2/>You as the user need to verify the security and that you trust any repository or extension."
 
-#: src/features/settings/Settings.constants.ts
-msgid "A preview focused web frontend built with svelte"
-msgstr "A preview focused web frontend built with svelte"
-
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "A-Z"
 msgstr "A-Z"
@@ -477,7 +473,7 @@ msgid "Artist"
 msgstr "Artist"
 
 #: src/features/migration/Migration.constants.ts
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "Ascending"
 msgstr "Ascending"
 
@@ -545,7 +541,7 @@ msgstr "Automatic updates"
 msgid "Automatically download the latest version"
 msgstr "Automatically download the latest version"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "Automatically mark chapters as read when you download them."
 msgstr "Automatically mark chapters as read when you download them."
 
@@ -623,7 +619,7 @@ msgstr "Behaviour"
 msgid "Binary"
 msgstr "Binary"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "Binary file size"
 msgstr "Binary file size"
 
@@ -784,7 +780,7 @@ msgstr "Category Name"
 msgid "Category selection dialog"
 msgstr "Category selection dialog"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "CBZ MIME-Type"
 msgstr "CBZ MIME-Type"
 
@@ -836,7 +832,7 @@ msgstr "Chapter list"
 msgid "Chapter number"
 msgstr "Chapter number"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "Chapter sort order"
 msgstr "Chapter sort order"
 
@@ -872,7 +868,7 @@ msgstr "Check out"
 msgid "Checking for update"
 msgstr "Checking for update"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "Choose the order in which chapters are displayed."
 msgstr "Choose the order in which chapters are displayed."
 
@@ -937,7 +933,7 @@ msgstr "Comic"
 msgid "Compact grid"
 msgstr "Compact grid"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "Compatible"
 msgstr "Compatible"
 
@@ -991,7 +987,7 @@ msgstr "Continuous horizontal"
 msgid "Continuous vertical"
 msgstr "Continuous vertical"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid ""
 "Controls the MimeType that Suwayomi sends in OPDS entries for CBZ archives. Also affects global CBZ download.\n"
 "Modern follows recent IANA standard (2017), while LEGACY (deprecated mimetype for .cbz) and COMPATIBLE (deprecated mimetype for all comic archives) might be more compatible with older clients."
@@ -1010,7 +1006,7 @@ msgstr "Copied to clipboard"
 
 #: src/features/manga/components/details/MangaDetails.tsx
 #: src/features/migration/components/MigrationOptionsDialog.tsx
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "Copy"
 msgstr "Copy"
 
@@ -1040,7 +1036,7 @@ msgstr "Could not check for updates"
 msgid "Could not clear the cache"
 msgstr "Could not clear the cache"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "Could not copy"
 msgstr "Could not copy"
 
@@ -1384,7 +1380,7 @@ msgid "Deleting theme \"{0}\"…"
 msgstr "Deleting theme \"{0}\"…"
 
 #: src/features/migration/Migration.constants.ts
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "Descending"
 msgstr "Descending"
 
@@ -1450,7 +1446,7 @@ msgstr "Discord"
 msgid "Display"
 msgstr "Display"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "Display file sizes in binary (KiB, MiB, GiB) instead of decimal (KB, MB, GB)"
 msgstr "Display file sizes in binary (KiB, MiB, GiB) instead of decimal (KB, MB, GB)"
 
@@ -1626,7 +1622,7 @@ msgstr "Email test sent"
 msgid "Enable debug logs"
 msgstr "Enable debug logs"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "Enable page read progress"
 msgstr "Enable page read progress"
 
@@ -1732,6 +1728,7 @@ msgstr "Failed to save"
 #: src/features/settings/components/webUI/WebUIUpdateIntervalSetting.tsx
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/ImageProcessingSetting.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 #: src/features/settings/screens/ServerSettings.tsx
 #: src/features/settings/screens/WebUISettings.tsx
 #: src/features/source/browse/screens/SourceMangas.tsx
@@ -1791,11 +1788,11 @@ msgstr "Filter"
 msgid "Filter and sort"
 msgstr "Filter and sort"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "Filter manga feed to display only chapters you have downloaded."
 msgstr "Filter manga feed to display only chapters you have downloaded."
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "Filter manga feed to display only chapters you haven’t read yet."
 msgstr "Filter manga feed to display only chapters you haven’t read yet."
 
@@ -2161,11 +2158,11 @@ msgstr "Invert tap zones"
 msgid "IP"
 msgstr "IP"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "item"
 msgstr "item"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "Items per page"
 msgstr "Items per page"
 
@@ -2281,7 +2278,7 @@ msgstr "Left"
 msgid "Left to right"
 msgstr "Left to right"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "Legacy"
 msgstr "Legacy"
 
@@ -2459,7 +2456,7 @@ msgstr "Mark as read"
 msgid "Mark as unread"
 msgstr "Mark as unread"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "Mark chapters as read on download"
 msgstr "Mark chapters as read on download"
 
@@ -2569,7 +2566,7 @@ msgstr "Misc"
 msgid "Mobile"
 msgstr "Mobile"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "Modern"
 msgstr "Modern"
 
@@ -2709,7 +2706,7 @@ msgstr "Notify when a chapter has been delivered (or fails) to Kindle."
 msgid "Novel"
 msgstr "Novel"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid ""
 "Number of items per page in OPDS feeds (e.g., Library History, Manga Chapters).\n"
 "Higher values may affect client performance."
@@ -2781,15 +2778,16 @@ msgstr "Only mangas in my library"
 msgid "Only works if the current chapter plus the next chapter are already downloaded."
 msgstr "Only works if the current chapter plus the next chapter are already downloaded."
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/Settings.tsx
 msgid "OPDS"
 msgstr "OPDS"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "OPDS catalog URL"
 msgstr "OPDS catalog URL"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "OPDS URL copied"
 msgstr "OPDS URL copied"
 
@@ -2902,7 +2900,7 @@ msgstr "Password saved (encrypted)"
 msgid "Paste a manga URL from any supported site (MangaDex, MangaPlus, etc.). The matching extension is installed automatically if it isn't already, and the manga is added to your library."
 msgstr "Paste a manga URL from any supported site (MangaDex, MangaPlus, etc.). The matching extension is installed automatically if it isn't already, and the manga is added to your library."
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "Paste this URL into your OPDS reader (KOReader, Moon+ Reader, FBReader, etc). The host/port reflects how the WebUI is currently reaching the server."
 msgstr "Paste this URL into your OPDS reader (KOReader, Moon+ Reader, FBReader, etc). The host/port reflects how the WebUI is currently reaching the server."
 
@@ -3579,11 +3577,11 @@ msgstr "Show NSFW"
 msgid "Show number of items"
 msgstr "Show number of items"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "Show only downloaded chapters"
 msgstr "Show only downloaded chapters"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "Show only unread chapters"
 msgstr "Show only unread chapters"
 
@@ -4020,7 +4018,7 @@ msgstr "Total chapters"
 msgid "Track"
 msgstr "Track"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 msgid "Track and update your reading progress by page for each chapter during page streaming"
 msgstr "Track and update your reading progress by page for each chapter during page streaming"
 
@@ -4091,6 +4089,7 @@ msgstr "UI Login"
 #: src/features/settings/screens/About.tsx
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/ImageProcessingSetting.tsx
+#: src/features/settings/screens/OpdsSettings.tsx
 #: src/features/settings/screens/ServerSettings.tsx
 #: src/features/settings/screens/WebUISettings.tsx
 #: src/features/source/browse/screens/SourceMangas.tsx
@@ -4280,10 +4279,6 @@ msgstr "Version"
 #: src/features/reader/settings/layout/components/ReaderSettingTapZoneInvertMode.tsx
 msgid "Vertical"
 msgstr "Vertical"
-
-#: src/features/settings/Settings.constants.ts
-msgid "VUI"
-msgstr "VUI"
 
 #: src/base/components/feedback/SnackbarWithDescription.tsx
 msgid "Warning"

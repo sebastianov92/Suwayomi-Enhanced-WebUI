@@ -108,10 +108,7 @@ const { AdvancedLibrarySearch } = loadable(
     () => import('@/features/library/screens/AdvancedLibrarySearch.tsx'),
     lazyLoadFallback,
 );
-const { Recommendations } = loadable(
-    () => import('@/features/library/screens/Recommendations.tsx'),
-    lazyLoadFallback,
-);
+const { Recommendations } = loadable(() => import('@/features/library/screens/Recommendations.tsx'), lazyLoadFallback);
 const { NotificationsSettings } = loadable(
     () => import('@/features/settings/screens/NotificationsSettings.tsx'),
     lazyLoadFallback,
@@ -120,14 +117,12 @@ const { LocalSourceTools } = loadable(
     () => import('@/features/settings/screens/LocalSourceTools.tsx'),
     lazyLoadFallback,
 );
-const { KindleQueue } = loadable(
-    () => import('@/features/settings/screens/KindleQueue.tsx'),
-    lazyLoadFallback,
-);
+const { KindleQueue } = loadable(() => import('@/features/settings/screens/KindleQueue.tsx'), lazyLoadFallback);
 const { SendToKindleSettings } = loadable(
     () => import('@/features/settings/screens/SendToKindleSettings.tsx'),
     lazyLoadFallback,
 );
+const { OpdsSettings } = loadable(() => import('@/features/settings/screens/OpdsSettings.tsx'), lazyLoadFallback);
 
 if (import.meta.env.DEV) {
     // Adds messages only in a dev environment
@@ -367,14 +362,12 @@ const MainApp = () => {
                                 path={AppRoutes.settings.childRoutes.localSource.match}
                                 element={<LocalSourceTools />}
                             />
-                            <Route
-                                path={AppRoutes.settings.childRoutes.kindleQueue.match}
-                                element={<KindleQueue />}
-                            />
+                            <Route path={AppRoutes.settings.childRoutes.kindleQueue.match} element={<KindleQueue />} />
                             <Route
                                 path={AppRoutes.settings.childRoutes.sendToKindle.match}
                                 element={<SendToKindleSettings />}
                             />
+                            <Route path={AppRoutes.settings.childRoutes.opds.match} element={<OpdsSettings />} />
                             <Route path={AppRoutes.settings.childRoutes.device.match} element={<DeviceSetting />} />
                             <Route
                                 path={AppRoutes.settings.childRoutes.tracking.match}

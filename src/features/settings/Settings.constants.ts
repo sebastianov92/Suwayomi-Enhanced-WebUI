@@ -130,11 +130,6 @@ const WEB_UI_FLAVOR_TO_TRANSLATION: { [flavor in WebUiFlavor]: SelectSettingValu
         description: msg`Use the default WebUI`,
         disclaimer: msg`After changing this setting go to the "About" page and check for a webUI update and install it`,
     },
-    [WebUiFlavor.Vui]: {
-        text: msg`VUI`,
-        description: msg`A preview focused web frontend built with svelte`,
-        disclaimer: msg`After changing this setting go to the "About" page and check for a webUI update and install it`,
-    },
     [WebUiFlavor.Custom]: {
         text: msg`Custom`,
         description: msg`Use a custom WebUI.\nTo use a custom WebUI replace the content of the "webUI" directory in the root directory on the server with the files of the custom WebUI`,

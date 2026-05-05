@@ -143,6 +143,10 @@ export const AppRoutes = {
                 match: 'send-to-kindle',
                 path: '/settings/send-to-kindle',
             },
+            opds: {
+                match: 'opds',
+                path: '/settings/opds',
+            },
         },
     },
     sources: {

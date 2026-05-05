@@ -93,9 +93,17 @@ export abstract class BaseClient<Client, ClientConfig, Fetcher> {
     public getBaseUrl(): string {
         const { hostname, port, protocol } = window.location;
 
+        // Drop the explicit port suffix when the browser is on the
+        // protocol's default port (port=="" for 80/443 behind a
+        // reverse proxy). Otherwise we end up with "https://host:"
+        // which leaks into displayed URLs (e.g. OPDS catalog link).
+        const isDefaultPort =
+            port === '' || (protocol === 'http:' && port === '80') || (protocol === 'https:' && port === '443');
+        const portSuffix = isDefaultPort ? '' : `:${port}`;
+
         const defaultUrl = import.meta.env.DEV
             ? import.meta.env.VITE_SERVER_URL_DEFAULT
-            : `${protocol}//${hostname}:${port}`;
+            : `${protocol}//${hostname}${portSuffix}`;
 
         const serverBaseURL = AppStorage.local.getItemParsed(BaseClient.BASE_URL_KEY, defaultUrl);
 

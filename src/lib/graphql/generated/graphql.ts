@@ -3981,7 +3981,6 @@ export enum WebUiChannel {
 
 export enum WebUiFlavor {
   Custom = 'CUSTOM',
-  Vui = 'VUI',
   Webui = 'WEBUI'
 }
 

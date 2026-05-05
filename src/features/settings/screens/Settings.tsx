@@ -25,6 +25,7 @@ import LabelIcon from '@mui/icons-material/Label';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import SendIcon from '@mui/icons-material/Send';
+import RssFeedIcon from '@mui/icons-material/RssFeed';
 import { useLingui } from '@lingui/react/macro';
 import { ListItemLink } from '@/base/components/lists/ListItemLink.tsx';
 import { AppRoutes } from '@/base/AppRoute.constants.ts';
@@ -132,6 +133,12 @@ export function Settings() {
                     <DnsIcon />
                 </ListItemIcon>
                 <ListItemText primary={t`Server`} />
+            </ListItemLink>
+            <ListItemLink to={AppRoutes.settings.childRoutes.opds.path}>
+                <ListItemIcon>
+                    <RssFeedIcon />
+                </ListItemIcon>
+                <ListItemText primary={t`OPDS`} />
             </ListItemLink>
         </List>
     );
