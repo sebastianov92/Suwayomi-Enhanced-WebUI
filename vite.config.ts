@@ -44,6 +44,12 @@ export default defineConfig(({ command }) => ({
     base: command === 'serve' ? process.env.VITE_SUBPATH || './' : './',
     build: {
         outDir: 'build',
+        // Conservative target so older Safari / iPad WebKit can parse
+        // the modern bundle. Without this, Rolldown emits syntax that
+        // older Safari trips on with "Unexpected token '{'" and the
+        // app fails silently in places (e.g. About > Update WebUI
+        // button click handler).
+        target: ['es2020', 'safari14', 'firefox100', 'chrome100', 'edge100'],
     },
     server: {
         port: Number(process.env.PORT),
