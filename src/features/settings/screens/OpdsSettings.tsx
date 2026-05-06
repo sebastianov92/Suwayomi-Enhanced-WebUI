@@ -43,7 +43,9 @@ export const OpdsSettings = () => {
         );
     };
 
-    if (loading) {return <LoadingPlaceholder />;}
+    if (loading) {
+        return <LoadingPlaceholder />;
+    }
     if (error) {
         return (
             <EmptyViewAbsoluteCentered
@@ -92,11 +94,28 @@ export const OpdsSettings = () => {
                     {t`Copy`}
                 </Button>
             </ListItem>
-            {/*
-              The opdsIncludeAuthorInEntry / opdsIncludeScanlatorAsAuthor toggles
-              are wired on the server (defaults: both off). Re-enable here once
-              the SettingsType GraphQL schema regenerates.
-            */}
+            <ListItem>
+                <ListItemText
+                    primary={t`Show author in OPDS entries and downloads`}
+                    secondary={t`When on, the manga author appears next to series and chapter entries in OPDS readers and is prefixed to downloaded CBZ filenames. When off, the author is hidden everywhere.`}
+                />
+                <Switch
+                    edge="end"
+                    checked={s.opdsIncludeAuthorInEntry ?? false}
+                    onChange={(e) => updateSetting('opdsIncludeAuthorInEntry', e.target.checked)}
+                />
+            </ListItem>
+            <ListItem>
+                <ListItemText
+                    primary={t`Show scanlator as a second author`}
+                    secondary={t`When on, each chapter advertises its scanlator as an additional OPDS author element. Some readers display this; others use it to suffix the entry title with " - Unknown" when no scanlator is set, so leaving this off is usually safer.`}
+                />
+                <Switch
+                    edge="end"
+                    checked={s.opdsIncludeScanlatorAsAuthor ?? false}
+                    onChange={(e) => updateSetting('opdsIncludeScanlatorAsAuthor', e.target.checked)}
+                />
+            </ListItem>
             <ListItem>
                 <ListItemText
                     primary={t`Binary file size`}

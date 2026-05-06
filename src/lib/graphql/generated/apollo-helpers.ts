@@ -623,7 +623,7 @@ export type MultiSelectListPreferenceFieldPolicy = {
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	visible?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('addMangaFromUrl' | 'bindTrack' | 'cancelKindleQueueEntry' | 'clearCachedImages' | 'clearDownloader' | 'clearMangaCustomCover' | 'clearMangaUserOverride' | 'connectKoSyncAccount' | 'createBackup' | 'createCategory' | 'createScanlatorAlias' | 'deleteCategory' | 'deleteCategoryMeta' | 'deleteCategoryMetas' | 'deleteChapterMeta' | 'deleteChapterMetas' | 'deleteDownloadedChapter' | 'deleteDownloadedChapters' | 'deleteGlobalMeta' | 'deleteGlobalMetas' | 'deleteMangaMeta' | 'deleteMangaMetas' | 'deleteScanlatorAlias' | 'deleteSourceMeta' | 'deleteSourceMetas' | 'dequeueChapterDownload' | 'dequeueChapterDownloads' | 'enqueueChapterDownload' | 'enqueueChapterDownloads' | 'fetchChapterPages' | 'fetchChapters' | 'fetchExtensions' | 'fetchManga' | 'fetchSourceManga' | 'fetchTrack' | 'installExternalExtension' | 'login' | 'loginTrackerCredentials' | 'loginTrackerOAuth' | 'logoutKoSyncAccount' | 'logoutTracker' | 'pullKoSyncProgress' | 'pushKoSyncProgress' | 'refreshToken' | 'reorderChapterDownload' | 'rescanLocalSource' | 'resetSettings' | 'resetWebUIUpdateStatus' | 'restoreBackup' | 'retryKindleQueueEntry' | 'sendChapterToKindle' | 'sendTestEmail' | 'sendTestNotification' | 'setCategoryMeta' | 'setCategoryMetas' | 'setChapterMeta' | 'setChapterMetas' | 'setGlobalMeta' | 'setGlobalMetas' | 'setMangaCustomCover' | 'setMangaCustomCoverFromUrl' | 'setMangaKindleConfig' | 'setMangaMeta' | 'setMangaMetas' | 'setMangaUserOverride' | 'setSettings' | 'setSmtpPassword' | 'setSourceMeta' | 'setSourceMetas' | 'startDownloader' | 'stopDownloader' | 'trackProgress' | 'unbindTrack' | 'updateCategories' | 'updateCategory' | 'updateCategoryManga' | 'updateCategoryOrder' | 'updateChapter' | 'updateChapters' | 'updateExtension' | 'updateExtensions' | 'updateLibrary' | 'updateLibraryManga' | 'updateManga' | 'updateMangaCategories' | 'updateMangas' | 'updateMangasCategories' | 'updateScanlatorAlias' | 'updateSourcePreference' | 'updateStop' | 'updateTrack' | 'updateWebUI' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('addMangaFromUrl' | 'bindTrack' | 'cancelKindleQueueEntry' | 'clearCachedImages' | 'clearDownloader' | 'clearMangaCustomCover' | 'clearMangaUserOverride' | 'connectKoSyncAccount' | 'createBackup' | 'createCategory' | 'createScanlatorAlias' | 'deleteCategory' | 'deleteCategoryMeta' | 'deleteCategoryMetas' | 'deleteChapterMeta' | 'deleteChapterMetas' | 'deleteDownloadedChapter' | 'deleteDownloadedChapters' | 'deleteGlobalMeta' | 'deleteGlobalMetas' | 'deleteMangaMeta' | 'deleteMangaMetas' | 'deleteScanlatorAlias' | 'deleteSourceMeta' | 'deleteSourceMetas' | 'dequeueChapterDownload' | 'dequeueChapterDownloads' | 'enqueueChapterDownload' | 'enqueueChapterDownloads' | 'fetchChapterPages' | 'fetchChapters' | 'fetchExtensions' | 'fetchManga' | 'fetchSourceManga' | 'fetchTrack' | 'installExternalExtension' | 'login' | 'loginTrackerCredentials' | 'loginTrackerOAuth' | 'logoutKoSyncAccount' | 'logoutTracker' | 'pullKoSyncProgress' | 'pushKoSyncProgress' | 'refreshToken' | 'reorderChapterDownload' | 'rescanLocalSource' | 'resetSettings' | 'resetWebUIUpdateStatus' | 'restoreBackup' | 'retryKindleQueueEntry' | 'sendChapterToKindle' | 'sendTestEmail' | 'sendTestNotification' | 'setCategoryMeta' | 'setCategoryMetas' | 'setChapterMeta' | 'setChapterMetas' | 'setGlobalMeta' | 'setGlobalMetas' | 'setMangaCustomCover' | 'setMangaCustomCoverFromUrl' | 'setMangaKindleConfig' | 'setMangaMeta' | 'setMangaMetas' | 'setMangaUserOverride' | 'setSettings' | 'setSmtpPassword' | 'setSourceMeta' | 'setSourceMetas' | 'startDownloader' | 'stopDownloader' | 'trackProgress' | 'triggerServerUpdate' | 'unbindTrack' | 'updateCategories' | 'updateCategory' | 'updateCategoryManga' | 'updateCategoryOrder' | 'updateChapter' | 'updateChapters' | 'updateExtension' | 'updateExtensions' | 'updateLibrary' | 'updateLibraryManga' | 'updateManga' | 'updateMangaCategories' | 'updateMangas' | 'updateMangasCategories' | 'updateScanlatorAlias' | 'updateSourcePreference' | 'updateStop' | 'updateTrack' | 'updateWebUI' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	addMangaFromUrl?: FieldPolicy<any> | FieldReadFunction<any>,
 	bindTrack?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -697,6 +697,7 @@ export type MutationFieldPolicy = {
 	startDownloader?: FieldPolicy<any> | FieldReadFunction<any>,
 	stopDownloader?: FieldPolicy<any> | FieldReadFunction<any>,
 	trackProgress?: FieldPolicy<any> | FieldReadFunction<any>,
+	triggerServerUpdate?: FieldPolicy<any> | FieldReadFunction<any>,
 	unbindTrack?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateCategories?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateCategory?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -986,6 +987,12 @@ export type SendTestEmailPayloadFieldPolicy = {
 export type SeparatorFilterKeySpecifier = ('name' | SeparatorFilterKeySpecifier)[];
 export type SeparatorFilterFieldPolicy = {
 	name?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ServerUpdatePayloadKeySpecifier = ('clientMutationId' | 'downloaded' | 'tag' | ServerUpdatePayloadKeySpecifier)[];
+export type ServerUpdatePayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	downloaded?: FieldPolicy<any> | FieldReadFunction<any>,
+	tag?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type SetCategoryMetaPayloadKeySpecifier = ('clientMutationId' | 'meta' | SetCategoryMetaPayloadKeySpecifier)[];
 export type SetCategoryMetaPayloadFieldPolicy = {
@@ -2112,6 +2119,10 @@ export type StrictTypedTypePolicies = {
 	SeparatorFilter?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SeparatorFilterKeySpecifier | (() => undefined | SeparatorFilterKeySpecifier),
 		fields?: SeparatorFilterFieldPolicy,
+	},
+	ServerUpdatePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ServerUpdatePayloadKeySpecifier | (() => undefined | ServerUpdatePayloadKeySpecifier),
+		fields?: ServerUpdatePayloadFieldPolicy,
 	},
 	SetCategoryMetaPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SetCategoryMetaPayloadKeySpecifier | (() => undefined | SetCategoryMetaPayloadKeySpecifier),

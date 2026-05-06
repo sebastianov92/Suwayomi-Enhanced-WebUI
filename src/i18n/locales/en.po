@@ -3547,6 +3547,10 @@ msgstr "Share"
 msgid "Show all duplicated entries in your library"
 msgstr "Show all duplicated entries in your library"
 
+#: src/features/settings/screens/OpdsSettings.tsx
+msgid "Show author in OPDS entries and downloads"
+msgstr "Show author in OPDS entries and downloads"
+
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Show continue reading button"
 msgstr "Show continue reading button"
@@ -3596,6 +3600,10 @@ msgstr "Show page number"
 #: src/features/reader/settings/behaviour/ReaderBehaviourSettings.tsx
 msgid "Show reading mode"
 msgstr "Show reading mode"
+
+#: src/features/settings/screens/OpdsSettings.tsx
+msgid "Show scanlator as a second author"
+msgstr "Show scanlator as a second author"
 
 #: src/features/reader/settings/behaviour/ReaderBehaviourSettings.tsx
 msgid "Show tap zones overlay"
@@ -4323,9 +4331,17 @@ msgstr "WebUI version {0} ({1}) available for download"
 msgid "WebUI was updated to version {newVersion} ({0})"
 msgstr "WebUI was updated to version {newVersion} ({0})"
 
+#: src/features/settings/screens/OpdsSettings.tsx
+msgid "When on, each chapter advertises its scanlator as an additional OPDS author element. Some readers display this; others use it to suffix the entry title with \" - Unknown\" when no scanlator is set, so leaving this off is usually safer."
+msgstr "When on, each chapter advertises its scanlator as an additional OPDS author element. Some readers display this; others use it to suffix the entry title with \" - Unknown\" when no scanlator is set, so leaving this off is usually safer."
+
 #: src/features/settings/screens/SendToKindleSettings.tsx
 msgid "When on, every newly-detected chapter for any in-library manga is queued."
 msgstr "When on, every newly-detected chapter for any in-library manga is queued."
+
+#: src/features/settings/screens/OpdsSettings.tsx
+msgid "When on, the manga author appears next to series and chapter entries in OPDS readers and is prefixed to downloaded CBZ filenames. When off, the author is hidden everywhere."
+msgstr "When on, the manga author appears next to series and chapter entries in OPDS readers and is prefixed to downloaded CBZ filenames. When off, the author is hidden everywhere."
 
 #: src/features/settings/Settings.constants.ts
 msgid "When you enable this, you may need to refresh this tab for the login page to appear."

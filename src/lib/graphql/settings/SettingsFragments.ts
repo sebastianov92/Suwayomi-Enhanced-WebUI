@@ -122,6 +122,8 @@ export const SERVER_SETTINGS = gql`
         opdsShowOnlyDownloadedChapters
         opdsChapterSortOrder
         opdsCbzMimetype
+        opdsIncludeAuthorInEntry
+        opdsIncludeScanlatorAsAuthor
 
         # KOReader sync
         koreaderSyncChecksumMethod
