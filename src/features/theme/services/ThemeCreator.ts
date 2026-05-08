@@ -194,11 +194,171 @@ export const createTheme = (
             defaultColorScheme: mode,
             direction,
             typography: {
-                fontSize: 13,
+                fontFamily: '"Outfit", "Roboto", "Helvetica", "Arial", sans-serif',
+                fontSize: 14,
+                fontWeightLight: 300,
+                fontWeightRegular: 400,
+                fontWeightMedium: 500,
+                fontWeightBold: 700,
+                h1: {
+                    fontWeight: 700,
+                    letterSpacing: '-0.02em',
+                },
+                h2: {
+                    fontWeight: 700,
+                    letterSpacing: '-0.01em',
+                },
+                h3: {
+                    fontWeight: 600,
+                    letterSpacing: '-0.01em',
+                },
+                h4: {
+                    fontWeight: 600,
+                },
+                h5: {
+                    fontWeight: 600,
+                },
+                h6: {
+                    fontWeight: 600,
+                    letterSpacing: '0.005em',
+                },
+                subtitle1: {
+                    fontWeight: 500,
+                },
+                subtitle2: {
+                    fontWeight: 500,
+                    letterSpacing: '0.01em',
+                },
+                body1: {
+                    lineHeight: 1.6,
+                },
+                body2: {
+                    lineHeight: 1.5,
+                },
+                button: {
+                    fontWeight: 600,
+                    letterSpacing: '0.02em',
+                    textTransform: 'none' as const,
+                },
+                caption: {
+                    letterSpacing: '0.02em',
+                },
+                overline: {
+                    fontWeight: 600,
+                    letterSpacing: '0.08em',
+                },
                 ...appTheme.muiTheme.typography,
+            },
+            shape: {
+                borderRadius: 12,
             },
             components: {
                 ...appTheme.muiTheme.components,
+                MuiCard: {
+                    styleOverrides: {
+                        root: {
+                            borderRadius: 12,
+                            backgroundImage: 'none',
+                            transition:
+                                'transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                        },
+                    },
+                },
+                MuiCardActionArea: {
+                    styleOverrides: {
+                        root: {
+                            transition: 'opacity 0.2s ease',
+                        },
+                    },
+                },
+                MuiButton: {
+                    styleOverrides: {
+                        root: {
+                            borderRadius: 10,
+                            textTransform: 'none' as const,
+                            fontWeight: 600,
+                            transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                            '&:active': {
+                                transform: 'scale(0.98)',
+                            },
+                        },
+                    },
+                },
+                MuiIconButton: {
+                    styleOverrides: {
+                        root: {
+                            transition: 'background-color 0.2s ease, transform 0.15s ease',
+                            '&:active': {
+                                transform: 'scale(0.92)',
+                            },
+                        },
+                    },
+                },
+                MuiListItemButton: {
+                    styleOverrides: {
+                        root: {
+                            borderRadius: 10,
+                            transition: 'background-color 0.2s ease',
+                            marginBottom: 2,
+                        },
+                    },
+                },
+                MuiDrawer: {
+                    styleOverrides: {
+                        paper: {
+                            backgroundImage: 'none',
+                            borderRight: 'none',
+                        },
+                    },
+                },
+                MuiAppBar: {
+                    defaultProps: {
+                        color: 'transparent',
+                        enableColorOnDark: true,
+                    },
+                    styleOverrides: {
+                        root: {
+                            backgroundImage: 'none',
+                            backgroundColor: 'var(--mui-palette-background-default)',
+                            boxShadow: isDarkMode
+                                ? 'inset 0 -1px 0 rgba(255,255,255,0.06)'
+                                : 'inset 0 -1px 0 rgba(0,0,0,0.08)',
+                            color: isDarkMode ? '#ffffff' : `${themeForColors.palette.primary.dark}`,
+                        },
+                    },
+                },
+                MuiDialog: {
+                    styleOverrides: {
+                        paper: {
+                            borderRadius: 16,
+                            backgroundImage: 'none',
+                        },
+                    },
+                },
+                MuiPaper: {
+                    styleOverrides: {
+                        root: {
+                            backgroundImage: 'none',
+                        },
+                    },
+                },
+                MuiTooltip: {
+                    styleOverrides: {
+                        tooltip: {
+                            borderRadius: 8,
+                            fontSize: '0.75rem',
+                            fontWeight: 500,
+                        },
+                    },
+                },
+                MuiChip: {
+                    styleOverrides: {
+                        root: {
+                            borderRadius: 8,
+                            fontWeight: 500,
+                        },
+                    },
+                },
                 MuiUseMediaQuery: {
                     defaultProps: {
                         noSsr: true,

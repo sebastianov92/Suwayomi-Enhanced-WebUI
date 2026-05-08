@@ -14,9 +14,9 @@ import IconButton from '@mui/material/IconButton';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import { useLocation } from 'react-router-dom';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import MenuIcon from '@mui/icons-material/Menu';
 import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
+import { SuwayomiLogo } from '@/base/components/SuwayomiLogo.tsx';
 import { useBackButton } from '@/base/hooks/useBackButton.ts';
 import { useGetOptionForDirection } from '@/features/theme/services/ThemeCreator.ts';
 import { MediaQuery } from '@/base/utils/MediaQuery.tsx';
@@ -117,22 +117,23 @@ export function DefaultNavBar() {
                     pt: 'env(safe-area-inset-top)',
                     width: `calc(100% - ${actualNavBarWidth}px)`,
                     zIndex: theme.zIndex.drawer,
+                    transition:
+                        'margin-left 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
                 }}
             >
                 <Toolbar sx={{ position: 'relative' }}>
-                    {!isMobileWidth && (
+                    {!isMobileWidth && isCollapsed && (
                         <Stack
                             sx={{
                                 position: 'absolute',
                                 left: 0,
                                 width: `calc(${navBarWidth}px + env(safe-area-inset-left))`,
-                                ...(!isCollapsed && { display: 'none' }),
                                 alignItems: 'center',
+                                cursor: 'pointer',
                             }}
+                            onClick={() => setIsCollapsed(false)}
                         >
-                            <IconButton aria-label="open drawer" onClick={() => setIsCollapsed(false)} color="inherit">
-                                <MenuIcon />
-                            </IconButton>
+                            <SuwayomiLogo collapsed />
                         </Stack>
                     )}
                     <Stack
@@ -141,6 +142,8 @@ export function DefaultNavBar() {
                             width: `calc(100% - (${isCollapsed ? navBarWidth : 0}px + env(safe-area-inset-left)))`,
                             flexDirection: 'row',
                             alignItems: 'center',
+                            transition:
+                                'margin-left 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
                         }}
                     >
                         {!isMainRoute && (

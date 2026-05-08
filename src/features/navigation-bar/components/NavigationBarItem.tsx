@@ -92,6 +92,13 @@ export const NavigationBarItem = ({
                                 lines={1}
                                 variant={isCollapsed ? 'caption' : undefined}
                                 sx={{
+                                    ...(isCollapsed && {
+                                        fontSize: '10px',
+                                        textAlign: 'center',
+                                        WebkitLineClamp: 'unset',
+                                        overflow: 'visible',
+                                        textOverflow: 'clip',
+                                    }),
                                     color: isActive ? 'primary.dark' : undefined,
                                     ...theme.applyStyles('dark', {
                                         color: isActive ? 'primary.light' : undefined,

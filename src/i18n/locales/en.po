@@ -407,6 +407,7 @@ msgid "Added manga to library!"
 msgstr "Added manga to library!"
 
 #: src/features/library/screens/LibrarySettings.tsx
+#: src/features/settings/screens/Settings.tsx
 msgid "Advanced"
 msgstr "Advanced"
 
@@ -960,6 +961,10 @@ msgstr "Connected as {currentUsername} to {currentServerAddress}"
 #: src/features/settings/components/koreaderSync/KoreaderSyncSettings.tsx
 msgid "Connected as {initialUsername} to {initialServerAddress}"
 msgstr "Connected as {initialUsername} to {initialServerAddress}"
+
+#: src/features/settings/screens/Settings.tsx
+msgid "Content"
+msgstr "Content"
 
 #: src/features/migration/components/MigrationContinueButton.tsx
 msgid "Continue"
@@ -1867,6 +1872,7 @@ msgstr "Fourth to last read chapter"
 
 #: src/features/library/screens/LibrarySettings.tsx
 #: src/features/reader/settings/ReaderSettings.constants.tsx
+#: src/features/settings/screens/Settings.tsx
 msgid "General"
 msgstr "General"
 
@@ -3727,6 +3733,10 @@ msgstr "Source scanlator: {0}"
 msgid "Source title"
 msgstr "Source title"
 
+#: src/features/settings/screens/Settings.tsx
+msgid "Sources"
+msgstr "Sources"
+
 #: src/features/settings/Settings.constants.ts
 msgid "Stable"
 msgstr "Stable"
@@ -3825,6 +3835,7 @@ msgid "Sync will not be triggered if the progress difference is within this tole
 msgstr "Sync will not be triggered if the progress difference is within this tolerance."
 
 #: src/features/settings/screens/Appearance.tsx
+#: src/features/settings/screens/Settings.tsx
 msgid "System"
 msgstr "System"
 

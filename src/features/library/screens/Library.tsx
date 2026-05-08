@@ -213,12 +213,12 @@ export function Library() {
             {!isSelectModeActive && activeTab && (
                 <>
                     <Tooltip title={t`Advanced search`}>
-                        <IconButton component={Link} to={AppRoutes.advancedSearch.path}>
+                        <IconButton component={Link} to={AppRoutes.advancedSearch.path} color="inherit">
                             <ManageSearchIcon />
                         </IconButton>
                     </Tooltip>
                     <Tooltip title={t`Recommendations`}>
-                        <IconButton component={Link} to={AppRoutes.recommendations.path}>
+                        <IconButton component={Link} to={AppRoutes.recommendations.path} color="inherit">
                             <RecommendIcon />
                         </IconButton>
                     </Tooltip>

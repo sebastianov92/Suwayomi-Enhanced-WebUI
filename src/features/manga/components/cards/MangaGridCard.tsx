@@ -28,16 +28,18 @@ const BottomGradient = styled('div')({
     position: 'absolute',
     bottom: 0,
     width: '100%',
-    height: '30%',
-    background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%)',
+    height: '45%',
+    background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%)',
+    pointerEvents: 'none',
 });
 
 const BottomGradientDoubledDown = styled('div')({
     position: 'absolute',
     bottom: 0,
     width: '100%',
-    height: '20%',
-    background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%)',
+    height: '25%',
+    background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%)',
+    pointerEvents: 'none',
 });
 
 export const MangaGridCard = memo(
@@ -78,12 +80,19 @@ export const MangaGridCard = memo(
                     sx={{
                         display: 'flex',
                         flexDirection: 'column',
-                        m: 0.25,
-                        outline: selected ? '4px solid' : undefined,
-                        borderRadius: selected ? '1px' : undefined,
+                        m: 0.5,
+                        outline: selected ? '3px solid' : undefined,
+                        borderRadius: selected ? '12px' : '12px',
                         outlineColor: (theme) => theme.palette.primary.main,
                         backgroundColor: (theme) => (selected ? theme.palette.primary.main : undefined),
+                        transition:
+                            'transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                        overflow: 'hidden',
                         '@media (hover: hover) and (pointer: fine)': {
+                            '&:hover': {
+                                transform: 'translateY(-4px)',
+                                boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
+                            },
                             '&:hover .manga-option-button': {
                                 visibility: 'visible',
                                 pointerEvents: 'all',

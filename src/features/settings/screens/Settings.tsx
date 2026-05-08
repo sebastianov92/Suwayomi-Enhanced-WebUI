@@ -26,10 +26,36 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import SendIcon from '@mui/icons-material/Send';
 import RssFeedIcon from '@mui/icons-material/RssFeed';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { useLingui } from '@lingui/react/macro';
 import { ListItemLink } from '@/base/components/lists/ListItemLink.tsx';
 import { AppRoutes } from '@/base/AppRoute.constants.ts';
 import { useAppTitle } from '@/features/navigation-bar/hooks/useAppTitle.ts';
+
+function SettingsSection({ label, children }: { label: string; children: React.ReactNode }) {
+    return (
+        <Box sx={{ mb: 1 }}>
+            <Typography
+                variant="overline"
+                sx={{
+                    px: 2,
+                    pt: 2,
+                    pb: 0.5,
+                    display: 'block',
+                    color: 'primary.main',
+                    fontWeight: 600,
+                    fontSize: '0.7rem',
+                }}
+            >
+                {label}
+            </Typography>
+            <List sx={{ p: 0.5, px: 1 }} dense>
+                {children}
+            </List>
+        </Box>
+    );
+}
 
 export function Settings() {
     const { t } = useLingui();
@@ -37,109 +63,123 @@ export function Settings() {
     useAppTitle(t`Settings`);
 
     return (
-        <List sx={{ padding: 0 }}>
-            <ListItemLink to={AppRoutes.settings.childRoutes.appearance.path}>
-                <ListItemIcon>
-                    <PaletteIcon />
-                </ListItemIcon>
-                <ListItemText primary={t`Appearance`} />
-            </ListItemLink>
-            <ListItemLink to={AppRoutes.settings.childRoutes.reader.path}>
-                <ListItemIcon>
-                    <AutoStoriesIcon />
-                </ListItemIcon>
-                <ListItemText primary={t`Reader`} />
-            </ListItemLink>
-            <ListItemLink to={AppRoutes.settings.childRoutes.library.path}>
-                <ListItemIcon>
-                    <CollectionsOutlinedBookmarkIcon />
-                </ListItemIcon>
-                <ListItemText primary={t`Library`} />
-            </ListItemLink>
-            <ListItemLink to={AppRoutes.settings.childRoutes.download.path}>
-                <ListItemIcon>
-                    <GetAppOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText primary={t`Downloads`} />
-            </ListItemLink>
-            <ListItemLink to={AppRoutes.settings.childRoutes.images.path}>
-                <ListItemIcon>
-                    <ImageIcon />
-                </ListItemIcon>
-                <ListItemText primary={t`Images`} />
-            </ListItemLink>
-            <ListItemLink to={AppRoutes.settings.childRoutes.tracking.path}>
-                <ListItemIcon>
-                    <SyncIcon />
-                </ListItemIcon>
-                <ListItemText primary={t`Tracking`} />
-            </ListItemLink>
-            <ListItemLink to={AppRoutes.settings.childRoutes.backup.path}>
-                <ListItemIcon>
-                    <BackupIcon />
-                </ListItemIcon>
-                <ListItemText primary={t`Backup`} />
-            </ListItemLink>
-            <ListItemLink to={AppRoutes.settings.childRoutes.browse.path}>
-                <ListItemIcon>
-                    <ExploreOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText primary={t`Browse`} />
-            </ListItemLink>
-            <ListItemLink to={AppRoutes.settings.childRoutes.scanlatorAliases.path}>
-                <ListItemIcon>
-                    <LabelIcon />
-                </ListItemIcon>
-                <ListItemText primary={t`Scanlator aliases`} />
-            </ListItemLink>
-            <ListItemLink to={AppRoutes.settings.childRoutes.notifications.path}>
-                <ListItemIcon>
-                    <NotificationsIcon />
-                </ListItemIcon>
-                <ListItemText primary={t`Notifications`} />
-            </ListItemLink>
-            <ListItemLink to={AppRoutes.settings.childRoutes.sendToKindle.path}>
-                <ListItemIcon>
-                    <SendIcon />
-                </ListItemIcon>
-                <ListItemText primary={t`Send to Kindle`} />
-            </ListItemLink>
-            <ListItemLink to={AppRoutes.settings.childRoutes.localSource.path}>
-                <ListItemIcon>
-                    <FolderOpenIcon />
-                </ListItemIcon>
-                <ListItemText primary={t`Local source`} />
-            </ListItemLink>
-            <ListItemLink to={AppRoutes.settings.childRoutes.history.path}>
-                <ListItemIcon>
-                    <HistoryIcon />
-                </ListItemIcon>
-                <ListItemText primary={t`History`} />
-            </ListItemLink>
-            <ListItemLink to={AppRoutes.settings.childRoutes.device.path}>
-                <ListItemIcon>
-                    <DevicesIcon />
-                </ListItemIcon>
-                <ListItemText primary={t`Device`} />
-            </ListItemLink>
-            <ListItemLink to={AppRoutes.settings.childRoutes.webui.path}>
-                <ListItemIcon>
-                    <WebIcon />
-                </ListItemIcon>
-                <ListItemText primary={t`WebUI`} />
-            </ListItemLink>
-            <ListItemLink to={AppRoutes.settings.childRoutes.server.path}>
-                <ListItemIcon>
-                    <DnsIcon />
-                </ListItemIcon>
-                <ListItemText primary={t`Server`} />
-            </ListItemLink>
-            <ListItemLink to={AppRoutes.settings.childRoutes.opds.path}>
-                <ListItemIcon>
-                    <RssFeedIcon />
-                </ListItemIcon>
-                <ListItemText primary={t`OPDS`} />
-            </ListItemLink>
-        </List>
+        <Box sx={{ maxWidth: 720, pb: 4 }}>
+            <SettingsSection label={t`General`}>
+                <ListItemLink to={AppRoutes.settings.childRoutes.appearance.path}>
+                    <ListItemIcon>
+                        <PaletteIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={t`Appearance`} />
+                </ListItemLink>
+                <ListItemLink to={AppRoutes.settings.childRoutes.reader.path}>
+                    <ListItemIcon>
+                        <AutoStoriesIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={t`Reader`} />
+                </ListItemLink>
+                <ListItemLink to={AppRoutes.settings.childRoutes.library.path}>
+                    <ListItemIcon>
+                        <CollectionsOutlinedBookmarkIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={t`Library`} />
+                </ListItemLink>
+            </SettingsSection>
+
+            <SettingsSection label={t`Content`}>
+                <ListItemLink to={AppRoutes.settings.childRoutes.download.path}>
+                    <ListItemIcon>
+                        <GetAppOutlinedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={t`Downloads`} />
+                </ListItemLink>
+                <ListItemLink to={AppRoutes.settings.childRoutes.images.path}>
+                    <ListItemIcon>
+                        <ImageIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={t`Images`} />
+                </ListItemLink>
+                <ListItemLink to={AppRoutes.settings.childRoutes.tracking.path}>
+                    <ListItemIcon>
+                        <SyncIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={t`Tracking`} />
+                </ListItemLink>
+                <ListItemLink to={AppRoutes.settings.childRoutes.backup.path}>
+                    <ListItemIcon>
+                        <BackupIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={t`Backup`} />
+                </ListItemLink>
+            </SettingsSection>
+
+            <SettingsSection label={t`Sources`}>
+                <ListItemLink to={AppRoutes.settings.childRoutes.browse.path}>
+                    <ListItemIcon>
+                        <ExploreOutlinedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={t`Browse`} />
+                </ListItemLink>
+                <ListItemLink to={AppRoutes.settings.childRoutes.scanlatorAliases.path}>
+                    <ListItemIcon>
+                        <LabelIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={t`Scanlator aliases`} />
+                </ListItemLink>
+                <ListItemLink to={AppRoutes.settings.childRoutes.localSource.path}>
+                    <ListItemIcon>
+                        <FolderOpenIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={t`Local source`} />
+                </ListItemLink>
+            </SettingsSection>
+
+            <SettingsSection label={t`Advanced`}>
+                <ListItemLink to={AppRoutes.settings.childRoutes.notifications.path}>
+                    <ListItemIcon>
+                        <NotificationsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={t`Notifications`} />
+                </ListItemLink>
+                <ListItemLink to={AppRoutes.settings.childRoutes.sendToKindle.path}>
+                    <ListItemIcon>
+                        <SendIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={t`Send to Kindle`} />
+                </ListItemLink>
+                <ListItemLink to={AppRoutes.settings.childRoutes.history.path}>
+                    <ListItemIcon>
+                        <HistoryIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={t`History`} />
+                </ListItemLink>
+            </SettingsSection>
+
+            <SettingsSection label={t`System`}>
+                <ListItemLink to={AppRoutes.settings.childRoutes.device.path}>
+                    <ListItemIcon>
+                        <DevicesIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={t`Device`} />
+                </ListItemLink>
+                <ListItemLink to={AppRoutes.settings.childRoutes.webui.path}>
+                    <ListItemIcon>
+                        <WebIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={t`WebUI`} />
+                </ListItemLink>
+                <ListItemLink to={AppRoutes.settings.childRoutes.server.path}>
+                    <ListItemIcon>
+                        <DnsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={t`Server`} />
+                </ListItemLink>
+                <ListItemLink to={AppRoutes.settings.childRoutes.opds.path}>
+                    <ListItemIcon>
+                        <RssFeedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={t`OPDS`} />
+                </ListItemLink>
+            </SettingsSection>
+        </Box>
     );
 }
