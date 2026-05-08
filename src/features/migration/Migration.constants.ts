@@ -37,6 +37,7 @@ export const DEFAULT_MIGRATION_STATE: MigrationState = {
     sourceIds: null,
     entries: {},
     destinationSourceIds: [],
+    searchOptions: null,
     migrateOptions: null,
     searchProgress: { total: 0, completed: 0, success: 0, failed: 0 },
     migrationProgress: { total: 0, completed: 0, success: 0, failed: 0 },

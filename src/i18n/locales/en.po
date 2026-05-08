@@ -744,6 +744,7 @@ msgstr "Call timeout"
 #: src/features/category/components/CreateOrEditCategoryDialog.tsx
 #: src/features/manga/components/MangaKindleConfigDialog.tsx
 #: src/features/manga/components/MangaUserOverrideDialog.tsx
+#: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
 #: src/features/migration/components/MigrationOptionsDialog.tsx
 #: src/features/reader/hotkeys/settings/components/RecordHotkey.tsx
 #: src/features/settings/components/globalUpdate/GlobalUpdateSettingsEntries.tsx
@@ -2005,7 +2006,7 @@ msgstr "How many chapters should get downloaded while reading."
 msgid "How much time FlareSolverr has to handle the request"
 msgstr "How much time FlareSolverr has to handle the request"
 
-#: src/features/migration/components/MigrationOptionsDialog.tsx
+#: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
 msgid ""
 "If enabled, chooses the match furthest ahead.\n"
 "Otherwise, picks the first match by source priority."
@@ -2492,7 +2493,7 @@ msgstr "Mark selected as read"
 msgid "Mark selected as unread"
 msgstr "Mark selected as unread"
 
-#: src/features/migration/components/MigrationOptionsDialog.tsx
+#: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
 msgid "Match based on chapter number"
 msgstr "Match based on chapter number"
 
@@ -3358,6 +3359,7 @@ msgstr "Scroll forward"
 
 #: src/base/components/AppbarSearch.tsx
 #: src/features/library/screens/AdvancedLibrarySearch.tsx
+#: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
 msgid "Search"
 msgstr "Search"
 
@@ -3385,6 +3387,9 @@ msgstr ""
 #: src/features/library/screens/AdvancedLibrarySearch.tsx
 msgid "Search in fields"
 msgstr "Search in fields"
+#: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
+msgid "Search options"
+msgstr "Search options"
 
 #: src/features/settings/components/images/Processing.tsx
 msgid "Search parameters"
@@ -3999,6 +4004,7 @@ msgstr "There is no previous chapter"
 msgid "These aliases reference scanlators that no longer appear in any chapter. They are still used if a matching chapter shows up later."
 msgstr "These aliases reference scanlators that no longer appear in any chapter. They are still used if a matching chapter shows up later."
 #: src/features/migration/components/MigrationOptionsDialog.tsx
+#: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
 msgid "These options are slow and dangerous and may lead to restrictions from sources"
 msgstr "These options are slow and dangerous and may lead to restrictions from sources"
 
