@@ -963,7 +963,8 @@ export class MigrationManager {
                     }
 
                     assertIsDefined(entry.selectedMatchMangaId);
-                    await MangaMigration.migrate(mangaId, entry.selectedMatchMangaId, options);
+
+                    await MangaMigration.migrateByIdWithQuery(mangaId, entry.selectedMatchMangaId, options);
                 });
             });
 
