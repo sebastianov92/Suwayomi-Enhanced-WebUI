@@ -119,6 +119,11 @@ export function DefaultNavBar() {
                     zIndex: theme.zIndex.drawer,
                     transition:
                         'margin-left 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                    // Solid background so manga cards don't scroll through
+                    // the header on mobile (theme-level override loses to
+                    // MUI's color="*" classes for some reason).
+                    backgroundColor: 'background.default',
+                    backgroundImage: 'none',
                 }}
             >
                 <Toolbar sx={{ position: 'relative' }}>

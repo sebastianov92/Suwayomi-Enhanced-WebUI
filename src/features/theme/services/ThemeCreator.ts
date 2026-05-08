@@ -313,7 +313,11 @@ export const createTheme = (
                 },
                 MuiAppBar: {
                     defaultProps: {
-                        color: 'transparent',
+                        // `color: 'transparent'` was zero-ing out the
+                        // backgroundColor below via MuiAppBar-colorTransparent,
+                        // so on mobile the page content scrolled under the
+                        // header. Use 'default' so styleOverrides apply.
+                        color: 'default',
                         enableColorOnDark: true,
                     },
                     styleOverrides: {
@@ -324,6 +328,13 @@ export const createTheme = (
                                 ? 'inset 0 -1px 0 rgba(255,255,255,0.06)'
                                 : 'inset 0 -1px 0 rgba(0,0,0,0.08)',
                             color: isDarkMode ? '#ffffff' : `${themeForColors.palette.primary.dark}`,
+                        },
+                        // Belt-and-suspenders: if any consumer still
+                        // requests color="transparent", force the same
+                        // solid background so content never scrolls
+                        // through the header.
+                        colorTransparent: {
+                            backgroundColor: 'var(--mui-palette-background-default)',
                         },
                     },
                 },
