@@ -29,10 +29,34 @@ export const MigrationBulkSearchOptionsDialog = ({
     const { t } = useLingui();
 
     const [selectHighestChapterNumberSource, setSelectHighestChapterNumberSource] = useState(false);
+    const [ignoreOutdatedMatches, setIgnoreOutdatesMatches] = useState(false);
 
     return (
         <Dialog open={isVisible} fullWidth onClose={onDismiss} onTransitionExited={onExitComplete}>
             <DialogTitle>{t`Search options`}</DialogTitle>
+            <DialogContent>
+                <CheckboxInput
+                    label={
+                        <Stack
+                            sx={{
+                                // Padding comes from the MUI Checkbox component
+                                pt: '9px',
+                            }}
+                        >
+                            <Typography>{t`Ignore matches without newer chapters`}</Typography>
+                            <Typography
+                                variant="body2"
+                                color="textSecondary"
+                            >{t`Do not automatically select matches if they are behind the current source. They will still be shown in the found matches`}</Typography>
+                        </Stack>
+                    }
+                    sx={{
+                        alignItems: 'start',
+                    }}
+                    checked={ignoreOutdatedMatches}
+                    onChange={(_, checked) => setIgnoreOutdatesMatches(checked)}
+                />
+            </DialogContent>
             <DialogContent dividers>
                 <Stack
                     direction="row"
@@ -82,6 +106,7 @@ export const MigrationBulkSearchOptionsDialog = ({
                     onClick={() =>
                         onSubmit({
                             selectHighestChapterNumberSource,
+                            ignoreOutdatedMatches,
                         })
                     }
                 >

@@ -63,6 +63,12 @@ msgstr "{0, plural, one {# Tracker} other {# Tracker}}"
 msgid "{0, plural, one {1 entry with no match} other {# entries with no match}}"
 msgstr "{0, plural, one {1 entry with no match} other {# entries with no match}}"
 
+#. placeholder {0}: outdatedEntries.length
+#: src/features/migration/screens/MigrationExecute.tsx
+#: src/features/migration/screens/MigrationSearch.tsx
+msgid "{0, plural, one {1 entry with only outdated matches} other {# entries with only outdated matches}}"
+msgstr "{0, plural, one {1 entry with only outdated matches} other {# entries with only outdated matches}}"
+
 #. placeholder {0}: excludedEntries.length
 #: src/features/migration/screens/MigrationExecute.tsx
 msgid "{0, plural, one {1 excluded entry} other {# excluded entries}}"
@@ -1468,6 +1474,9 @@ msgstr "Display mode"
 #: src/features/settings/screens/ScanlatorAliases.tsx
 msgid "Display name"
 msgstr "Display name"
+#: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
+msgid "Do not automatically select matches if they are behind the current source. They will still be shown in the found matches"
+msgstr "Do not automatically select matches if they are behind the current source. They will still be shown in the found matches"
 
 #: src/features/settings/components/koreaderSync/KoreaderSyncSettings.tsx
 msgid "Document matching method"
@@ -2025,6 +2034,10 @@ msgstr "Ignore automatic chapter downloads for entries with unread chapters"
 #: src/features/library/screens/LibrarySettings.tsx
 msgid "Ignore filters when searching"
 msgstr "Ignore filters when searching"
+
+#: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
+msgid "Ignore matches without newer chapters"
+msgstr "Ignore matches without newer chapters"
 
 #: src/features/downloads/screens/DownloadSettings.tsx
 msgid "Ignore re-uploaded chapters"
@@ -2799,6 +2812,9 @@ msgstr "Ongoing"
 #: src/features/library/screens/AdvancedLibrarySearch.tsx
 msgid "Only mangas in my library"
 msgstr "Only mangas in my library"
+#: src/features/migration/Migration.constants.ts
+msgid "Only outdated matches found"
+msgstr "Only outdated matches found"
 
 #: src/features/downloads/components/DownloadAheadSetting.tsx
 msgid "Only works if the current chapter plus the next chapter are already downloaded."
