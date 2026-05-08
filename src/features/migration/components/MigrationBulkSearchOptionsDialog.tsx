@@ -35,7 +35,7 @@ export const MigrationBulkSearchOptionsDialog = ({
     return (
         <Dialog open={isVisible} fullWidth onClose={onDismiss} onTransitionExited={onExitComplete}>
             <DialogTitle>{t`Search options`}</DialogTitle>
-            <DialogContent>
+            <DialogContent dividers>
                 <CheckboxInput
                     label={
                         <Stack
