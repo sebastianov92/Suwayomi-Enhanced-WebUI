@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased] (Preview)
 
+- /
+
+## [20260508.01] (r3136) - 2026-05-08
+
 ### Added
 
 - (**Theme**) Add an option to save the dynamic color theme on the manga page as a custom theme
@@ -48,6 +52,43 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - (**Reader**) Fix page load retry button in continuous reading modes
 - (**Manga**) Fix dynamic manga page color theme not getting reset after leaving the manga page
 - (**Download**) Fix "download ahead" option in the library for a single manga or in the manga page chapter list triggering downloads while there are already enough unread downloaded chapters
+
+### Translations
+
+Feel free to translate the project on [Weblate](https://hosted.weblate.org/projects/suwayomi/suwayomi-webui/)
+
+Thanks to everyone that contributed to the translation of this project.
+
+#### Added
+
+- Arabic (by Elyan Voryn)
+- Hungarian (by Roland Vezsenyi)
+- Indonesian (by Arif Budiman)
+
+#### Updated
+
+- Chinese (Simplified) (by 清水汐音)
+- Chinese (Traditional) (by plum7x)
+- German (by Constantin Piber)
+- Russian (by Sazuru, moron1717, Micka149)
+- French (by Damien O'Neil)
+- Polish (by AteX, UnknownSkyrimPasserby)
+- Vietnamese (by Nguyễn Trung Đức)
+- Japanese (by makoto)
+- Spanish (by Alexis Cabrera)
+
+#### Removed (less than 75% translated)
+
+- Portuguese (Brazil) (63.9%)
+- Portuguese (70.7%)
+- Tamil (74.3%)
+- Turkish (70.6%)
+
+### Contributors
+
+Thanks to everyone that contributed to this release
+
+@schroda, @weblate, @CyberMageIL, @dejavui, @tomaioo, @github-actions[bot], @cpiber, @aizhimoran, @arifpedia, @mahranaka, @moron1717, @tonyganchev, @infyProductions, @Daemonhellz, @makoto326, @Sazuru, @UnknownSkyrimPasserby, @crnobog69, @aitiotekt, @KaceyKoo-gif, @Micka149, @Pysta, @plum7x, @Lordreis28, @ginocic, @JeanCPG97, @Bartuzen
 
 ## [20251230.01] (r2937) - 2025-12-30
 
@@ -719,7 +760,8 @@ Thanks to everyone that contributed to this release
 
 @schroda, @jesusFx, @QuietBlade, @anvstin, @guohuageng, @plum7x, @HiyoriTUK, @aizhimoran, @JiPaix, @Yuhyeong, @a18ccms, @chancez, @rickymcmuffin, @zmmx, @alexandrejournet, @ibaraki-douji, @nitezs, @misaka10843, @Becods, @skrewde, @xconkhi9x, @cnmorocho, @Wip-Sama, @Kefir2105, @RafieHardinur, @SuperMario229, @Alexandre-P-J, @AriaMoradi, @NathanBnm, @FumoVite, @JoHena, @bandysharif, @DevCoz, @comradekingu, @Zereef, @akabhirav
 
-[unreleased]: https://github.com/suwayomi/suwayomi-webui/compare/v20251230.01...HEAD
+[unreleased]: https://github.com/suwayomi/suwayomi-webui/compare/v20260508.01...HEAD
+[20260508.01]: https://github.com/suwayomi/suwayomi-webui/compare/v20251230.01...v20260508.01
 [20251230.01]: https://github.com/suwayomi/suwayomi-webui/compare/v20250801.01...v20251230.01
 [20250801.01]: https://github.com/suwayomi/suwayomi-webui/compare/v20250731.01...v20250801.01
 [20250731.01]: https://github.com/suwayomi/suwayomi-webui/compare/v20250703.01...v20250731.01
