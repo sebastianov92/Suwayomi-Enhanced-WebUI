@@ -2005,6 +2005,14 @@ msgstr "How many chapters should get downloaded while reading."
 msgid "How much time FlareSolverr has to handle the request"
 msgstr "How much time FlareSolverr has to handle the request"
 
+#: src/features/migration/components/MigrationOptionsDialog.tsx
+msgid ""
+"If enabled, chooses the match furthest ahead.\n"
+"Otherwise, picks the first match by source priority."
+msgstr ""
+"If enabled, chooses the match furthest ahead.\n"
+"Otherwise, picks the first match by source priority."
+
 #: src/features/app-updates/components/VersionUpdateInfoDialog.tsx
 msgid "Ignore"
 msgstr "Ignore"
@@ -2483,6 +2491,10 @@ msgstr "Mark selected as read"
 #: src/features/chapter/Chapter.constants.ts
 msgid "Mark selected as unread"
 msgstr "Mark selected as unread"
+
+#: src/features/migration/components/MigrationOptionsDialog.tsx
+msgid "Match based on chapter number"
+msgstr "Match based on chapter number"
 
 #: src/features/migration/Migration.constants.ts
 msgid "Match found"
@@ -3986,6 +3998,9 @@ msgstr "There is no previous chapter"
 #: src/features/settings/screens/ScanlatorAliases.tsx
 msgid "These aliases reference scanlators that no longer appear in any chapter. They are still used if a matching chapter shows up later."
 msgstr "These aliases reference scanlators that no longer appear in any chapter. They are still used if a matching chapter shows up later."
+#: src/features/migration/components/MigrationOptionsDialog.tsx
+msgid "These options are slow and dangerous and may lead to restrictions from sources"
+msgstr "These options are slow and dangerous and may lead to restrictions from sources"
 
 #: src/features/downloads/components/DeleteChaptersWhileReadingSetting.tsx
 msgid "Third to last read chapter"
