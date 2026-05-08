@@ -670,6 +670,7 @@ msgstr "Call timeout"
 #: src/features/category/components/CategoriesInclusionSetting.tsx
 #: src/features/category/components/CategorySelect.tsx
 #: src/features/category/components/CreateOrEditCategoryDialog.tsx
+#: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
 #: src/features/migration/components/MigrationOptionsDialog.tsx
 #: src/features/reader/hotkeys/settings/components/RecordHotkey.tsx
 #: src/features/settings/components/globalUpdate/GlobalUpdateSettingsEntries.tsx
@@ -1802,7 +1803,7 @@ msgstr "How many chapters should get downloaded while reading."
 msgid "How much time FlareSolverr has to handle the request"
 msgstr "How much time FlareSolverr has to handle the request"
 
-#: src/features/migration/components/MigrationOptionsDialog.tsx
+#: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
 msgid ""
 "If enabled, chooses the match furthest ahead.\n"
 "Otherwise, picks the first match by source priority."
@@ -2250,7 +2251,7 @@ msgstr "Mark selected as read"
 msgid "Mark selected as unread"
 msgstr "Mark selected as unread"
 
-#: src/features/migration/components/MigrationOptionsDialog.tsx
+#: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
 msgid "Match based on chapter number"
 msgstr "Match based on chapter number"
 
@@ -2930,6 +2931,7 @@ msgid "Scroll forward"
 msgstr "Scroll forward"
 
 #: src/base/components/AppbarSearch.tsx
+#: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
 msgid "Search"
 msgstr "Search"
 
@@ -2953,6 +2955,10 @@ msgid ""
 msgstr ""
 "Search for a ID via \"id:<ID>\" (e.g. \"id:13\")\n"
 "Limit search to your lists via \"my:<Title>\" (e.g. \"my:One Piece\")"
+
+#: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
+msgid "Search options"
+msgstr "Search options"
 
 #: src/features/settings/components/images/Processing.tsx
 msgid "Search parameters"
@@ -3483,7 +3489,7 @@ msgstr "There is no next chapter"
 msgid "There is no previous chapter"
 msgstr "There is no previous chapter"
 
-#: src/features/migration/components/MigrationOptionsDialog.tsx
+#: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
 msgid "These options are slow and dangerous and may lead to restrictions from sources"
 msgstr "These options are slow and dangerous and may lead to restrictions from sources"
 
