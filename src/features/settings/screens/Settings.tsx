@@ -50,7 +50,22 @@ function SettingsSection({ label, children }: { label: string; children: React.R
             >
                 {label}
             </Typography>
-            <List sx={{ p: 0.5, px: 1 }} dense>
+            <List
+                sx={(theme) => ({
+                    p: 0.5,
+                    px: 1,
+                    // Match the sidebar look in light mode: idle entries
+                    // (icon + label) take primary.main. Dark theme keeps
+                    // its existing default rendering.
+                    '& .MuiListItemIcon-root': { color: 'primary.dark' },
+                    '& .MuiListItemText-primary': { color: 'primary.dark' },
+                    ...theme.applyStyles('dark', {
+                        '& .MuiListItemIcon-root': { color: undefined },
+                        '& .MuiListItemText-primary': { color: undefined },
+                    }),
+                })}
+                dense
+            >
                 {children}
             </List>
         </Box>

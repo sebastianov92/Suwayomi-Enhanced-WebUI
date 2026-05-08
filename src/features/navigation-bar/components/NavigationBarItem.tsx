@@ -77,7 +77,13 @@ export const NavigationBarItem = ({
                         <Badge badgeContent={badgeInfo?.count} color="primary">
                             <Icon
                                 sx={{
-                                    color: isActive ? 'primary.dark' : undefined,
+                                    // Light theme: idle items pick up
+                                    // primary.light so the sidebar reads as
+                                    // theme-tinted; active stays primary.dark
+                                    // for emphasis. Dark theme keeps the
+                                    // original behaviour (idle = default,
+                                    // active = primary.light).
+                                    color: isActive ? 'secondary.dark' : 'primary.dark',
                                     ...theme.applyStyles('dark', {
                                         color: isActive ? 'primary.light' : undefined,
                                     }),
@@ -99,7 +105,7 @@ export const NavigationBarItem = ({
                                         overflow: 'visible',
                                         textOverflow: 'clip',
                                     }),
-                                    color: isActive ? 'primary.dark' : undefined,
+                                    color: isActive ? 'secondary.dark' : 'primary.dark',
                                     ...theme.applyStyles('dark', {
                                         color: isActive ? 'primary.light' : undefined,
                                     }),
