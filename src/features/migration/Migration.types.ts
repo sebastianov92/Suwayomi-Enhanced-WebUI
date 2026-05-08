@@ -60,6 +60,7 @@ export type MetadataMigrationSettings = {
 
 export interface MigrationBulkSearchSettings {
     selectHighestChapterNumberSource: boolean;
+    ignoreOutdatedMatches: boolean;
 }
 
 export enum MigrationPhase {
@@ -76,6 +77,7 @@ export enum MigrationEntryStatus {
     SEARCHING = 'searching',
     SEARCH_COMPLETE = 'search_complete',
     SEARCH_FAILED = 'search_failed',
+    OUTDATED = 'outdated',
     NO_MATCH = 'no_match',
     MIGRATING = 'migrating',
     MIGRATION_COMPLETE = 'migration_complete',

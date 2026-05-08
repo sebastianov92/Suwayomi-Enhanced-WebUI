@@ -378,6 +378,7 @@ export class MigrationManager {
                         ...MIGRATE_SEARCH_ENTRY_GROUP_EXPAND_DEFAULT_STATE,
                         [MigrationEntryStatus.SEARCHING]: false,
                         [MigrationEntryStatus.NO_MATCH]: !allSearchesFailed && !searchProgress.success,
+                        [MigrationEntryStatus.OUTDATED]: !allSearchesFailed && !searchProgress.success,
                         [MigrationEntryStatus.SEARCH_FAILED]: allSearchesFailed,
                         [MigrationEntryStatus.SEARCH_COMPLETE]: !!searchProgress.success,
                     };
@@ -730,7 +731,7 @@ export class MigrationManager {
         mainSignal: AbortSignal,
         options: MigrationBulkSearchSettings,
     ): Promise<void> {
-        const { selectHighestChapterNumberSource } = options;
+        const { selectHighestChapterNumberSource, ignoreOutdatedMatches } = options;
 
         const state = MigrationManager.getState();
         const entry = state.entries[mangaId];
@@ -837,6 +838,7 @@ export class MigrationManager {
                             destSourceId,
                         );
 
+                        const ignoreOutdatedMatch = ignoreOutdatedMatches && !hasNewerChapter;
                         const isPreferredSourcePriorityMatch =
                             hasHigherSourcePriority && !selectHighestChapterNumberSource;
                         const isPreferredChapterNumberMatch =
@@ -845,7 +847,8 @@ export class MigrationManager {
                                 (hasHigherSourcePriority && hasSameLatestChapterAsSelectedMatch) ||
                                 !draftMatchEntry);
 
-                        const isPreferredMatch = isPreferredSourcePriorityMatch || isPreferredChapterNumberMatch;
+                        const isPreferredMatch =
+                            !ignoreOutdatedMatch && (isPreferredSourcePriorityMatch || isPreferredChapterNumberMatch);
                         if (isPreferredMatch) {
                             draftEntry.selectedMatchMangaId = bestMatch.id;
                             draftEntry.selectedMatchSourceId = destSourceId;
@@ -873,7 +876,12 @@ export class MigrationManager {
 
                 if (draftEntry.searchMatches.length) {
                     draft.searchProgress.success += 1;
-                    draftEntry.status = MigrationEntryStatus.SEARCH_COMPLETE;
+
+                    if (draftEntry.selectedMatchMangaId != null) {
+                        draftEntry.status = MigrationEntryStatus.SEARCH_COMPLETE;
+                    } else {
+                        draftEntry.status = MigrationEntryStatus.OUTDATED;
+                    }
                 } else {
                     draftEntry.status = MigrationEntryStatus.NO_MATCH;
                 }
