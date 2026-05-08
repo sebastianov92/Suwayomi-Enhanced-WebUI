@@ -313,6 +313,10 @@ msgstr "*: Active setting"
 msgid "<0>Suwayomi does not provide any support for 3rd party repositories or extensions!</0><1/>Use with caution as there could be malicious actors making those repositories.<2/>You as the user need to verify the security and that you trust any repository or extension."
 msgstr "<0>Suwayomi does not provide any support for 3rd party repositories or extensions!</0><1/>Use with caution as there could be malicious actors making those repositories.<2/>You as the user need to verify the security and that you trust any repository or extension."
 
+#: src/features/manga/services/Mangas.ts
+msgid "A migration is already in progress"
+msgstr "A migration is already in progress"
+
 #: src/features/settings/Settings.constants.ts
 msgid "A preview focused web frontend built with svelte"
 msgstr "A preview focused web frontend built with svelte"
