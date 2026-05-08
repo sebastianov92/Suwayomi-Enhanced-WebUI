@@ -98,12 +98,25 @@ export const NavigationBarItem = ({
                                 lines={1}
                                 variant={isCollapsed ? 'caption' : undefined}
                                 sx={{
+                                    // Force single-line + ellipsis. Safari
+                                    // honours `overflowWrap: break-word`
+                                    // (inherited from TypographyMaxLines)
+                                    // even when -webkit-line-clamp is 1,
+                                    // which made labels like "Downloads"
+                                    // wrap onto two lines despite there
+                                    // being room. Clamp explicitly here.
+                                    whiteSpace: 'nowrap',
+                                    overflowWrap: 'normal',
+                                    wordBreak: 'normal',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
                                     ...(isCollapsed && {
                                         fontSize: '10px',
                                         textAlign: 'center',
                                         WebkitLineClamp: 'unset',
                                         overflow: 'visible',
                                         textOverflow: 'clip',
+                                        whiteSpace: 'normal',
                                     }),
                                     color: isActive ? 'secondary.dark' : 'primary.dark',
                                     ...theme.applyStyles('dark', {
