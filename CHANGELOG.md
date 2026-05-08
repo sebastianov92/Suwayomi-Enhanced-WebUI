@@ -491,22 +491,17 @@ Thanks to everyone that contributed to the translation of this project.
 
 #### Removed (less than 75% translated)
 
-- "Arabic (ar)" (71.7%)
-- "Bengali (bn)" (1.8%)
-- "Danish (da)" (13.6%)
-- "Filipino (fil)" (16.2%)
-- "Gan (Traditional Han script) (gan-Hant)" (0%)
-- "Indonesian (id)" (22%)
-- "Italian (it)" (69.4%)
-- "Japanese (ja)" (56.8%)
-- "Korean (ko)" (13%)
-- "Norwegian Bokmål (nb-NO)" (1.3%)
-- "Dutch (nl)" (44.9%)
-- "Portuguese (Brazil) (pt-BR)" (32.4%)
-- "Swedish (sv)" (2%)
-- "Thai (th)" (28.5%)
-- "Ukrainian (uk)" (54.9%)
-- "Cantonese (Traditional Han script) (yue-Hant)" (0%)
+- Arabic (ar) (71.7%)
+- Bengali (bn) (1.8%)
+- Gan (Traditional Han script) (gan-Hant) (0%)
+- Indonesian (id) (22%)
+- Italian (it) (69.4%)
+- Japanese (ja) (56.8%)
+- Korean (ko) (13%)
+- Norwegian Bokmål (nb-NO) (1.3%)
+- Swedish (sv) (2%)
+- Ukrainian (uk) (54.9%)
+- Cantonese (Traditional Han script) (yue-Hant) (0%)
 
 ### Contributors
 
