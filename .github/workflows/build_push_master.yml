@@ -56,7 +56,7 @@ jobs:
       - name: Checkout preview branch
         uses: actions/checkout@v4
         with:
-          repository: "Suwayomi/Suwayomi-WebUI-preview"
+          repository: "sebastianov92/Suwayomi-Enhanced-WebUI-preview"
           ref: main
           path: preview
           token: ${{ secrets.BUILD_PREVIEW_TOKEN }}
@@ -81,27 +81,6 @@ jobs:
         with:
           token: ${{ secrets.BUILD_PREVIEW_TOKEN }}
           artifacts: "master/buildZip/*"
-          owner: "Suwayomi"
-          repo: "Suwayomi-WebUI-preview"
+          owner: "sebastianov92"
+          repo: "Suwayomi-Enhanced-WebUI-preview"
           tag: ${{ steps.GenTagName.outputs.value }}
-
-      - name: Checkout github pages repo
-        uses: actions/checkout@v4
-        with:
-          repository: "Suwayomi-WebUI-preview/suwayomi-webui-preview.github.io"
-          ref: main
-          path: gh-pages
-          token: ${{ secrets.DEPLOY_PREVIEW_TOKEN }}
-
-      - name: Deploy github pages
-        run: |
-          TAG="${{ steps.GenTagName.outputs.value }}"
-          rm -rf gh-pages/*
-          cp -r master/build/* gh-pages
-          cd gh-pages
-          cp index.html 404.html
-          git add -A
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          git commit -m "$TAG"
-          git push origin main
