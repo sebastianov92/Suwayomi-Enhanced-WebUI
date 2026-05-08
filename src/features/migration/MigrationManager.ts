@@ -56,6 +56,7 @@ import { MANGA_MIGRATION_FIELDS } from '@/lib/graphql/manga/MangaFragments.ts';
 import { ZustandUtil } from '@/lib/zustand/ZustandUtil.ts';
 import { getErrorMessage } from '@/lib/HelperFunctions.ts';
 import isEqual from 'lodash/fp/isEqual';
+import uniqBy from 'lodash/fp/uniqBy';
 
 const RESUMABLE_PHASES: readonly MigrationPhase[] = [MigrationPhase.SEARCHING, MigrationPhase.MIGRATING];
 
@@ -663,66 +664,91 @@ export class MigrationManager {
         mangaTitle: string,
         sourceId: SourceIdInfo['id'],
         signal: AbortSignal,
-        { selectHighestChapterNumberSource }: MigrationBulkSearchSettings,
+        { selectHighestChapterNumberSource, performAdvancedSearch }: MigrationBulkSearchSettings,
     ): Promise<MangaMigrationFieldsFragment[]> {
         if (signal.aborted) {
             throw new Error(signal.reason);
         }
 
-        return MigrationManager.getOrCreateSourceQueue(sourceId)(async () => {
+        if (signal.aborted) {
+            throw new Error(signal.reason);
+        }
+
+        if (!selectHighestChapterNumberSource && MigrationManager.hasHigherSourcePriorityMatch(mangaId, sourceId)) {
+            throw new Error('Entry already has a selected match from a higher priority source');
+        }
+
+        const searchQueries = performAdvancedSearch
+            ? [
+                  mangaTitle,
+                  ...enhancedCleanup(mangaTitle)
+                      .split(' ')
+                      .filter((query) => query.length >= 3),
+              ]
+            : [mangaTitle];
+
+        const searchRequests = searchQueries.map((query) =>
+            MigrationManager.getOrCreateSourceQueue(sourceId)(() =>
+                requestManager.graphQLClient.client.mutate<
+                    GetMigrationSourceMangasFetchMutation,
+                    GetMigrationSourceMangasFetchMutationVariables
+                >({
+                    mutation: GET_MIGRATION_SOURCE_MANGAS_FETCH,
+                    variables: {
+                        input: {
+                            source: sourceId,
+                            query,
+                            page: 1,
+                            type: FetchSourceMangaType.Search,
+                        },
+                    },
+                    context: { fetchOptions: { signal } },
+                }),
+            ),
+        );
+
+        const searchResponses = await Promise.allSettled(searchRequests);
+        const successfulSearchResponses = searchResponses
+            .filter((response) => response.status === 'fulfilled')
+            .map((response) => response.value);
+
+        if (!successfulSearchResponses.length) {
+            const failureReasons = searchResponses.map((response) => (response as PromiseRejectedResult).reason);
+
+            throw new Error(`Search failed due to:${failureReasons.join('\n\n')}`);
+        }
+
+        const searchResults = successfulSearchResponses.flatMap(
+            (response) => response?.data?.fetchSourceManga?.mangas ?? [],
+        );
+        const uniqueSearchResults = uniqBy('id', searchResults);
+        const matches = uniqueSearchResults.filter(
+            (searchMatch) => enhancedCleanup(searchMatch.title) === enhancedCleanup(mangaTitle),
+        );
+
+        const matchUpdatePromises = matches.map(async (match) => {
             if (signal.aborted) {
                 throw new Error(signal.reason);
             }
 
-            if (!selectHighestChapterNumberSource && MigrationManager.hasHigherSourcePriorityMatch(mangaId, sourceId)) {
-                throw new Error('Entry already has a selected match from a higher priority source');
-            }
+            return (async () => {
+                try {
+                    const updatedMatch = await requestManager.refreshManga(match.id, {
+                        awaitRefetchQueries: true,
+                    }).response;
 
-            const searchResponse = await requestManager.graphQLClient.client.mutate<
-                GetMigrationSourceMangasFetchMutation,
-                GetMigrationSourceMangasFetchMutationVariables
-            >({
-                mutation: GET_MIGRATION_SOURCE_MANGAS_FETCH,
-                variables: {
-                    input: {
-                        source: sourceId,
-                        query: mangaTitle,
-                        page: 1,
-                        type: FetchSourceMangaType.Search,
-                    },
-                },
-                context: { fetchOptions: { signal } },
-            });
-
-            const searchMatches = searchResponse?.data?.fetchSourceManga?.mangas ?? [];
-            const matches = searchMatches.filter(
-                (searchMatch) => enhancedCleanup(searchMatch.title) === enhancedCleanup(mangaTitle),
-            );
-
-            const matchUpdatePromises = matches.map(async (match) => {
-                if (signal.aborted) {
-                    throw new Error(signal.reason);
+                    return updatedMatch.data?.fetchManga?.manga ?? match;
+                } catch (e) {
+                    // ignore
                 }
 
-                return (async () => {
-                    try {
-                        const updatedMatch = await requestManager.refreshManga(match.id, {
-                            awaitRefetchQueries: true,
-                        }).response;
-
-                        return updatedMatch.data?.fetchManga?.manga ?? match;
-                    } catch (e) {
-                        // ignore
-                    }
-
-                    return match;
-                })();
-            });
-
-            const updatedMatches = await Promise.all(matchUpdatePromises);
-
-            return updatedMatches;
+                return match;
+            })();
         });
+
+        const updatedMatches = await Promise.all(matchUpdatePromises);
+
+        return updatedMatches;
     }
 
     private static async searchForManga(

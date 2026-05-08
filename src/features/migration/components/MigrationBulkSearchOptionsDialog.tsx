@@ -30,6 +30,7 @@ export const MigrationBulkSearchOptionsDialog = ({
 
     const [selectHighestChapterNumberSource, setSelectHighestChapterNumberSource] = useState(false);
     const [ignoreOutdatedMatches, setIgnoreOutdatesMatches] = useState(false);
+    const [performAdvancedSearch, setPerformAdvancedSearch] = useState(false);
 
     return (
         <Dialog open={isVisible} fullWidth onClose={onDismiss} onTransitionExited={onExitComplete}>
@@ -85,6 +86,27 @@ export const MigrationBulkSearchOptionsDialog = ({
                                 pt: '9px',
                             }}
                         >
+                            <Typography>{t`Advanced search mode`}</Typography>
+                            <Typography
+                                variant="body2"
+                                color="textSecondary"
+                            >{t`Breaks down the title into keywords for a wider search`}</Typography>
+                        </Stack>
+                    }
+                    sx={{
+                        alignItems: 'start',
+                    }}
+                    checked={performAdvancedSearch}
+                    onChange={(_, checked) => setPerformAdvancedSearch(checked)}
+                />
+                <CheckboxInput
+                    label={
+                        <Stack
+                            sx={{
+                                // Padding comes from the MUI Checkbox component
+                                pt: '9px',
+                            }}
+                        >
                             <Typography>{t`Match based on chapter number`}</Typography>
                             <Typography
                                 variant="body2"
@@ -107,6 +129,7 @@ export const MigrationBulkSearchOptionsDialog = ({
                         onSubmit({
                             selectHighestChapterNumberSource,
                             ignoreOutdatedMatches,
+                            performAdvancedSearch,
                         })
                     }
                 >

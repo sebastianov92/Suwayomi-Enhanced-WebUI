@@ -380,6 +380,10 @@ msgstr "Added manga to library!"
 msgid "Advanced"
 msgstr "Advanced"
 
+#: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
+msgid "Advanced search mode"
+msgstr "Advanced search mode"
+
 #: src/features/settings/Settings.constants.ts
 msgid "After changing this setting go to the \"About\" page and check for a webUI update and install it"
 msgstr "After changing this setting go to the \"About\" page and check for a webUI update and install it"
@@ -600,6 +604,10 @@ msgstr "Both"
 #: src/features/reader/settings/general/components/ReaderSettingSafeAreaInset.tsx
 msgid "Bottom"
 msgstr "Bottom"
+
+#: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
+msgid "Breaks down the title into keywords for a wider search"
+msgstr "Breaks down the title into keywords for a wider search"
 
 #: src/features/reader/settings/behaviour/ReaderBehaviourSettings.tsx
 msgid "Briefly show current mode when reader is opened or mode got changed"
