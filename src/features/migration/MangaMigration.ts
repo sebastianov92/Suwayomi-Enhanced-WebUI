@@ -138,18 +138,27 @@ export class MangaMigration {
         const chaptersToMigrateTo = mangaToMigrateToInfo.fetchChapters?.chapters;
         const migratableChapters = Chapters.getMatchingChapterNumberChapters(chaptersToMigrate, chaptersToMigrateTo);
 
-        const readChapters: number[] = [];
+        const highestReadChapterNumber = chaptersToMigrate.reduce((chapterNumber, chapterToMigrate) => {
+            if (chapterToMigrate.isRead && chapterNumber < chapterToMigrate.chapterNumber) {
+                return chapterToMigrate.chapterNumber;
+            }
+
+            return chapterNumber;
+        }, Number.MIN_SAFE_INTEGER);
+
         const bookmarkedChapters: number[] = [];
 
         const chapterPreDeleteIds: number[] = [];
         const chapterUpdateItems: SetChapterMetasItemInput[] = [];
 
-        migratableChapters.forEach(([chapterToMigrate, chapterToMigrateTo]) => {
-            const { isRead, isBookmarked, meta } = chapterToMigrate;
+        const readChapters = Chapters.getIds(
+            chaptersToMigrateTo.filter(
+                (chapterToMigrateTo) => chapterToMigrateTo.chapterNumber <= highestReadChapterNumber,
+            ),
+        );
 
-            if (isRead) {
-                readChapters.push(chapterToMigrateTo.id);
-            }
+        migratableChapters.forEach(([chapterToMigrate, chapterToMigrateTo]) => {
+            const { isBookmarked, meta } = chapterToMigrate;
 
             if (isBookmarked) {
                 bookmarkedChapters.push(chapterToMigrateTo.id);

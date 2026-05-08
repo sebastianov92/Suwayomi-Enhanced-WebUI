@@ -28,6 +28,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - (**Browse**) Merge languages filter of the sources and extensions into one
 - (**Search**) Hide "pinned" sources button in global search in case no sources are pinned
 - (**Extensions**) Show "obsolete" information more discretely with the "uninstall" action instead of grouping obsolete extensions at the top of the page
+- (**Migration**) Mark all chapters as read up to the highest read chapter number. Previously matching chapter numbers got marked as read. E.g., Read up to chapter 250. The destination has a chapter 249.5 but the original source does not. Chapter 249.5 did not get marked as read.
 
 ### Fixed
 
