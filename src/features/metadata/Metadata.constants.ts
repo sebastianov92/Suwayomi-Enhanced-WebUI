@@ -31,6 +31,9 @@ import { detectLocale, getISOLanguage } from '@/lib/ISOLanguageUtil.ts';
 import type { I18nResourceCode } from '@/i18n';
 import { i18nResources } from '@/i18n';
 import { toUniqueLanguageCodes } from '@/base/utils/Languages.ts';
+import { assertIsDefined } from '@/base/Asserts.ts';
+
+const MATCH_ARRAY_NUMBERS = /^\[\d+(?:,\d+)*]$/g;
 
 export const APP_METADATA_KEY_PREFIX = 'webUI';
 
@@ -700,6 +703,22 @@ export const METADATA_MIGRATIONS: IMetadataMigration[] = [
         ],
         keys: [{ oldKey: 'sourceLanguages', newKey: 'browseLanguages' }],
         deleteKeys: ['sourceLanguages', 'extensionLanguages'],
+    },
+    {
+        values: [
+            ...(() =>
+                ['pageScaleMode', 'readingDirection', 'readingMode', 'tapZoneLayout'].map((key) => ({
+                    key,
+                    oldValue: MATCH_ARRAY_NUMBERS,
+                    newValue: (value) => {
+                        const array = jsonSaveParse<number[]>(value);
+
+                        assertIsDefined(array);
+
+                        return JSON.stringify(array[0]);
+                    },
+                })) satisfies IMetadataMigration['values'])(),
+        ],
     },
 ];
 
