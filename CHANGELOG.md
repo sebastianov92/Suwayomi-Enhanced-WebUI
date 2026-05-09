@@ -6,11 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased] (Preview)
 
+## [20260509.01] (r3147) - 2026-05-09
+
 ### Fixed
 
 - (**Navigation**) Fix obsolete extensions being included in the updatable extensions info
 - (**Extensions**) Fix showing the uninstall button twice in the extension info page in case the extensions is obsolete and has a update at the same time
 - (**Reader**) Fix changing reader layout settings from their default value to another causing the reader to break
+
+### Contributors
+
+Thanks to everyone that contributed to this release
+
+@schroda
 
 ## [20260508.01] (r3136) - 2026-05-08
 
@@ -764,7 +772,8 @@ Thanks to everyone that contributed to this release
 
 @schroda, @jesusFx, @QuietBlade, @anvstin, @guohuageng, @plum7x, @HiyoriTUK, @aizhimoran, @JiPaix, @Yuhyeong, @a18ccms, @chancez, @rickymcmuffin, @zmmx, @alexandrejournet, @ibaraki-douji, @nitezs, @misaka10843, @Becods, @skrewde, @xconkhi9x, @cnmorocho, @Wip-Sama, @Kefir2105, @RafieHardinur, @SuperMario229, @Alexandre-P-J, @AriaMoradi, @NathanBnm, @FumoVite, @JoHena, @bandysharif, @DevCoz, @comradekingu, @Zereef, @akabhirav
 
-[unreleased]: https://github.com/suwayomi/suwayomi-webui/compare/v20260508.01...HEAD
+[unreleased]: https://github.com/suwayomi/suwayomi-webui/compare/v20260509.01...HEAD
+[20260509.01]: https://github.com/suwayomi/suwayomi-webui/compare/v20260508.01...v20260509.01
 [20260508.01]: https://github.com/suwayomi/suwayomi-webui/compare/v20251230.01...v20260508.01
 [20251230.01]: https://github.com/suwayomi/suwayomi-webui/compare/v20250801.01...v20251230.01
 [20250801.01]: https://github.com/suwayomi/suwayomi-webui/compare/v20250731.01...v20250801.01
