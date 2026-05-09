@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Fixed
 
 - (**Navigation**) Fix obsolete extensions being included in the updatable extensions info
+- (**Extensions**) Fix showing the uninstall button twice in the extension info page in case the extensions is obsolete and has a update at the same time
 
 ## [20260508.01] (r3136) - 2026-05-08
 
