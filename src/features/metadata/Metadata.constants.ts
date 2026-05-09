@@ -47,7 +47,13 @@ const convertToTypeNullAndUndefined = <T>(value: string, convertToType: (value: 
     return convertToType(value);
 };
 const convertToString = (value: string): string => value;
-const convertToNumber = (value: string): number => +value;
+const convertToNumber = (value: string, defaultValue: number): number => {
+    if (Number.isNaN(+value)) {
+        return defaultValue;
+    }
+
+    return +value;
+};
 const convertToBoolean = (value: string): boolean => value === 'true';
 const convertToStringNullAndUndefined = (value: string) => convertToTypeNullAndUndefined(value, convertToString);
 const convertToBooleanNullAndUndefined = (value: string) => convertToTypeNullAndUndefined(value, convertToBoolean);
