@@ -240,8 +240,11 @@ const getMetadataKeysWithUpdatedValues = (
     const keysWithUpdatedValues = METADATA_MIGRATIONS.slice(migrationId).reduce((acc, migration) => {
         const keysWithUpdatedValuesOfMigration = Object.keys(metadata).filter((metadataKey) =>
             migration.values?.some(({ key: migrationKey, oldValue }) => {
+                const currentValue = metadata[metadataKey];
+
                 const isMigrationForAllKeys = !migrationKey;
-                const doesValueMatch = metadata[metadataKey] === oldValue;
+                const doesValueMatch =
+                    oldValue instanceof RegExp ? currentValue.match(oldValue) : currentValue === oldValue;
 
                 if (isMigrationForAllKeys) {
                     return doesValueMatch;
