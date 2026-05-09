@@ -320,7 +320,7 @@ const commitMigratedMetadata = (
                 return;
             }
 
-            const isMetadataAlreadyMigrated = !metadata || migrationId === METADATA_MIGRATIONS.length;
+            const isMetadataAlreadyMigrated = !metadata || migrationId >= METADATA_MIGRATIONS.length;
 
             const isCommitRequired = !isMetadataAlreadyMigrated;
             if (!isCommitRequired) {
