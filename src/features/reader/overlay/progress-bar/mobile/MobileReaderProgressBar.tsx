@@ -255,6 +255,12 @@ const BaseMobileReaderProgressBar = ({
                         sx={{
                             backgroundColor: (theme) => theme.alpha(theme.palette.background.paper, 0.85),
                             boxShadow: 2,
+                            '&:hover': {
+                                backgroundColor: 'background.paper',
+                            },
+                            '&:disabled': {
+                                backgroundColor: (theme) => theme.alpha(theme.palette.background.paper, 0.85),
+                            },
                         }}
                     >
                         {getOptionForDirection(
@@ -328,6 +334,12 @@ const BaseMobileReaderProgressBar = ({
                         sx={{
                             backgroundColor: (theme) => theme.alpha(theme.palette.background.paper, 0.85),
                             boxShadow: 2,
+                            '&:hover': {
+                                backgroundColor: 'background.paper',
+                            },
+                            '&:disabled': {
+                                backgroundColor: (theme) => theme.alpha(theme.palette.background.paper, 0.85),
+                            },
                         }}
                     >
                         {getOptionForDirection(
