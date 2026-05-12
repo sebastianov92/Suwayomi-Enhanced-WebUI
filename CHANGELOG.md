@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased] (Preview)
 
+### Fixed
+
+- (**Reader**) Fix scrollbar appearing with "fit to widt/height/screen" page scale mode and applied safe area insets
+
 ## [20260509.01] (r3147) - 2026-05-09
 
 ### Fixed
