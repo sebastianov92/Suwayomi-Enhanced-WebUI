@@ -186,7 +186,7 @@ const BaseMobileReaderProgressBar = ({
                         position: 'absolute',
                         ...applyStyles(isVertical, {
                             top: 'calc(100% - 6px)',
-                            ...applyStyles(currentPagesIndex === 0, {
+                            ...applyStyles(currentPagesIndex === 0 && pages.length > 1, {
                                 top: '0',
                             }),
                             width: '75%',
@@ -194,7 +194,7 @@ const BaseMobileReaderProgressBar = ({
                         }),
                         ...applyStyles(isHorizontal, {
                             left: 'calc(100% - 0px)',
-                            ...applyStyles(currentPagesIndex === 0, {
+                            ...applyStyles(currentPagesIndex === 0 && pages.length > 1, {
                                 left: '0',
                             }),
                             width: '6px',
