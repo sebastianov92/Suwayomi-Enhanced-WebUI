@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - (**Reader**) Fix scrollbar appearing with "fit to widt/height/screen" page scale mode and applied safe area insets
 - (**Reader**) Fix wrongly positioned mobile progress bar current page indicator
+- (**Reader**) Fix mobile progress bar previous/next chapter button visibility on hover and while disabled
 
 ## [20260509.01] (r3147) - 2026-05-09
 
