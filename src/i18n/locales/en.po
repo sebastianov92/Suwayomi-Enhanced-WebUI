@@ -118,30 +118,10 @@ msgstr "{0} / {1}"
 msgid "{0} / {1}{2}"
 msgstr "{0} / {1}{2}"
 
-#. placeholder {0}: entry.chapterCount
-#: src/features/settings/screens/ScanlatorAliases.tsx
-msgid "{0} chapter(s)"
-msgstr "{0} chapter(s)"
-
-#. placeholder {0}: entry.itemCount
-#. placeholder {1}: new Date(Number(entry.lastModified)).toLocaleString()
-#: src/features/settings/screens/LocalSourceTools.tsx
-msgid "{0} item(s) · modified {1}"
-msgstr "{0} item(s) · modified {1}"
-
-#. placeholder {0}: results.length
-#: src/features/library/screens/AdvancedLibrarySearch.tsx
-msgid "{0} result(s)"
-msgstr "{0} result(s)"
-
 #. placeholder {0}: updateStatus.progress
 #: src/features/app-updates/components/WebUIUpdateChecker.tsx
 msgid "{0}% | Updating…"
 msgstr "{0}% | Updating…"
-
-#: src/features/chapter/components/actions/ChapterActionMenuItems.tsx
-msgid "{already} chapter(s) already in queue"
-msgstr "{already} chapter(s) already in queue"
 
 #: src/features/navigation-bar/NavigationBar.constants.ts
 msgid "{availableUpdates, plural, one {# update available} other {# updates available}}"
@@ -303,10 +283,6 @@ msgstr "{currentAutoUpdateIntervalHours}h"
 msgid "{currentDownloadAheadLimit, plural, one {# Chapter} other {# Chapters}}"
 msgstr "{currentDownloadAheadLimit, plural, one {# Chapter} other {# Chapters}}"
 
-#: src/features/chapter/components/actions/ChapterActionMenuItems.tsx
-msgid "{failed} chapter(s) failed to queue"
-msgstr "{failed} chapter(s) failed to queue"
-
 #: src/features/chapter/components/ChapterList.tsx
 #: src/features/chapter/components/MissingChaptersInfoSeparator.tsx
 msgid "{missingChapterCount, plural, one {Missing # chapter} other {Missing # chapters}}"
@@ -320,10 +296,6 @@ msgstr "{otherResultsCount, plural, one {# more match} other {# more matches}}"
 #: src/features/app-updates/components/VersionInfo.tsx
 msgid "{progress}% | Updating…"
 msgstr "{progress}% | Updating…"
-
-#: src/features/chapter/components/actions/ChapterActionMenuItems.tsx
-msgid "{skipped} non-downloaded chapter(s) were skipped (download to server first)"
-msgstr "{skipped} non-downloaded chapter(s) were skipped (download to server first)"
 
 #: src/features/backup/Backup.utils.ts
 msgid "{ttl, plural, one {Delete backups that are older than # day} other {Delete backups that are older than # days}}"
@@ -386,14 +358,6 @@ msgstr "Add"
 msgid "Add bookmark"
 msgstr "Add bookmark"
 
-#: src/features/browse/screens/Browse.tsx
-msgid "Add by URL"
-msgstr "Add by URL"
-
-#: src/features/browse/screens/AddMangaByUrl.tsx
-msgid "Add manga"
-msgstr "Add manga"
-
 #: src/features/browse/screens/BrowseSettings.tsx
 msgid "Add repositories from which extensions can be installed"
 msgstr "Add repositories from which extensions can be installed"
@@ -401,10 +365,6 @@ msgstr "Add repositories from which extensions can be installed"
 #: src/features/browse/screens/BrowseSettings.tsx
 msgid "Add repository"
 msgstr "Add repository"
-
-#: src/features/browse/screens/AddMangaByUrl.tsx
-msgid "Add to library"
-msgstr "Add to library"
 
 #: src/features/manga/components/details/MangaDetails.tsx
 #: src/features/manga/components/MangaBadges.tsx
@@ -421,14 +381,9 @@ msgid "Added manga to library!"
 msgstr "Added manga to library!"
 
 #: src/features/library/screens/LibrarySettings.tsx
-#: src/features/settings/screens/Settings.tsx
 msgid "Advanced"
 msgstr "Advanced"
 
-#: src/features/library/screens/AdvancedLibrarySearch.tsx
-#: src/features/library/screens/Library.tsx
-msgid "Advanced search"
-msgstr "Advanced search"
 #: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
 msgid "Advanced search mode"
 msgstr "Advanced search mode"
@@ -488,14 +443,12 @@ msgstr "Are you sure you want to abort the migration?"
 msgid "Are you sure?"
 msgstr "Are you sure?"
 
-#: src/features/library/screens/AdvancedLibrarySearch.tsx
 #: src/features/manga/components/details/MangaDetails.tsx
-#: src/features/manga/components/MangaUserOverrideDialog.tsx
 msgid "Artist"
 msgstr "Artist"
 
 #: src/features/migration/Migration.constants.ts
-#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Ascending"
 msgstr "Ascending"
 
@@ -507,9 +460,7 @@ msgstr "Authentication"
 msgid "Authentication Mode"
 msgstr "Authentication Mode"
 
-#: src/features/library/screens/AdvancedLibrarySearch.tsx
 #: src/features/manga/components/details/MangaDetails.tsx
-#: src/features/manga/components/MangaUserOverrideDialog.tsx
 msgid "Author"
 msgstr "Author"
 
@@ -539,14 +490,6 @@ msgstr "Auto webtoon mode"
 msgid "Auto-download"
 msgstr "Auto-download"
 
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Auto-send all library"
-msgstr "Auto-send all library"
-
-#: src/features/manga/components/MangaKindleConfigDialog.tsx
-msgid "Auto-send new chapters to Kindle"
-msgstr "Auto-send new chapters to Kindle"
-
 #: src/features/reader/overlay/progress-bar/settings/components/ReaderSettingProgressBarPosition.tsx
 msgid "Automatic progress bar vertical position"
 msgstr "Automatic progress bar vertical position"
@@ -563,7 +506,7 @@ msgstr "Automatic updates"
 msgid "Automatically download the latest version"
 msgstr "Automatically download the latest version"
 
-#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Automatically mark chapters as read when you download them."
 msgstr "Automatically mark chapters as read when you download them."
 
@@ -628,11 +571,6 @@ msgstr "Badges"
 msgid "Basic Authentication"
 msgstr "Basic Authentication"
 
-#. placeholder {0}: r.sourceMangaTitle
-#: src/features/library/screens/Recommendations.tsx
-msgid "Because you read {0}"
-msgstr "Because you read {0}"
-
 #: src/features/reader/settings/ReaderSettings.constants.tsx
 msgid "Behaviour"
 msgstr "Behaviour"
@@ -641,7 +579,7 @@ msgstr "Behaviour"
 msgid "Binary"
 msgstr "Binary"
 
-#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Binary file size"
 msgstr "Binary file size"
 
@@ -661,10 +599,6 @@ msgstr "Bookmark selected"
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Bookmarked"
 msgstr "Bookmarked"
-
-#: src/features/settings/screens/NotificationsSettings.tsx
-msgid "Bot token"
-msgstr "Bot token"
 
 #: src/features/reader/settings/layout/components/ReaderSettingTapZoneInvertMode.tsx
 msgid "Both"
@@ -706,18 +640,9 @@ msgstr "Browser"
 msgid "Build time"
 msgstr "Build time"
 
-#: src/features/chapter/components/actions/ChapterActionMenuItems.tsx
-msgid "Bulk download failed"
-msgstr "Bulk download failed"
-
 #: src/features/settings/Settings.constants.ts
 msgid "Bundled"
 msgstr "Bundled"
-
-#. placeholder {0}: targets.length
-#: src/features/chapter/components/actions/ChapterActionMenuItems.tsx
-msgid "Bundled {0} chapter(s) into a single ZIP"
-msgstr "Bundled {0} chapter(s) into a single ZIP"
 
 #: src/features/chapter/Chapter.constants.ts
 msgid "By chapter number"
@@ -763,13 +688,10 @@ msgstr "Call timeout"
 #: src/features/category/components/CategoriesInclusionSetting.tsx
 #: src/features/category/components/CategorySelect.tsx
 #: src/features/category/components/CreateOrEditCategoryDialog.tsx
-#: src/features/manga/components/MangaKindleConfigDialog.tsx
-#: src/features/manga/components/MangaUserOverrideDialog.tsx
 #: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
 #: src/features/migration/components/MigrationOptionsDialog.tsx
 #: src/features/reader/hotkeys/settings/components/RecordHotkey.tsx
 #: src/features/settings/components/globalUpdate/GlobalUpdateSettingsEntries.tsx
-#: src/features/settings/screens/ScanlatorAliases.tsx
 #: src/features/source/browse/components/SourceOptions.tsx
 #: src/features/source/components/SourceLanguageSelect.tsx
 #: src/features/source/configuration/components/EditTextPreference.tsx
@@ -779,10 +701,6 @@ msgstr "Call timeout"
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 msgid "Cancel"
 msgstr "Cancel"
-
-#: src/features/settings/screens/KindleQueue.tsx
-msgid "Cancel failed"
-msgstr "Cancel failed"
 
 #: src/features/manga/Manga.constants.ts
 #: src/features/tracker/Tracker.constants.ts
@@ -808,7 +726,7 @@ msgstr "Category Name"
 msgid "Category selection dialog"
 msgstr "Category selection dialog"
 
-#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "CBZ MIME-Type"
 msgstr "CBZ MIME-Type"
 
@@ -860,7 +778,7 @@ msgstr "Chapter list"
 msgid "Chapter number"
 msgstr "Chapter number"
 
-#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Chapter sort order"
 msgstr "Chapter sort order"
 
@@ -871,14 +789,6 @@ msgstr "Chapter transition warning"
 #: src/features/backup/Backup.constants.ts
 msgid "Chapters"
 msgstr "Chapters"
-
-#: src/features/settings/screens/KindleQueue.tsx
-msgid "Chapters waiting to be sent to your Kindle. The worker drains the queue with the configured throttle."
-msgstr "Chapters waiting to be sent to your Kindle. The worker drains the queue with the configured throttle."
-
-#: src/features/settings/screens/NotificationsSettings.tsx
-msgid "Chat id"
-msgstr "Chat id"
 
 #: src/features/library/screens/LibraryDuplicates.tsx
 msgid "Check description"
@@ -896,7 +806,7 @@ msgstr "Check out"
 msgid "Checking for update"
 msgstr "Checking for update"
 
-#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Choose the order in which chapters are displayed."
 msgstr "Choose the order in which chapters are displayed."
 
@@ -907,10 +817,6 @@ msgstr "Cleanup database"
 #: src/base/collection/components/SelectableCollectionSelectAll.tsx
 msgid "Clear"
 msgstr "Clear"
-
-#: src/features/manga/components/MangaUserOverrideDialog.tsx
-msgid "Clear all overrides"
-msgstr "Clear all overrides"
 
 #: src/features/settings/screens/ImagesSettings.tsx
 msgid "Clear cache"
@@ -961,7 +867,7 @@ msgstr "Comic"
 msgid "Compact grid"
 msgstr "Compact grid"
 
-#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Compatible"
 msgstr "Compatible"
 
@@ -989,10 +895,6 @@ msgstr "Connected as {currentUsername} to {currentServerAddress}"
 msgid "Connected as {initialUsername} to {initialServerAddress}"
 msgstr "Connected as {initialUsername} to {initialServerAddress}"
 
-#: src/features/settings/screens/Settings.tsx
-msgid "Content"
-msgstr "Content"
-
 #: src/features/migration/components/MigrationContinueButton.tsx
 msgid "Continue"
 msgstr "Continue"
@@ -1019,7 +921,7 @@ msgstr "Continuous horizontal"
 msgid "Continuous vertical"
 msgstr "Continuous vertical"
 
-#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid ""
 "Controls the MimeType that Suwayomi sends in OPDS entries for CBZ archives. Also affects global CBZ download.\n"
 "Modern follows recent IANA standard (2017), while LEGACY (deprecated mimetype for .cbz) and COMPATIBLE (deprecated mimetype for all comic archives) might be more compatible with older clients."
@@ -1038,7 +940,6 @@ msgstr "Copied to clipboard"
 
 #: src/features/manga/components/details/MangaDetails.tsx
 #: src/features/migration/components/MigrationOptionsDialog.tsx
-#: src/features/settings/screens/OpdsSettings.tsx
 msgid "Copy"
 msgstr "Copy"
 
@@ -1067,10 +968,6 @@ msgstr "Could not check for updates"
 #: src/features/settings/screens/ImagesSettings.tsx
 msgid "Could not clear the cache"
 msgstr "Could not clear the cache"
-
-#: src/features/settings/screens/OpdsSettings.tsx
-msgid "Could not copy"
-msgstr "Could not copy"
 
 #: src/features/backup/screens/Backup.tsx
 msgid "Could not create backup"
@@ -1114,11 +1011,6 @@ msgstr "Could not load latest track info from tracker"
 #: src/features/manga/screens/Manga.tsx
 msgid "Could not load manga"
 msgstr "Could not load manga"
-
-#: src/features/settings/screens/NotificationsSettings.tsx
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Could not load settings"
-msgstr "Could not load settings"
 
 #: src/features/theme/components/ThemePreview.tsx
 msgid "Could not load theme fonts"
@@ -1223,17 +1115,9 @@ msgstr "Could not validate backup"
 msgid "Create"
 msgstr "Create"
 
-#: src/features/settings/screens/ScanlatorAliases.tsx
-msgid "Create alias"
-msgstr "Create alias"
-
 #: src/features/backup/screens/Backup.tsx
 msgid "Create backup"
 msgstr "Create backup"
-
-#: src/features/settings/screens/ScanlatorAliases.tsx
-msgid "Create scanlator alias"
-msgstr "Create scanlator alias"
 
 #: src/features/theme/components/CreateThemeButton.tsx
 #: src/features/theme/components/CreateThemeDialog.tsx
@@ -1284,10 +1168,6 @@ msgstr "Custom color filters"
 msgid "Custom contrast"
 msgstr "Custom contrast"
 
-#: src/features/manga/components/MangaUserOverrideDialog.tsx
-msgid "Custom cover"
-msgstr "Custom cover"
-
 #: src/features/reader/settings/ReaderSettings.constants.tsx
 msgid "Custom filter"
 msgstr "Custom filter"
@@ -1303,10 +1183,6 @@ msgstr "Custom saturate"
 #: src/features/reader/settings/behaviour/components/ReaderSettingScrollAmount.tsx
 msgid "Custom scroll amount"
 msgstr "Custom scroll amount"
-
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Custom server…"
-msgstr "Custom server…"
 
 #: src/features/reader/hotkeys/settings/components/ReaderSettingHotkey.tsx
 msgid "Cycle image scale type"
@@ -1412,14 +1288,9 @@ msgid "Deleting theme \"{0}\"…"
 msgstr "Deleting theme \"{0}\"…"
 
 #: src/features/migration/Migration.constants.ts
-#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Descending"
 msgstr "Descending"
-
-#: src/features/library/screens/AdvancedLibrarySearch.tsx
-#: src/features/manga/components/MangaUserOverrideDialog.tsx
-msgid "Description"
-msgstr "Description"
 
 #: src/features/chapter/components/cards/ChapterCard.tsx
 #: src/features/manga/components/MangaOptionButton.tsx
@@ -1434,10 +1305,6 @@ msgstr "Desktop"
 #: src/features/migration/components/migration-entry/MigrationDestinationEntry.tsx
 msgid "Destination - {0}"
 msgstr "Destination - {0}"
-
-#: src/features/settings/screens/ScanlatorAliases.tsx
-msgid "Detected scanlators"
-msgstr "Detected scanlators"
 
 #: src/features/device/screens/DeviceSetting.tsx
 #: src/features/settings/screens/Settings.tsx
@@ -1454,7 +1321,6 @@ msgstr "Disable authentication"
 
 #: src/features/downloads/components/DeleteChaptersWhileReadingSetting.tsx
 #: src/features/reader/settings/layout/components/ReaderSettingTapZoneLayout.tsx
-#: src/features/settings/screens/SendToKindleSettings.tsx
 #: src/features/settings/Settings.constants.ts
 msgid "Disabled"
 msgstr "Disabled"
@@ -1478,7 +1344,7 @@ msgstr "Discord"
 msgid "Display"
 msgstr "Display"
 
-#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Display file sizes in binary (KiB, MiB, GiB) instead of decimal (KB, MB, GB)"
 msgstr "Display file sizes in binary (KiB, MiB, GiB) instead of decimal (KB, MB, GB)"
 
@@ -1486,9 +1352,6 @@ msgstr "Display file sizes in binary (KiB, MiB, GiB) instead of decimal (KB, MB,
 msgid "Display mode"
 msgstr "Display mode"
 
-#: src/features/settings/screens/ScanlatorAliases.tsx
-msgid "Display name"
-msgstr "Display name"
 #: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
 msgid "Do not automatically select matches if they are behind the current source. They will still be shown in the found matches"
 msgstr "Do not automatically select matches if they are behind the current source. They will still be shown in the found matches"
@@ -1590,10 +1453,6 @@ msgstr "Duplicated entries"
 msgid "Dynamic theme colors on manga page"
 msgstr "Dynamic theme colors on manga page"
 
-#: src/features/library/screens/AdvancedLibrarySearch.tsx
-msgid "e.g. isekai magic"
-msgstr "e.g. isekai magic"
-
 #: src/features/reader/settings/layout/components/ReaderSettingTapZoneLayout.tsx
 msgid "Edge"
 msgstr "Edge"
@@ -1603,10 +1462,6 @@ msgstr "Edge"
 #: src/features/theme/components/ThemePreview.tsx
 msgid "Edit"
 msgstr "Edit"
-
-#: src/features/settings/screens/ScanlatorAliases.tsx
-msgid "Edit alias"
-msgstr "Edit alias"
 
 #: src/features/category/screens/CategorySettings.tsx
 #: src/features/library/screens/LibrarySettings.tsx
@@ -1621,18 +1476,6 @@ msgstr "Edit category"
 msgid "Edit manga categories"
 msgstr "Edit manga categories"
 
-#: src/features/manga/components/MangaUserOverrideDialog.tsx
-msgid "Edit manga metadata"
-msgstr "Edit manga metadata"
-
-#: src/features/manga/components/MangaToolbarMenu.tsx
-msgid "Edit metadata"
-msgstr "Edit metadata"
-
-#: src/features/settings/screens/ScanlatorAliases.tsx
-msgid "Edit scanlator alias"
-msgstr "Edit scanlator alias"
-
 #: src/features/theme/components/CreateThemeDialog.tsx
 msgid "Edit theme"
 msgstr "Edit theme"
@@ -1645,25 +1488,13 @@ msgstr "Electron"
 msgid "Electron path"
 msgstr "Electron path"
 
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Email test failed"
-msgstr "Email test failed"
-
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Email test sent"
-msgstr "Email test sent"
-
 #: src/features/settings/screens/ServerSettings.tsx
 msgid "Enable debug logs"
 msgstr "Enable debug logs"
 
-#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Enable page read progress"
 msgstr "Enable page read progress"
-
-#: src/features/settings/screens/NotificationsSettings.tsx
-msgid "Enable Telegram notifications"
-msgstr "Enable Telegram notifications"
 
 #: src/features/downloads/screens/DownloadSettings.tsx
 msgid "Entries in excluded categories will not be downloaded even if they are also in included categories"
@@ -1736,12 +1567,6 @@ msgstr "Failed to connect to KOReader Sync server."
 msgid "Failed to disconnect from KOReader Sync server."
 msgstr "Failed to disconnect from KOReader Sync server."
 
-#: src/features/manga/components/MangaKindleConfigDialog.tsx
-#: src/features/settings/screens/NotificationsSettings.tsx
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Failed to save"
-msgstr "Failed to save"
-
 #: src/features/backup/screens/Backup.tsx
 #: src/features/browse/extensions/Extensions.tsx
 #: src/features/browse/screens/BrowseSettings.tsx
@@ -1763,7 +1588,6 @@ msgstr "Failed to save"
 #: src/features/settings/components/webUI/WebUIUpdateIntervalSetting.tsx
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/ImageProcessingSetting.tsx
-#: src/features/settings/screens/OpdsSettings.tsx
 #: src/features/settings/screens/ServerSettings.tsx
 #: src/features/settings/screens/WebUISettings.tsx
 #: src/features/source/browse/screens/SourceMangas.tsx
@@ -1775,10 +1599,6 @@ msgstr "Failed to save"
 #: src/features/tracker/screens/TrackingSettings.tsx
 msgid "Failed to save changes"
 msgstr "Failed to save changes"
-
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Failed to save password"
-msgstr "Failed to save password"
 
 #: src/features/settings/Settings.constants.ts
 msgid ""
@@ -1796,10 +1616,6 @@ msgstr ""
 msgid "Feel free to translate the project on"
 msgstr "Feel free to translate the project on"
 
-#: src/features/manga/components/MangaUserOverrideDialog.tsx
-msgid "Fetch"
-msgstr "Fetch"
-
 #: src/features/downloads/components/DeleteChaptersWhileReadingSetting.tsx
 msgid "Fifth to last read chapter"
 msgstr "Fifth to last read chapter"
@@ -1807,10 +1623,6 @@ msgstr "Fifth to last read chapter"
 #: src/features/settings/Settings.constants.ts
 msgid "Filename"
 msgstr "Filename"
-
-#: src/features/settings/screens/LocalSourceTools.tsx
-msgid "Files dropped into the configured local source folder show up here. Use Rescan after adding files via Finder/SSH so the LocalSource extension ingests them into the library."
-msgstr "Files dropped into the configured local source folder show up here. Use Rescan after adding files via Finder/SSH so the LocalSource extension ingests them into the library."
 
 #: src/features/chapter/components/ChapterOptions.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
@@ -1823,11 +1635,11 @@ msgstr "Filter"
 msgid "Filter and sort"
 msgstr "Filter and sort"
 
-#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Filter manga feed to display only chapters you have downloaded."
 msgstr "Filter manga feed to display only chapters you have downloaded."
 
-#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Filter manga feed to display only chapters you haven’t read yet."
 msgstr "Filter manga feed to display only chapters you haven’t read yet."
 
@@ -1888,6 +1700,10 @@ msgstr "Flaresolverr setup confirmation"
 msgid "FlareSolverr will automatically rotate expired sessions based on the TTL provided in minutes"
 msgstr "FlareSolverr will automatically rotate expired sessions based on the TTL provided in minutes"
 
+#: src/features/settings/screens/WebUISettings.tsx
+msgid "Flavor"
+msgstr "Flavor"
+
 #: src/features/theme/Themes.ts
 msgid "Forest Dew"
 msgstr "Forest Dew"
@@ -1902,17 +1718,8 @@ msgstr "Fourth to last read chapter"
 
 #: src/features/library/screens/LibrarySettings.tsx
 #: src/features/reader/settings/ReaderSettings.constants.tsx
-#: src/features/settings/screens/Settings.tsx
 msgid "General"
 msgstr "General"
-
-#: src/features/library/screens/AdvancedLibrarySearch.tsx
-msgid "Genre / tags"
-msgstr "Genre / tags"
-
-#: src/features/manga/components/MangaUserOverrideDialog.tsx
-msgid "Genre / tags (comma-separated)"
-msgstr "Genre / tags (comma-separated)"
 
 #: src/features/settings/screens/About.tsx
 msgid "GitHub Server"
@@ -1934,14 +1741,6 @@ msgstr "Global update"
 #: src/features/updates/components/UpdateChecker.tsx
 msgid "Global update (last update: {date})"
 msgstr "Global update (last update: {date})"
-
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Gmail needs an App Password"
-msgstr "Gmail needs an App Password"
-
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Google blocks normal sign-in passwords from being used over SMTP. You need to enable 2-Step Verification on your Google account, then generate a 16-character App Password and paste it below as your password."
-msgstr "Google blocks normal sign-in passwords from being used over SMTP. You need to enable 2-Step Verification on your Google account, then generate a 16-character App Password and paste it below as your password."
 
 #: src/features/reader/settings/general/components/ReaderSettingBackgroundColor.tsx
 msgid "Gray"
@@ -2013,10 +1812,6 @@ msgstr "History"
 #: src/features/reader/settings/layout/components/ReaderSettingTapZoneInvertMode.tsx
 msgid "Horizontal"
 msgstr "Horizontal"
-
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Host"
-msgstr "Host"
 
 #: src/features/reader/hotkeys/settings/components/RecordHotkey.tsx
 msgid "Hotkey already exists"
@@ -2146,18 +1941,9 @@ msgstr "Install"
 msgid "Install external extension"
 msgstr "Install external extension"
 
-#: src/features/browse/screens/AddMangaByUrl.tsx
-msgid "Install matching extension if not present"
-msgstr "Install matching extension if not present"
-
 #: src/features/extension/Extensions.constants.ts
 msgid "Installed"
 msgstr "Installed"
-
-#. placeholder {0}: result.installedExtensionPkgName
-#: src/features/browse/screens/AddMangaByUrl.tsx
-msgid "Installed extension: {0}"
-msgstr "Installed extension: {0}"
 
 #: src/features/extension/Extensions.constants.ts
 msgid "Installing"
@@ -2206,11 +1992,11 @@ msgstr "Invert tap zones"
 msgid "IP"
 msgstr "IP"
 
-#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "item"
 msgstr "item"
 
-#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Items per page"
 msgstr "Items per page"
 
@@ -2245,14 +2031,6 @@ msgstr "Keybinds"
 #: src/features/reader/settings/layout/components/ReaderSettingTapZoneLayout.tsx
 msgid "Kindle"
 msgstr "Kindle"
-
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Kindle email (@kindle.com)"
-msgstr "Kindle email (@kindle.com)"
-
-#: src/features/settings/screens/KindleQueue.tsx
-msgid "Kindle queue"
-msgstr "Kindle queue"
 
 #: src/features/settings/components/koreaderSync/KoreaderSyncSettings.tsx
 msgid "KOReader Sync"
@@ -2313,10 +2091,6 @@ msgstr "Lavender"
 msgid "Layout"
 msgstr "Layout"
 
-#: src/features/manga/components/MangaKindleConfigDialog.tsx
-msgid "Leave empty to use the global Kindle email"
-msgstr "Leave empty to use the global Kindle email"
-
 #: src/features/reader/overlay/progress-bar/settings/components/ReaderSettingProgressBarPosition.tsx
 #: src/features/reader/settings/general/components/ReaderSettingSafeAreaInset.tsx
 msgid "Left"
@@ -2327,7 +2101,7 @@ msgstr "Left"
 msgid "Left to right"
 msgstr "Left to right"
 
-#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Legacy"
 msgstr "Legacy"
 
@@ -2387,8 +2161,6 @@ msgstr "Loading…"
 #: src/features/browse/sources/components/SourceCard.tsx
 #: src/features/manga/components/details/MangaDetails.tsx
 #: src/features/migration/components/MigrationCard.tsx
-#: src/features/settings/screens/LocalSourceTools.tsx
-#: src/features/settings/screens/Settings.tsx
 msgid "Local source"
 msgstr "Local source"
 
@@ -2457,17 +2229,9 @@ msgstr "Manga"
 msgid "Manga item width"
 msgstr "Manga item width"
 
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Manga reading direction (right-to-left)."
-msgstr "Manga reading direction (right-to-left)."
-
 #: src/features/settings/screens/Appearance.tsx
 msgid "Manga thumbnail as background"
 msgstr "Manga thumbnail as background"
-
-#: src/features/browse/screens/AddMangaByUrl.tsx
-msgid "Manga URL"
-msgstr "Manga URL"
 
 #: src/features/manga/Manga.constants.ts
 #: src/features/tracker/Tracker.constants.ts
@@ -2485,14 +2249,6 @@ msgstr "Manhwa"
 msgid "Manual search"
 msgstr "Manual search"
 
-#: src/features/manga/components/MangaKindleConfigDialog.tsx
-msgid "Manual sends from the chapter menu work regardless of this toggle."
-msgstr "Manual sends from the chapter menu work regardless of this toggle."
-
-#: src/features/settings/screens/ScanlatorAliases.tsx
-msgid "Map a scanlator string from your downloads to a friendly name. The alias is used when building the chapter folder name (and CBZ filename) on disk. Existing downloads are not renamed."
-msgstr "Map a scanlator string from your downloads to a friendly name. The alias is used when building the chapter folder name (and CBZ filename) on disk. Existing downloads are not renamed."
-
 #: src/features/chapter/components/ChaptersToolbarMenu.tsx
 msgid "Mark all as read"
 msgstr "Mark all as read"
@@ -2505,7 +2261,7 @@ msgstr "Mark as read"
 msgid "Mark as unread"
 msgstr "Mark as unread"
 
-#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Mark chapters as read on download"
 msgstr "Mark chapters as read on download"
 
@@ -2619,14 +2375,9 @@ msgstr "Misc"
 msgid "Mobile"
 msgstr "Mobile"
 
-#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Modern"
 msgstr "Modern"
-
-#. placeholder {0}: new Date(Number(entry.lastModified)).toLocaleString()
-#: src/features/settings/screens/LocalSourceTools.tsx
-msgid "Modified {0}"
-msgstr "Modified {0}"
 
 #: src/features/navigation-bar/NavigationBar.constants.ts
 #: src/features/settings/screens/More.tsx
@@ -2636,10 +2387,6 @@ msgstr "More"
 #: src/features/theme/Themes.ts
 msgid "Mountain Sunset"
 msgstr "Mountain Sunset"
-
-#: src/features/library/screens/AdvancedLibrarySearch.tsx
-msgid "Multi-field search across your library. Tokens are AND-combined, fields are OR-combined, matching is case-insensitive (LIKE %term%)."
-msgstr "Multi-field search across your library. Tokens are AND-combined, fields are OR-combined, matching is case-insensitive (LIKE %term%)."
 
 #: src/features/reader/settings/ReaderSettings.constants.tsx
 msgid "Multiply"
@@ -2689,10 +2436,6 @@ msgstr "No chapters matching filter"
 msgid "No downloads"
 msgstr "No downloads"
 
-#: src/features/settings/screens/LocalSourceTools.tsx
-msgid "No files in the local source folder yet."
-msgstr "No files in the local source folder yet."
-
 #: src/features/global-search/screens/SearchAll.tsx
 #: src/features/manga/components/MangaGrid.tsx
 #: src/features/source/browse/screens/SourceMangas.tsx
@@ -2712,14 +2455,6 @@ msgstr "No match found"
 #: src/features/reader/viewer/ReaderChapterViewer.tsx
 msgid "No pages found"
 msgstr "No pages found"
-
-#: src/features/library/screens/Recommendations.tsx
-msgid "No recommendations yet. Track at least one library manga on AniList to start getting suggestions."
-msgstr "No recommendations yet. Track at least one library manga on AniList to start getting suggestions."
-
-#: src/features/settings/screens/ScanlatorAliases.tsx
-msgid "No scanlators found yet"
-msgstr "No scanlators found yet"
 
 #: src/features/browse/sources/Sources.tsx
 msgid "No sources found. Install Some extensions first."
@@ -2746,20 +2481,11 @@ msgstr "Not yet published"
 msgid "Not yet released"
 msgstr "Not yet released"
 
-#: src/features/settings/screens/NotificationsSettings.tsx
-#: src/features/settings/screens/Settings.tsx
-msgid "Notifications"
-msgstr "Notifications"
-
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Notify when a chapter has been delivered (or fails) to Kindle."
-msgstr "Notify when a chapter has been delivered (or fails) to Kindle."
-
 #: src/features/tracker/Tracker.constants.ts
 msgid "Novel"
 msgstr "Novel"
 
-#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid ""
 "Number of items per page in OPDS feeds (e.g., Library History, Manga Chapters).\n"
 "Higher values may affect client performance."
@@ -2812,10 +2538,6 @@ msgstr "Offset double spreads"
 msgid "Ok"
 msgstr "Ok"
 
-#: src/features/settings/screens/ScanlatorAliases.tsx
-msgid "Once you have chapters in the database, the scanlators they declare will appear here."
-msgstr "Once you have chapters in the database, the scanlators they declare will appear here."
-
 #: src/features/tracker/Tracker.constants.ts
 msgid "Oneshot"
 msgstr "Oneshot"
@@ -2824,9 +2546,6 @@ msgstr "Oneshot"
 msgid "Ongoing"
 msgstr "Ongoing"
 
-#: src/features/library/screens/AdvancedLibrarySearch.tsx
-msgid "Only mangas in my library"
-msgstr "Only mangas in my library"
 #: src/features/migration/Migration.constants.ts
 msgid "Only outdated matches found"
 msgstr "Only outdated matches found"
@@ -2835,26 +2554,13 @@ msgstr "Only outdated matches found"
 msgid "Only works if the current chapter plus the next chapter are already downloaded."
 msgstr "Only works if the current chapter plus the next chapter are already downloaded."
 
-#: src/features/settings/screens/OpdsSettings.tsx
-#: src/features/settings/screens/Settings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "OPDS"
 msgstr "OPDS"
-
-#: src/features/settings/screens/OpdsSettings.tsx
-msgid "OPDS catalog URL"
-msgstr "OPDS catalog URL"
-
-#: src/features/settings/screens/OpdsSettings.tsx
-msgid "OPDS URL copied"
-msgstr "OPDS URL copied"
 
 #: src/features/reader/services/ReaderControls.ts
 msgid "Open"
 msgstr "Open"
-
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Open Google App Passwords"
-msgstr "Open Google App Passwords"
 
 #: src/features/chapter/components/actions/ChapterActionMenuItems.tsx
 #: src/features/manga/components/details/MangaDetails.tsx
@@ -2872,10 +2578,6 @@ msgstr "Open in browser"
 msgid "Open in WebView"
 msgstr "Open in WebView"
 
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Open Kindle queue"
-msgstr "Open Kindle queue"
-
 #: src/features/reader/settings/behaviour/components/ReaderSettingExitMode.tsx
 msgid "Open page on exit"
 msgstr "Open page on exit"
@@ -2889,10 +2591,6 @@ msgstr "Open the WebUI when starting the server"
 msgid "Options"
 msgstr "Options"
 
-#: src/features/manga/components/MangaUserOverrideDialog.tsx
-msgid "Or set cover from a URL"
-msgstr "Or set cover from a URL"
-
 #: src/features/theme/Themes.ts
 msgid "Orange Juice"
 msgstr "Orange Juice"
@@ -2900,10 +2598,6 @@ msgstr "Orange Juice"
 #: src/features/reader/settings/ReaderSettings.constants.tsx
 msgid "Original size"
 msgstr "Original size"
-
-#: src/features/settings/screens/ScanlatorAliases.tsx
-msgid "Orphaned aliases"
-msgstr "Orphaned aliases"
 
 #: src/base/utils/Languages.ts
 #: src/features/extension/Extensions.constants.ts
@@ -2919,14 +2613,6 @@ msgstr "Overlay"
 msgid "Overlay mode"
 msgstr "Overlay mode"
 
-#: src/features/manga/components/MangaKindleConfigDialog.tsx
-msgid "Override destination email (optional)"
-msgstr "Override destination email (optional)"
-
-#: src/features/manga/components/MangaUserOverrideDialog.tsx
-msgid "Overrides are stored locally and won't change source data. Leave a field blank to fall back to the source value."
-msgstr "Overrides are stored locally and won't change source data. Leave a field blank to fall back to the source value."
-
 #: src/features/reader/overlay/navigation/desktop/components/ReaderNavBarDesktopPageNavigation.tsx
 msgid "Page"
 msgstr "Page"
@@ -2940,26 +2626,9 @@ msgid "Parallel source requests"
 msgstr "Parallel source requests"
 
 #: src/base/components/inputs/PasswordTextField.tsx
-#: src/features/settings/screens/SendToKindleSettings.tsx
 #: src/features/settings/screens/ServerSettings.tsx
 msgid "Password"
 msgstr "Password"
-
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Password (saved — type to replace)"
-msgstr "Password (saved — type to replace)"
-
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Password saved (encrypted)"
-msgstr "Password saved (encrypted)"
-
-#: src/features/browse/screens/AddMangaByUrl.tsx
-msgid "Paste a manga URL from any supported site (MangaDex, MangaPlus, etc.). The matching extension is installed automatically if it isn't already, and the manga is added to your library."
-msgstr "Paste a manga URL from any supported site (MangaDex, MangaPlus, etc.). The matching extension is installed automatically if it isn't already, and the manga is added to your library."
-
-#: src/features/settings/screens/OpdsSettings.tsx
-msgid "Paste this URL into your OPDS reader (KOReader, Moon+ Reader, FBReader, etc). The host/port reflects how the WebUI is currently reaching the server."
-msgstr "Paste this URL into your OPDS reader (KOReader, Moon+ Reader, FBReader, etc). The host/port reflects how the WebUI is currently reaching the server."
 
 #: src/features/navigation-bar/NavigationBar.constants.ts
 msgid "Paused — {count} remaining"
@@ -2969,17 +2638,9 @@ msgstr "Paused — {count} remaining"
 msgid "Pending…"
 msgstr "Pending…"
 
-#: src/features/manga/components/MangaKindleConfigDialog.tsx
-msgid "Per-manga Kindle delivery settings. Requires SMTP to be configured in Settings → Send to Kindle."
-msgstr "Per-manga Kindle delivery settings. Requires SMTP to be configured in Settings → Send to Kindle."
-
 #: src/features/settings/components/koreaderSync/KoreaderSyncSettings.tsx
 msgid "Percentage Tolerance"
 msgstr "Percentage Tolerance"
-
-#: src/features/manga/components/MangaUserOverrideDialog.tsx
-msgid "Personal notes"
-msgstr "Personal notes"
 
 #: src/features/browse/sources/components/SourceCard.tsx
 msgid "Pin source"
@@ -2995,14 +2656,9 @@ msgstr "Pinned"
 msgid "Popular"
 msgstr "Popular"
 
-#: src/features/settings/screens/SendToKindleSettings.tsx
 #: src/features/settings/screens/ServerSettings.tsx
 msgid "Port"
 msgstr "Port"
-
-#: src/features/browse/screens/AddMangaByUrl.tsx
-msgid "Possible duplicates already in your library:"
-msgstr "Possible duplicates already in your library:"
 
 #: src/features/settings/screens/ServerSettings.tsx
 msgid "PostgreSQL"
@@ -3059,17 +2715,9 @@ msgstr "Progress bar style"
 msgid "Prompt"
 msgstr "Prompt"
 
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Provider"
-msgstr "Provider"
-
 #: src/features/manga/Manga.constants.ts
 msgid "Publishing finished"
 msgstr "Publishing finished"
-
-#: src/features/library/screens/Recommendations.tsx
-msgid "Pulled from AniList for the manga in your library that have an AniList track record. Connect AniList tracking on a manga to seed more."
-msgstr "Pulled from AniList for the manga in your library that have an AniList track record. Connect AniList tracking on a manga to seed more."
 
 #: src/features/settings/screens/Appearance.tsx
 msgid "Pure black dark mode"
@@ -3080,21 +2728,9 @@ msgstr "Pure black dark mode"
 msgid "px"
 msgstr "px"
 
-#: src/features/library/screens/AdvancedLibrarySearch.tsx
-msgid "Query"
-msgstr "Query"
-
-#: src/features/settings/screens/KindleQueue.tsx
-msgid "Queue is empty."
-msgstr "Queue is empty."
-
 #: src/base/components/downloads/DownloadStateIndicator.tsx
 msgid "Queued"
 msgstr "Queued"
-
-#: src/features/chapter/components/actions/ChapterActionMenuItems.tsx
-msgid "Queued {queued} chapter(s) for Kindle"
-msgstr "Queued {queued} chapter(s) for Kindle"
 
 #: src/features/reader/overlay/navigation/mobile/ReaderBottomBarMobile.tsx
 msgid "Quick settings"
@@ -3131,11 +2767,6 @@ msgstr "Recently added"
 msgid "Recently read"
 msgstr "Recently read"
 
-#: src/features/library/screens/Library.tsx
-#: src/features/library/screens/Recommendations.tsx
-msgid "Recommendations"
-msgstr "Recommendations"
-
 #: src/features/reader/hotkeys/settings/components/RecordHotkey.tsx
 msgid "Record keybind"
 msgstr "Record keybind"
@@ -3150,13 +2781,8 @@ msgid "Red"
 msgstr "Red"
 
 #: src/features/app-updates/components/WebUIUpdateChecker.tsx
-#: src/features/settings/screens/KindleQueue.tsx
 msgid "Refresh"
 msgstr "Refresh"
-
-#: src/features/settings/screens/KindleQueue.tsx
-msgid "Refresh now"
-msgstr "Refresh now"
 
 #: src/features/tracker/Tracker.constants.ts
 msgid "Releasing"
@@ -3181,10 +2807,6 @@ msgstr "Remove"
 msgid "Remove {0} tracking?"
 msgstr "Remove {0} tracking?"
 
-#: src/features/settings/screens/ScanlatorAliases.tsx
-msgid "Remove alias"
-msgstr "Remove alias"
-
 #: src/features/chapter/Chapter.constants.ts
 msgid "Remove bookmark"
 msgstr "Remove bookmark"
@@ -3192,14 +2814,6 @@ msgstr "Remove bookmark"
 #: src/features/chapter/Chapter.constants.ts
 msgid "Remove bookmarks from selected"
 msgstr "Remove bookmarks from selected"
-
-#: src/features/manga/components/MangaUserOverrideDialog.tsx
-msgid "Remove cover"
-msgstr "Remove cover"
-
-#: src/features/settings/screens/KindleQueue.tsx
-msgid "Remove from queue"
-msgstr "Remove from queue"
 
 #: src/features/manga/components/MangaBadges.tsx
 #: src/features/manga/Manga.constants.ts
@@ -3222,22 +2836,6 @@ msgstr "Remove selected from the library"
 #: src/features/library/screens/LibrarySettings.tsx
 msgid "Removed non library manga from categories"
 msgstr "Removed non library manga from categories"
-
-#: src/features/manga/components/MangaUserOverrideDialog.tsx
-msgid "Replace cover"
-msgstr "Replace cover"
-
-#: src/features/settings/screens/LocalSourceTools.tsx
-msgid "Rescan"
-msgstr "Rescan"
-
-#: src/features/settings/screens/LocalSourceTools.tsx
-msgid "Rescan failed"
-msgstr "Rescan failed"
-
-#: src/features/settings/screens/LocalSourceTools.tsx
-msgid "Rescanned local source · {count} entr(y/ies) ingested"
-msgstr "Rescanned local source · {count} entr(y/ies) ingested"
 
 #: src/base/components/buttons/ResetButton.tsx
 #: src/base/components/settings/CheckboxListSetting.tsx
@@ -3277,17 +2875,12 @@ msgstr "Resume"
 #: src/features/chapter/components/buttons/ChapterDownloadRetryButton.tsx
 #: src/features/manga/hooks/useManageMangaLibraryState.tsx
 #: src/features/migration/components/migration-entry/MigrationDestinationEntry.tsx
-#: src/features/settings/screens/KindleQueue.tsx
 msgid "Retry"
 msgstr "Retry"
 
 #: src/features/reader/overlay/navigation/desktop/components/ReaderNavBarDesktopActions.tsx
 msgid "Retry errored pages"
 msgstr "Retry errored pages"
-
-#: src/features/settings/screens/KindleQueue.tsx
-msgid "Retry failed"
-msgstr "Retry failed"
 
 #: src/features/reader/overlay/progress-bar/settings/components/ReaderSettingProgressBarPosition.tsx
 #: src/features/reader/settings/general/components/ReaderSettingSafeAreaInset.tsx
@@ -3307,15 +2900,7 @@ msgstr "Right to left"
 msgid "Rosegold"
 msgstr "Rosegold"
 
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "RTL ebooks"
-msgstr "RTL ebooks"
-
-#: src/features/manga/components/MangaKindleConfigDialog.tsx
-#: src/features/manga/components/MangaUserOverrideDialog.tsx
 #: src/features/settings/screens/ImageProcessingSetting.tsx
-#: src/features/settings/screens/ScanlatorAliases.tsx
-#: src/features/settings/screens/SendToKindleSettings.tsx
 #: src/features/theme/components/CreateThemeDialog.tsx
 msgid "Save"
 msgstr "Save"
@@ -3323,10 +2908,6 @@ msgstr "Save"
 #: src/features/downloads/screens/DownloadSettings.tsx
 msgid "Save as CBZ archive"
 msgstr "Save as CBZ archive"
-
-#: src/features/chapter/components/actions/ChapterActionMenuItems.tsx
-msgid "Save CBZ to this device{suffix}"
-msgstr "Save CBZ to this device{suffix}"
 
 #: src/features/source/browse/components/SourceOptions.tsx
 msgid "Save current search"
@@ -3336,10 +2917,6 @@ msgstr "Save current search"
 #: src/features/theme/components/CreateThemeDialog.tsx
 msgid "Save dynamic color theme"
 msgstr "Save dynamic color theme"
-
-#: src/features/chapter/components/actions/ChapterActionMenuItems.tsx
-msgid "Save EPUB to this device{suffix}"
-msgstr "Save EPUB to this device{suffix}"
 
 #: src/features/source/browse/components/SourceOptions.tsx
 msgid "Save search"
@@ -3361,11 +2938,6 @@ msgstr "Scale type"
 #: src/features/chapter/components/ChapterExcludeSanlatorsFilter.tsx
 msgid "Scanlator"
 msgstr "Scanlator"
-
-#: src/features/settings/screens/ScanlatorAliases.tsx
-#: src/features/settings/screens/Settings.tsx
-msgid "Scanlator aliases"
-msgstr "Scanlator aliases"
 
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 #: src/features/tracker/components/cards/TrackerMangaCard.tsx
@@ -3389,7 +2961,6 @@ msgid "Scroll forward"
 msgstr "Scroll forward"
 
 #: src/base/components/AppbarSearch.tsx
-#: src/features/library/screens/AdvancedLibrarySearch.tsx
 #: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
 msgid "Search"
 msgstr "Search"
@@ -3415,9 +2986,6 @@ msgstr ""
 "Search for a ID via \"id:<ID>\" (e.g. \"id:13\")\n"
 "Limit search to your lists via \"my:<Title>\" (e.g. \"my:One Piece\")"
 
-#: src/features/library/screens/AdvancedLibrarySearch.tsx
-msgid "Search in fields"
-msgstr "Search in fields"
 #: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
 msgid "Search options"
 msgstr "Search options"
@@ -3494,40 +3062,6 @@ msgstr "Select pinned sources"
 msgid "Selected"
 msgstr "Selected"
 
-#: src/features/chapter/components/actions/ChapterActionMenuItems.tsx
-msgid "Selection has no downloaded chapters. Download to server first."
-msgstr "Selection has no downloaded chapters. Download to server first."
-
-#: src/features/settings/screens/NotificationsSettings.tsx
-msgid "Send a message when the library detects new chapters."
-msgstr "Send a message when the library detects new chapters."
-
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Send email test"
-msgstr "Send email test"
-
-#: src/features/settings/screens/NotificationsSettings.tsx
-msgid "Send Telegram test"
-msgstr "Send Telegram test"
-
-#: src/features/manga/components/MangaKindleConfigDialog.tsx
-#: src/features/settings/screens/SendToKindleSettings.tsx
-#: src/features/settings/screens/Settings.tsx
-msgid "Send to Kindle"
-msgstr "Send to Kindle"
-
-#: src/features/chapter/components/actions/ChapterActionMenuItems.tsx
-msgid "Send to Kindle{suffix}"
-msgstr "Send to Kindle{suffix}"
-
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Send-to-Kindle is disabled. Pick Gmail or Custom server to configure SMTP."
-msgstr "Send-to-Kindle is disabled. Pick Gmail or Custom server to configure SMTP."
-
-#: src/features/manga/components/MangaToolbarMenu.tsx
-msgid "Send-to-Kindle settings"
-msgstr "Send-to-Kindle settings"
-
 #: src/features/reader/filters/settings/components/ReaderSettingSepia.tsx
 msgid "Sepia"
 msgstr "Sepia"
@@ -3554,10 +3088,6 @@ msgstr "Server bindings"
 #: src/features/backup/Backup.constants.ts
 msgid "Server settings"
 msgstr "Server settings"
-
-#: src/features/settings/screens/About.tsx
-msgid "Server upgrade queued — restarting…"
-msgstr "Server upgrade queued — restarting…"
 
 #: src/features/settings/screens/About.tsx
 msgid "Server version"
@@ -3613,10 +3143,6 @@ msgstr "Share"
 msgid "Show all duplicated entries in your library"
 msgstr "Show all duplicated entries in your library"
 
-#: src/features/settings/screens/OpdsSettings.tsx
-msgid "Show author in OPDS entries and downloads"
-msgstr "Show author in OPDS entries and downloads"
-
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Show continue reading button"
 msgstr "Show continue reading button"
@@ -3651,11 +3177,11 @@ msgstr "Show NSFW"
 msgid "Show number of items"
 msgstr "Show number of items"
 
-#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Show only downloaded chapters"
 msgstr "Show only downloaded chapters"
 
-#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Show only unread chapters"
 msgstr "Show only unread chapters"
 
@@ -3666,10 +3192,6 @@ msgstr "Show page number"
 #: src/features/reader/settings/behaviour/ReaderBehaviourSettings.tsx
 msgid "Show reading mode"
 msgstr "Show reading mode"
-
-#: src/features/settings/screens/OpdsSettings.tsx
-msgid "Show scanlator as a second author"
-msgstr "Show scanlator as a second author"
 
 #: src/features/reader/settings/behaviour/ReaderBehaviourSettings.tsx
 msgid "Show tap zones overlay"
@@ -3728,10 +3250,6 @@ msgstr "Smartphone_Name-1 | length: 16, chars: letters, numbers, -, _"
 msgid "Smooth auto scrolling"
 msgstr "Smooth auto scrolling"
 
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "SMTP server"
-msgstr "SMTP server"
-
 #: src/features/settings/screens/ServerSettings.tsx
 msgid "SOCKS host"
 msgstr "SOCKS host"
@@ -3784,18 +3302,9 @@ msgstr "Source Configuration"
 msgid "Source entry - {sourceTitle}"
 msgstr "Source entry - {sourceTitle}"
 
-#. placeholder {0}: editTarget?.scanlator ?? ''
-#: src/features/settings/screens/ScanlatorAliases.tsx
-msgid "Source scanlator: {0}"
-msgstr "Source scanlator: {0}"
-
 #: src/features/chapter/components/ChapterOptions.tsx
 msgid "Source title"
 msgstr "Source title"
-
-#: src/features/settings/screens/Settings.tsx
-msgid "Sources"
-msgstr "Sources"
 
 #: src/features/settings/Settings.constants.ts
 msgid "Stable"
@@ -3895,7 +3404,6 @@ msgid "Sync will not be triggered if the progress difference is within this tole
 msgstr "Sync will not be triggered if the progress difference is within this tolerance."
 
 #: src/features/settings/screens/Appearance.tsx
-#: src/features/settings/screens/Settings.tsx
 msgid "System"
 msgstr "System"
 
@@ -3910,22 +3418,6 @@ msgstr "Tap zones"
 #: src/features/settings/components/images/Processing.tsx
 msgid "Target mode"
 msgstr "Target mode"
-
-#: src/features/settings/screens/NotificationsSettings.tsx
-msgid "Telegram bot"
-msgstr "Telegram bot"
-
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Telegram notify on Kindle send"
-msgstr "Telegram notify on Kindle send"
-
-#: src/features/settings/screens/NotificationsSettings.tsx
-msgid "Telegram test failed"
-msgstr "Telegram test failed"
-
-#: src/features/settings/screens/NotificationsSettings.tsx
-msgid "Telegram test sent"
-msgstr "Telegram test sent"
 
 #: src/features/settings/Settings.constants.ts
 msgid "That haven't been started"
@@ -4009,10 +3501,6 @@ msgstr ""
 msgid "The theme name must be unique and has a limit of 16 characters"
 msgstr "The theme name must be unique and has a limit of 16 characters"
 
-#: src/features/settings/screens/NotificationsSettings.tsx
-msgid "The token your @BotFather chat gave you when creating the bot."
-msgstr "The token your @BotFather chat gave you when creating the bot."
-
 #: src/features/reader/settings/general/components/ReaderSettingBackgroundColor.tsx
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/theme/components/CreateThemeDialog.tsx
@@ -4031,10 +3519,6 @@ msgstr "There is no next chapter"
 msgid "There is no previous chapter"
 msgstr "There is no previous chapter"
 
-#: src/features/settings/screens/ScanlatorAliases.tsx
-msgid "These aliases reference scanlators that no longer appear in any chapter. They are still used if a matching chapter shows up later."
-msgstr "These aliases reference scanlators that no longer appear in any chapter. They are still used if a matching chapter shows up later."
-#: src/features/migration/components/MigrationOptionsDialog.tsx
 #: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
 msgid "These options are slow and dangerous and may lead to restrictions from sources"
 msgstr "These options are slow and dangerous and may lead to restrictions from sources"
@@ -4059,18 +3543,9 @@ msgstr "This will delete the saved search \"{savedSearch}\""
 msgid "This will remove the tracking locally."
 msgstr "This will remove the tracking locally."
 
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Throttle interval"
-msgstr "Throttle interval"
-
 #: src/features/reader/settings/behaviour/components/ReaderSettingScrollAmount.tsx
 msgid "Tiny"
 msgstr "Tiny"
-
-#: src/features/library/screens/AdvancedLibrarySearch.tsx
-#: src/features/manga/components/MangaUserOverrideDialog.tsx
-msgid "Title"
-msgstr "Title"
 
 #: src/base/utils/DateHelper.ts
 msgid "Today"
@@ -4109,7 +3584,7 @@ msgstr "Total chapters"
 msgid "Track"
 msgstr "Track"
 
-#: src/features/settings/screens/OpdsSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Track and update your reading progress by page for each chapter during page streaming"
 msgstr "Track and update your reading progress by page for each chapter during page streaming"
 
@@ -4180,7 +3655,6 @@ msgstr "UI Login"
 #: src/features/settings/screens/About.tsx
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/ImageProcessingSetting.tsx
-#: src/features/settings/screens/OpdsSettings.tsx
 #: src/features/settings/screens/ServerSettings.tsx
 #: src/features/settings/screens/WebUISettings.tsx
 #: src/features/source/browse/screens/SourceMangas.tsx
@@ -4218,10 +3692,6 @@ msgstr "Uninstalling"
 #: src/features/tracker/Tracker.constants.ts
 msgid "Unknown"
 msgstr "Unknown"
-
-#: src/features/library/screens/AdvancedLibrarySearch.tsx
-msgid "Unknown source"
-msgstr "Unknown source"
 
 #: src/features/browse/sources/components/SourceCard.tsx
 msgid "Unpin source"
@@ -4301,10 +3771,6 @@ msgstr "Updates"
 msgid "Updating"
 msgstr "Updating"
 
-#: src/features/manga/components/MangaUserOverrideDialog.tsx
-msgid "Upload cover"
-msgstr "Upload cover"
-
 #: src/features/settings/Settings.constants.ts
 msgid "URL"
 msgstr "URL"
@@ -4320,10 +3786,6 @@ msgstr ""
 #: src/features/settings/screens/ServerSettings.tsx
 msgid "Use SOCKS proxy"
 msgstr "Use SOCKS proxy"
-
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Use STARTTLS"
-msgstr "Use STARTTLS"
 
 #: src/features/settings/Settings.constants.ts
 msgid "Use the default WebUI"
@@ -4351,10 +3813,6 @@ msgstr "Use the version that was delivered with the server release"
 msgid "Username"
 msgstr "Username"
 
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "Username (your email)"
-msgstr "Username (your email)"
-
 #: src/features/settings/components/images/KeyValueItem.tsx
 msgid "Value"
 msgstr "Value"
@@ -4370,6 +3828,10 @@ msgstr "Version"
 #: src/features/reader/settings/layout/components/ReaderSettingTapZoneInvertMode.tsx
 msgid "Vertical"
 msgstr "Vertical"
+
+#: src/features/settings/Settings.constants.ts
+msgid "VUI"
+msgstr "VUI"
 
 #: src/base/components/feedback/SnackbarWithDescription.tsx
 msgid "Warning"
@@ -4409,18 +3871,6 @@ msgstr "WebUI version {0} ({1}) available for download"
 #: src/features/app-updates/components/WebUIUpdateChecker.tsx
 msgid "WebUI was updated to version {newVersion} ({0})"
 msgstr "WebUI was updated to version {newVersion} ({0})"
-
-#: src/features/settings/screens/OpdsSettings.tsx
-msgid "When on, each chapter advertises its scanlator as an additional OPDS author element. Some readers display this; others use it to suffix the entry title with \" - Unknown\" when no scanlator is set, so leaving this off is usually safer."
-msgstr "When on, each chapter advertises its scanlator as an additional OPDS author element. Some readers display this; others use it to suffix the entry title with \" - Unknown\" when no scanlator is set, so leaving this off is usually safer."
-
-#: src/features/settings/screens/SendToKindleSettings.tsx
-msgid "When on, every newly-detected chapter for any in-library manga is queued."
-msgstr "When on, every newly-detected chapter for any in-library manga is queued."
-
-#: src/features/settings/screens/OpdsSettings.tsx
-msgid "When on, the manga author appears next to series and chapter entries in OPDS readers and is prefixed to downloaded CBZ filenames. When off, the author is hidden everywhere."
-msgstr "When on, the manga author appears next to series and chapter entries in OPDS readers and is prefixed to downloaded CBZ filenames. When off, the author is hidden everywhere."
 
 #: src/features/settings/Settings.constants.ts
 msgid "When you enable this, you may need to refresh this tab for the login page to appear."
@@ -4494,7 +3944,3 @@ msgstr "Your library is empty"
 #: src/features/settings/Settings.constants.ts
 msgid "Your library will be accessible. Use this only on private networks or when otherwise securing access."
 msgstr "Your library will be accessible. Use this only on private networks or when otherwise securing access."
-
-#: src/features/settings/screens/NotificationsSettings.tsx
-msgid "Your numeric chat id. DM @userinfobot to find yours."
-msgstr "Your numeric chat id. DM @userinfobot to find yours."
