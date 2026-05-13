@@ -7,7 +7,7 @@
  */
 
 import type { BaseSyntheticEvent, ChangeEvent, ForwardedRef } from 'react';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
@@ -48,63 +48,22 @@ export const MangaOptionButton = ({
 }) => {
     const { t } = useLingui();
 
-    // Track hover state of the closest ancestor card so we can fade the
-    // option button in/out without depending on a parent CSS rule (the
-    // upstream `&:hover .manga-option-button` selector did not behave
-    // reliably in Safari macOS).
+    // Hover detection is CSS-only — the parent card already declares
+    // `&:hover .manga-option-button { ... }` rules. The previous JS
+    // tracker tried to attach listeners via callback ref, but Virtuoso
+    // recycles its row instances without re-firing the ref (same React
+    // instance + same DOM node, only manga.id changes), so library
+    // cards never picked up new listeners after the first scroll and
+    // hover stayed broken.
     //
-    // We use a callback ref instead of useRef + useEffect so the listeners
-    // attach the moment the button mounts. Virtuoso recycles list rows, so
-    // mount/unmount happens many times for the same component instance —
-    // a stale useEffect with [] deps could leave us without listeners after
-    // a recycle, which is why hover felt "broken until you scroll for a
-    // while" right after the upstream merge.
-    const [cardHovered, setCardHovered] = useState(false);
+    // We still track `popupState.isOpen` in JS so the button keeps the
+    // visible state while the menu is mounted (which detaches focus
+    // from the card).
     const buttonRef = useRef<HTMLButtonElement | null>(null);
-    const cleanupRef = useRef<(() => void) | null>(null);
-
     const setRef = (node: HTMLButtonElement | null) => {
         buttonRef.current = node;
         if (typeof ref === 'function') ref(node);
         else if (ref) (ref as React.MutableRefObject<HTMLButtonElement | null>).current = node;
-
-        // Tear down any previous binding (Virtuoso recycle, re-render, etc).
-        cleanupRef.current?.();
-        cleanupRef.current = null;
-        if (!node) {
-            setCardHovered(false);
-            return;
-        }
-
-        // Prefer the closest MUI Card (the visible card box), fall back to
-        // the wrapping <a> Link. mouseover/mouseout bubble through
-        // descendants, so they're more reliable than enter/leave when the
-        // menu portal opens.
-        const cardRoot = (node.closest('.MuiCard-root') ?? node.closest('a') ?? node.parentElement) as
-            | HTMLElement
-            | null;
-        if (!cardRoot) return;
-
-        const isInside = (target: EventTarget | null) =>
-            target instanceof Node && cardRoot.contains(target);
-
-        const onOver = (e: MouseEvent) => {
-            if (isInside(e.target) || isInside(e.relatedTarget)) {
-                setCardHovered(true);
-            }
-        };
-        const onOut = (e: MouseEvent) => {
-            if (!isInside(e.relatedTarget)) {
-                setCardHovered(false);
-            }
-        };
-
-        cardRoot.addEventListener('mouseover', onOver);
-        cardRoot.addEventListener('mouseout', onOut);
-        cleanupRef.current = () => {
-            cardRoot.removeEventListener('mouseover', onOver);
-            cardRoot.removeEventListener('mouseout', onOut);
-        };
     };
 
     // Open the popup synchronously on pointer-down, before the parent
@@ -158,17 +117,14 @@ export const MangaOptionButton = ({
         );
     }
 
-    const showOnDesktop = cardHovered || popupState.isOpen;
-
     return (
         <CustomTooltip title={t`Options`}>
             <Button
                 ref={setRef}
                 onMouseDown={openPopup}
-                onMouseEnter={() => setCardHovered(true)}
                 onClick={stopAll}
                 onTouchStart={openPopup}
-                className="manga-option-button"
+                className={`manga-option-button${popupState.isOpen ? ' manga-option-button--open' : ''}`}
                 size="small"
                 variant="contained"
                 sx={{
@@ -176,13 +132,20 @@ export const MangaOptionButton = ({
                     paddingX: '0',
                     paddingY: '2.5px',
                     transition: 'opacity 120ms ease',
-                    // Always visible + clickable on desktop. We fade with
-                    // opacity instead of visibility:hidden so even if the
-                    // JS hover tracker misses an event the button stays
-                    // tappable (the previous implementation left users
-                    // with an invisible-and-unclickable affordance).
-                    opacity: showOnDesktop ? 1 : 0,
-                    pointerEvents: 'all',
+                    // Default state on desktop is hidden + non-interactive;
+                    // the parent card flips both via its `&:hover
+                    // .manga-option-button` rule. The `--open` modifier
+                    // keeps the button visible while the menu is mounted
+                    // (the card loses hover when the portal opens, so
+                    // without this the button would vanish mid-action).
+                    opacity: popupState.isOpen ? 1 : 0,
+                    pointerEvents: popupState.isOpen ? 'all' : 'none',
+                    '@media (hover: hover) and (pointer: fine)': {
+                        '.MuiCard-root:hover &, a:hover &, &.manga-option-button--open': {
+                            opacity: 1,
+                            pointerEvents: 'all',
+                        },
+                    },
                     '@media not (pointer: fine)': {
                         visibility: popupState.isOpen ? 'visible' : 'hidden',
                         opacity: popupState.isOpen ? 1 : 0,
