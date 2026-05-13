@@ -132,18 +132,24 @@ export const MangaOptionButton = ({
                     paddingX: '0',
                     paddingY: '2.5px',
                     transition: 'opacity 120ms ease',
-                    // Default state on desktop is hidden + non-interactive;
-                    // the parent card flips both via its `&:hover
-                    // .manga-option-button` rule. The `--open` modifier
-                    // keeps the button visible while the menu is mounted
-                    // (the card loses hover when the portal opens, so
-                    // without this the button would vanish mid-action).
+                    // Default state on desktop is faded out. The parent
+                    // card flips opacity via its `&:hover
+                    // .manga-option-button` rule (or via the
+                    // `--open` modifier while the menu portal is mounted,
+                    // since the card loses hover when focus moves into the
+                    // portal).
+                    //
+                    // Safari has a long-standing bug where the parent's
+                    // `:hover` state doesn't update when the cursor is over
+                    // a child with `pointer-events: none`. Keep the button
+                    // pointer-active even while invisible — clicks on a
+                    // fully transparent button are fine because the button
+                    // sits over the card thumbnail, not over text.
                     opacity: popupState.isOpen ? 1 : 0,
-                    pointerEvents: popupState.isOpen ? 'all' : 'none',
+                    pointerEvents: 'all',
                     '@media (hover: hover) and (pointer: fine)': {
                         '.MuiCard-root:hover &, a:hover &, &.manga-option-button--open': {
                             opacity: 1,
-                            pointerEvents: 'all',
                         },
                     },
                     '@media not (pointer: fine)': {
