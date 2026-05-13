@@ -40,7 +40,6 @@ import {
 import { ServerAddressSetting } from '@/features/settings/components/ServerAddressSetting.tsx';
 import { AuthManager } from '@/features/authentication/AuthManager.ts';
 import type { ServerSettings as ServerSettingsType } from '@/features/settings/Settings.types.ts';
-import { KoreaderSyncSettings } from '@/features/settings/components/koreaderSync/KoreaderSyncSettings.tsx';
 import { Confirmation } from '@/base/AppAwaitableComponent.ts';
 
 const getLogFilesCleanupDisplayValue = (ttl: number): string => {
@@ -75,8 +74,6 @@ export const ServerSettings = () => {
         refetch: refetchServerSettings,
     } = requestManager.useGetServerSettings();
     const [mutateSettings] = requestManager.useUpdateServerSettings();
-
-    const koSyncStatus = requestManager.useKoSyncStatus();
 
     const updateSetting = async <Setting extends keyof ServerSettingsType>(
         setting: Setting,
@@ -129,7 +126,7 @@ export const ServerSettings = () => {
         [serverInformVersionUpdated, serverInformAvailableUpdate],
     );
 
-    const loading = areMetadataServerSettingsLoading || areServerSettingsLoading || koSyncStatus.loading;
+    const loading = areMetadataServerSettingsLoading || areServerSettingsLoading;
     if (loading) {
         return (
             <>
@@ -139,7 +136,7 @@ export const ServerSettings = () => {
         );
     }
 
-    const error = metadataServerSettingsError ?? serverSettingsError ?? koSyncStatus.error;
+    const error = metadataServerSettingsError ?? serverSettingsError;
     if (error) {
         return (
             <>
@@ -160,11 +157,6 @@ export const ServerSettings = () => {
                             );
                         }
 
-                        if (koSyncStatus.error) {
-                            koSyncStatus
-                                .refetch()
-                                .catch(defaultPromiseErrorHandler('ServerSettings::koSyncStatus.refetch'));
-                        }
                     }}
                 />
             </>
@@ -172,7 +164,6 @@ export const ServerSettings = () => {
     }
 
     const serverSettings = data!.settings;
-    const koreaderSyncStatus = koSyncStatus.data!.koSyncStatus;
     const authModeDisabled = !serverSettings.authUsername?.trim() || !serverSettings.authPassword?.trim();
     const isH2Database = serverSettings.databaseType === DatabaseType.H2;
 
@@ -466,13 +457,7 @@ export const ServerSettings = () => {
                     />
                 </ListItem>
             </List>
-            <KoreaderSyncSettings
-                settings={serverSettings}
-                serverAddress={koreaderSyncStatus.serverAddress}
-                username={koreaderSyncStatus.username}
-                isLoggedIn={koreaderSyncStatus.isLoggedIn}
-                updateSetting={updateSetting}
-            />
+            {/* KOReader Sync moved to Settings > OPDS. */}
             <List
                 subheader={
                     <ListSubheader component="div" id="server-settings-database">

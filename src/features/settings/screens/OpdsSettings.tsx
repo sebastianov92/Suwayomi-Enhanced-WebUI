@@ -16,6 +16,7 @@ import { Trans, useLingui } from '@lingui/react/macro';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
 import { NumberSetting } from '@/base/components/settings/NumberSetting.tsx';
 import { SelectSetting } from '@/base/components/settings/SelectSetting.tsx';
+import { KoreaderSyncSettings } from '@/features/settings/components/koreaderSync/KoreaderSyncSettings.tsx';
 import { LoadingPlaceholder } from '@/base/components/feedback/LoadingPlaceholder.tsx';
 import { EmptyViewAbsoluteCentered } from '@/base/components/feedback/EmptyViewAbsoluteCentered.tsx';
 import { defaultPromiseErrorHandler } from '@/lib/DefaultPromiseErrorHandler.ts';
@@ -33,30 +34,42 @@ export const OpdsSettings = () => {
         notifyOnNetworkStatusChange: true,
     });
     const [mutateSettings] = requestManager.useUpdateServerSettings();
+    const koSyncStatus = requestManager.useKoSyncStatus();
 
-    const updateSetting = <Setting extends keyof ServerSettingsType>(
+    const updateSetting = async <Setting extends keyof ServerSettingsType>(
         setting: Setting,
         value: ServerSettingsType[Setting],
+        onCompletion?: (success: boolean) => void,
     ) => {
-        mutateSettings({ variables: { input: { settings: { [setting]: value } } } }).catch((e) =>
-            makeToast(t`Failed to save changes`, 'error', getErrorMessage(e)),
-        );
+        try {
+            await mutateSettings({ variables: { input: { settings: { [setting]: value } } } });
+            onCompletion?.(true);
+        } catch (e) {
+            makeToast(t`Failed to save changes`, 'error', getErrorMessage(e));
+            onCompletion?.(false);
+        }
     };
 
-    if (loading) {
+    if (loading || koSyncStatus.loading) {
         return <LoadingPlaceholder />;
     }
-    if (error) {
+    const combinedError = error ?? koSyncStatus.error;
+    if (combinedError) {
         return (
             <EmptyViewAbsoluteCentered
                 message={t`Unable to load data`}
-                messageExtra={getErrorMessage(error)}
-                retry={() => refetch().catch(defaultPromiseErrorHandler('OpdsSettings::refetch'))}
+                messageExtra={getErrorMessage(combinedError)}
+                retry={() => {
+                    if (error) refetch().catch(defaultPromiseErrorHandler('OpdsSettings::refetch'));
+                    if (koSyncStatus.error)
+                        koSyncStatus.refetch().catch(defaultPromiseErrorHandler('OpdsSettings::koSyncStatus.refetch'));
+                }}
             />
         );
     }
 
     const s = data!.settings;
+    const koreaderSyncStatus = koSyncStatus.data!.koSyncStatus;
     const opdsUrl = `${requestManager.getBaseUrl()}/api/opds/v1.2`;
 
     return (
@@ -204,6 +217,13 @@ export const OpdsSettings = () => {
                     [CbzMediaType.Compatible, { text: t`Compatible` }],
                 ]}
                 handleChange={(value) => updateSetting('opdsCbzMimetype', value)}
+            />
+            <KoreaderSyncSettings
+                settings={s}
+                serverAddress={koreaderSyncStatus.serverAddress}
+                username={koreaderSyncStatus.username}
+                isLoggedIn={koreaderSyncStatus.isLoggedIn}
+                updateSetting={updateSetting}
             />
         </List>
     );
