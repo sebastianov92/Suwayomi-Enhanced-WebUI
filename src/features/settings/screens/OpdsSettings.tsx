@@ -60,9 +60,12 @@ export const OpdsSettings = () => {
                 message={t`Unable to load data`}
                 messageExtra={getErrorMessage(combinedError)}
                 retry={() => {
-                    if (error) refetch().catch(defaultPromiseErrorHandler('OpdsSettings::refetch'));
-                    if (koSyncStatus.error)
+                    if (error) {
+                        refetch().catch(defaultPromiseErrorHandler('OpdsSettings::refetch'));
+                    }
+                    if (koSyncStatus.error) {
                         koSyncStatus.refetch().catch(defaultPromiseErrorHandler('OpdsSettings::koSyncStatus.refetch'));
+                    }
                 }}
             />
         );
