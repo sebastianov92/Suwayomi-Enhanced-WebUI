@@ -184,7 +184,8 @@ export const WEB_UI_INTERFACE_SELECT_VALUES: SelectSettingValue<WebUiInterface>[
 
 export const GLOBAL_UPDATE_INTERVAL = {
     default: d(12).hours.inWholeHours,
-    min: d(6).hours.inWholeHours,
+    // Enhanced fork lowers the floor from 6h to 1h to match the server side.
+    min: d(1).hours.inWholeHours,
     max: d(1).months.inWholeHours,
 };
 
