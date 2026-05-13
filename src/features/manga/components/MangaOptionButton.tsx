@@ -7,7 +7,7 @@
  */
 
 import type { BaseSyntheticEvent, ChangeEvent, ForwardedRef } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
@@ -52,21 +52,38 @@ export const MangaOptionButton = ({
     // option button in/out without depending on a parent CSS rule (the
     // upstream `&:hover .manga-option-button` selector did not behave
     // reliably in Safari macOS).
-    const buttonRef = useRef<HTMLButtonElement | null>(null);
+    //
+    // We use a callback ref instead of useRef + useEffect so the listeners
+    // attach the moment the button mounts. Virtuoso recycles list rows, so
+    // mount/unmount happens many times for the same component instance —
+    // a stale useEffect with [] deps could leave us without listeners after
+    // a recycle, which is why hover felt "broken until you scroll for a
+    // while" right after the upstream merge.
     const [cardHovered, setCardHovered] = useState(false);
+    const buttonRef = useRef<HTMLButtonElement | null>(null);
+    const cleanupRef = useRef<(() => void) | null>(null);
 
-    useEffect(() => {
-        const el = buttonRef.current;
-        if (!el) return undefined;
+    const setRef = (node: HTMLButtonElement | null) => {
+        buttonRef.current = node;
+        if (typeof ref === 'function') ref(node);
+        else if (ref) (ref as React.MutableRefObject<HTMLButtonElement | null>).current = node;
+
+        // Tear down any previous binding (Virtuoso recycle, re-render, etc).
+        cleanupRef.current?.();
+        cleanupRef.current = null;
+        if (!node) {
+            setCardHovered(false);
+            return;
+        }
+
         // Prefer the closest MUI Card (the visible card box), fall back to
-        // the wrapping <a> Link. Using mouseover/mouseout (which bubble and
-        // re-fire as the cursor moves between descendants) instead of
-        // mouseenter/mouseleave avoids cases where the menu portal opening
-        // would silently desync our hovered state.
-        const cardRoot = (el.closest('.MuiCard-root') ?? el.closest('a') ?? el.parentElement) as
+        // the wrapping <a> Link. mouseover/mouseout bubble through
+        // descendants, so they're more reliable than enter/leave when the
+        // menu portal opens.
+        const cardRoot = (node.closest('.MuiCard-root') ?? node.closest('a') ?? node.parentElement) as
             | HTMLElement
             | null;
-        if (!cardRoot) return undefined;
+        if (!cardRoot) return;
 
         const isInside = (target: EventTarget | null) =>
             target instanceof Node && cardRoot.contains(target);
@@ -77,8 +94,6 @@ export const MangaOptionButton = ({
             }
         };
         const onOut = (e: MouseEvent) => {
-            // mouseout fires on every descendant transition; only flip false
-            // if the cursor truly left the card subtree.
             if (!isInside(e.relatedTarget)) {
                 setCardHovered(false);
             }
@@ -86,16 +101,10 @@ export const MangaOptionButton = ({
 
         cardRoot.addEventListener('mouseover', onOver);
         cardRoot.addEventListener('mouseout', onOut);
-        return () => {
+        cleanupRef.current = () => {
             cardRoot.removeEventListener('mouseover', onOver);
             cardRoot.removeEventListener('mouseout', onOut);
         };
-    }, []);
-
-    const setRef = (node: HTMLButtonElement | null) => {
-        buttonRef.current = node;
-        if (typeof ref === 'function') ref(node);
-        else if (ref) (ref as React.MutableRefObject<HTMLButtonElement | null>).current = node;
     };
 
     // Open the popup synchronously on pointer-down, before the parent
